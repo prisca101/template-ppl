@@ -19,7 +19,7 @@ Route::get('/login', function () {
 });
 
 Route::get('/', function () {
-    return view('operator.dashboard');
+    return view('mahasiswa.dashboard');
 });
 
 Route::get('/verification', function () {
@@ -30,6 +30,18 @@ Route::get('/dashboardMahasiswa', function () {
     return view('mahasiswa.dashboard');
 });
 
+Route::get('/irs', function () {
+    return view('mahasiswa.irs');
+});
+
+Route::get('/khs', function () {
+    return view('mahasiswa.khs');
+});
+
+Route::get('/dashboardOperator', function () {
+    return view('operator.dashboard');
+});
+
 Route::get('/editprofilMahasiswa', function () {
-    return view('mahasiswa.edit-profile');
+    return view('mahasiswa.edit-profil');
 });
