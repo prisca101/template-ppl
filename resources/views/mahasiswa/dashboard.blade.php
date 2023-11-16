@@ -74,14 +74,14 @@
 @endsection
 
 @section('content2')
-<div class="px-4 pb-4 grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
+<div class="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
     <div
         class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="w-full">
             <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">IRS</h3>
             <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">24 SKS</span>
             <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                <span class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400"><i class="fa-solid fa-check"></i> Aktif </span>
+                <span class="flex items-center mr-3 text-sm text-green-500 dark:text-green-400"><i class="fa-solid fa-check"></i> Aktif </span>
                 pending
             </p>
         </div>
@@ -92,7 +92,7 @@
             <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">KHS</h3>
             <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">100 SKS</span>
             <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                <span class="flex items-center mr-1.5 text-sm text-red-500 dark:text-red-400"><i class="fas fa-arrow-down"></i> IPK 3.25 </span>
+                <span class="flex items-center mr-3 text-sm text-red-500 dark:text-red-400"><i class="fas fa-arrow-down"></i> IPK 3.25 </span>
                 pending
             </p>
         </div>
@@ -103,7 +103,7 @@
             <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">PKL</h3>
             <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">A</span>
             <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                <span class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400"><i class="fa-solid fa-check"></i> Lulus </span>
+                <span class="flex items-center mr-3 text-sm text-green-500 dark:text-green-400"><i class="fa-solid fa-check"></i> Lulus </span>
                 approved
             </p>
         </div>
@@ -114,7 +114,7 @@
             <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">Skripsi</h3>
             <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">—</span>
             <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                {{-- <span class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400"> — </span> --}}
+                {{-- <span class="flex items-center mr-3 text-sm text-green-500 dark:text-green-400"> — </span> --}}
                 —
             </p>
         </div>

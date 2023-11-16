@@ -34,8 +34,16 @@ Route::get('/irs', function () {
     return view('mahasiswa.irs');
 });
 
+Route::get('/tambahIrs', function () {
+    return view('mahasiswa.irs-create');
+});
+
 Route::get('/khs', function () {
     return view('mahasiswa.khs');
+});
+
+Route::get('/tambahKhs', function () {
+    return view('mahasiswa.khs-create');
 });
 
 Route::get('/dashboardOperator', function () {
