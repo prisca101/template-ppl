@@ -18,12 +18,13 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/', function () {
-    return view('mahasiswa.dashboard');
+Route::get('/signin', function () {
+    return view('signin');
 });
 
-Route::get('/verification', function () {
-    return view('operator.verification');
+//mahasiswa
+Route::get('/', function () {
+    return view('mahasiswa.dashboard');
 });
 
 Route::get('/dashboardMahasiswa', function () {
@@ -46,10 +47,23 @@ Route::get('/tambahKhs', function () {
     return view('mahasiswa.khs-create');
 });
 
+Route::get('/editprofilMahasiswa', function () {
+    return view('mahasiswa.edit-profil');
+});
+
+//operator
 Route::get('/dashboardOperator', function () {
     return view('operator.dashboard');
 });
 
-Route::get('/editprofilMahasiswa', function () {
-    return view('mahasiswa.edit-profil');
+Route::get('/mahasiswa', function () {
+    return view('operator.mahasiswa');
+});
+
+Route::get('/profilOperator', function () {
+    return view('operator.editprofil');
+});
+
+Route::get('/verification', function () {
+    return view('operator.verification');
 });
