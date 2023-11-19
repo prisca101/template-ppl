@@ -84,7 +84,11 @@ Route::get('/mahasiswa', function () {
 });
 
 Route::get('/profilOperator', function () {
-    return view('operator.editprofil');
+    return view('operator.profil');
+});
+
+Route::get('/editprofilOperator', function () {
+    return view('operator.profil-edit');
 });
 
 

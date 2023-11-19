@@ -1,4 +1,4 @@
-@extends('mahasiswa.layouts.layout2')
+@extends('operator.layouts.layout')
 
 @section('content')
     <div class="mb-4 col-span-full xl:mb-2">
@@ -109,13 +109,11 @@
                             type="submit">Save all</button>
                     </div>
                 </div>
-            </form>
         </div>
 
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <h3 class="mb-4 text-xl font-semibold dark:text-white">Password information</h3>
-            <form action="#">
                 <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-3">
                         <label for="current_password"
