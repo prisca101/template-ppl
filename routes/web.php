@@ -91,6 +91,9 @@ Route::get('/editprofilOperator', function () {
     return view('operator.profil-edit');
 });
 
+Route::get('/importMahasiswa', function () {
+    return view('operator.importMahasiswa');
+});
 
 
 
