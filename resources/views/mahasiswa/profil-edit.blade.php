@@ -118,7 +118,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
                         <select id="provinsi" name="provinsi"
                             class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="" selected>Pilih provinsi</option>
+                            <option value="" selected>Select provinsi</option>
                             <option>Jawa Tengah</option>
                             <option>Jawa Barat</option>
                             <option>Jawa Timur</option>
@@ -132,7 +132,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten/Kota</label>
                         <select id="kabkota" name="kabkota"
                             class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="" selected>Pilih kab/kota</option>
+                            <option value="" selected>Select kab/kota</option>
                             <option>Semarang</option>
                             <option>Surabaya</option>
                             <option>Surakarta</option>
