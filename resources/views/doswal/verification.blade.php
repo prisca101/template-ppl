@@ -60,10 +60,33 @@
         </ul>
     </div>
 
-
+    <div
+    class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
     <!--IRS -->
     <div id="fullWidthTabContent" class="">
         <div class="hidden pt-4" id="irs" role="tabpanel" aria-labelledby="irs-tab">
+            <div class="sm:flex mb-4">
+                <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
+                    <form class="lg:pr-3" action="#" method="GET">
+                    <label for="users-search" class="sr-only">Search</label>
+                    <div class="relative mt-1 lg:w-64 xl:w-96">
+                        <input type="text" name="email" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search for users">
+                    </div>
+                    </form>
+                    <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-circle-check fa-lg"></i></span>                         
+                        </a>
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-circle-xmark fa-lg"></i></span>
+                        </a>
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-trash-can fa-lg"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <!-- Table -->
             <div class="flex flex-col">
                 <div class="overflow-x-auto rounded-t-lg">
@@ -72,6 +95,12 @@
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                                 <thead class="bg-gray-50 dark:bg-gray-700">
                                     <tr>
+                                        <th scope="col" class="p-4">
+                                            <div class="flex items-center">
+                                                <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                                <label for="checkbox-all" class="sr-only">checkbox</label>
+                                            </div>
+                                        </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                             Nama
@@ -101,6 +130,12 @@
                                 <tbody class="bg-white dark:bg-gray-800">
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -177,6 +212,12 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -253,6 +294,12 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -329,6 +376,12 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -405,6 +458,12 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -517,6 +576,27 @@
     <!--KHS -->
     <div id="fullWidthTabContent">
         <div class="hidden pt-4" id="khs" role="tabpanel" aria-labelledby="khs-tab">
+            <div class="sm:flex mb-4">
+                <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
+                    <form class="lg:pr-3" action="#" method="GET">
+                    <label for="users-search" class="sr-only">Search</label>
+                    <div class="relative mt-1 lg:w-64 xl:w-96">
+                        <input type="text" name="email" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search for users">
+                    </div>
+                    </form>
+                    <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-circle-check fa-lg"></i></span>                         
+                        </a>
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-circle-xmark fa-lg"></i></span>
+                        </a>
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-trash-can fa-lg"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <!-- Table -->
             <div class="w-full mb-1">
             <div class="flex flex-col">
@@ -526,6 +606,12 @@
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                                 <thead class="bg-gray-50 dark:bg-gray-700">
                                     <tr>
+                                        <th scope="col" class="p-4">
+                                            <div class="flex items-center">
+                                                <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                                <label for="checkbox-all" class="sr-only">checkbox</label>
+                                            </div>
+                                        </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                             Nama
@@ -566,6 +652,12 @@
                                 </thead>
                                 <tbody class="bg-white dark:bg-gray-800">
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -655,6 +747,12 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -743,95 +841,12 @@
                                     </tr>
 
                                     <tr>
-                                        <td
-                                            class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                            Dipdip Shinta
-                                        </td>
-                                        <td
-                                            class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                            201920192019209
-                                        </td>
-                                        <td
-                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                            2
-                                        </td>
-                                        <td
-                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                            4.0
-                                        </td>
-                                        <td
-                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                            3.9
-                                        </td>
-                                        <td
-                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                            24
-                                        </td>
-                                        <td
-                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                            48
-                                        </td>
-                                        <td
-                                            class="inline-flex items-center p-4 space-x-2 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                            <div
-                                                class="flex items-center p-3 mb-3.5 border border-gray-200 dark:border-gray-700 rounded-lg">
-                                                <div
-                                                    class="flex items-center justify-center w-10 h-10 mr-3 rounded-lg bg-primary-100 dark:bg-primary-900">
-                                                    <svg class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
-                                                        fill="currentColor" viewBox="0 0 24 24"
-                                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                        <path clip-rule="evenodd" fill-rule="evenodd"
-                                                            d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z">
-                                                        </path>
-                                                        <path
-                                                            d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z">
-                                                        </path>
-                                                    </svg>
-                                                </div>
-                                                <div class="mr-4">
-                                                    <p class="text-sm font-semibold text-gray-900 dark:text-white">
-                                                        khs_dipdip</p>
-                                                    <p class="text-sm text-gray-500 dark:text-gray-400">PDF, 2.3 MB
-                                                    </p>
-                                                </div>
-                                                <div class="flex items-center ml-auto">
-                                                    <button type="button" class="p-2 rounded hover:bg-gray-100">
-                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                                            fill="currentColor" viewBox="0 0 24 24"
-                                                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                            <path clip-rule="evenodd" fill-rule="evenodd"
-                                                                d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75zm-9 13.5a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z">
-                                                            </path>
-                                                        </svg>
-                                                        <span class="sr-only">Download</span>
-                                                    </button>
-                                                    <button type="button" class="p-2 rounded hover:bg-gray-100">
-                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                                            fill="currentColor" viewBox="0 0 20 20"
-                                                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                            <path
-                                                                d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
-                                                            </path>
-                                                        </svg>
-                                                        <span class="sr-only">Actions</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="p-4 space-x-2 whitespace-nowrap">
-                                          <button type="submit"
-                                              class="rounded-full inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-                                              <span><i class="fa-solid fa-check" style="color: #ffffff;"></i></span>
-                                          </button>
-                                          <button type="submit"
-                                              class="rounded-full inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900 hover:bg-red-800">
-                                              <span><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></span>
-                                          </button>
-
-                                      </td>
-                                    </tr>
-
-                                    <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -921,6 +936,107 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
+                                        <td
+                                            class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                            Dipdip Shinta
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                            201920192019209
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                            2
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                            4.0
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                            3.9
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                            24
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                            48
+                                        </td>
+                                        <td
+                                            class="inline-flex items-center p-4 space-x-2 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                            <div
+                                                class="flex items-center p-3 mb-3.5 border border-gray-200 dark:border-gray-700 rounded-lg">
+                                                <div
+                                                    class="flex items-center justify-center w-10 h-10 mr-3 rounded-lg bg-primary-100 dark:bg-primary-900">
+                                                    <svg class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
+                                                        fill="currentColor" viewBox="0 0 24 24"
+                                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                        <path clip-rule="evenodd" fill-rule="evenodd"
+                                                            d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z">
+                                                        </path>
+                                                        <path
+                                                            d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                                <div class="mr-4">
+                                                    <p class="text-sm font-semibold text-gray-900 dark:text-white">
+                                                        khs_dipdip</p>
+                                                    <p class="text-sm text-gray-500 dark:text-gray-400">PDF, 2.3 MB
+                                                    </p>
+                                                </div>
+                                                <div class="flex items-center ml-auto">
+                                                    <button type="button" class="p-2 rounded hover:bg-gray-100">
+                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                            fill="currentColor" viewBox="0 0 24 24"
+                                                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                                                d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75zm-9 13.5a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z">
+                                                            </path>
+                                                        </svg>
+                                                        <span class="sr-only">Download</span>
+                                                    </button>
+                                                    <button type="button" class="p-2 rounded hover:bg-gray-100">
+                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                            fill="currentColor" viewBox="0 0 20 20"
+                                                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                                            <path
+                                                                d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z">
+                                                            </path>
+                                                        </svg>
+                                                        <span class="sr-only">Actions</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="p-4 space-x-2 whitespace-nowrap">
+                                          <button type="submit"
+                                              class="rounded-full inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                                              <span><i class="fa-solid fa-check" style="color: #ffffff;"></i></span>
+                                          </button>
+                                          <button type="submit"
+                                              class="rounded-full inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-red-200 dark:focus:ring-red-900 hover:bg-red-800">
+                                              <span><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></span>
+                                          </button>
+
+                                      </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -1046,6 +1162,27 @@
     <!--PKL -->
     <div id="fullWidthTabContent">
         <div class="hidden pt-4" id="pkl" role="tabpanel" aria-labelledby="pkl-tab">
+            <div class="sm:flex mb-4">
+                <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
+                    <form class="lg:pr-3" action="#" method="GET">
+                    <label for="users-search" class="sr-only">Search</label>
+                    <div class="relative mt-1 lg:w-64 xl:w-96">
+                        <input type="text" name="email" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search for users">
+                    </div>
+                    </form>
+                    <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-circle-check fa-lg"></i></span>                         
+                        </a>
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-circle-xmark fa-lg"></i></span>
+                        </a>
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-trash-can fa-lg"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <!-- Table -->
             <div class="flex flex-col">
                 <div class="overflow-x-auto rounded-t-lg">
@@ -1054,6 +1191,12 @@
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                                 <thead class="bg-gray-50 dark:bg-gray-700">
                                     <tr>
+                                        <th scope="col" class="p-4">
+                                            <div class="flex items-center">
+                                                <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                                <label for="checkbox-all" class="sr-only">checkbox</label>
+                                            </div>
+                                        </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                             Nama
@@ -1086,6 +1229,12 @@
                                 </thead>
                                 <tbody class="bg-white dark:bg-gray-800">
                                     <tr>
+                                        <td class="w-4 p-4">
+                                            <div class="flex items-center">
+                                                <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                                <label for="checkbox-1" class="sr-only">checkbox</label>
+                                            </div>
+                                        </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -1166,6 +1315,12 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -1247,6 +1402,12 @@
 
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -1327,6 +1488,12 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -1407,6 +1574,12 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -1524,6 +1697,27 @@
     <!--Skripsi -->
     <div id="fullWidthTabContent">
         <div class="hidden pt-4" id="skripsi" role="tabpanel" aria-labelledby="skripsi-tab">
+            <div class="sm:flex mb-4">
+                <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
+                    <form class="lg:pr-3" action="#" method="GET">
+                    <label for="users-search" class="sr-only">Search</label>
+                    <div class="relative mt-1 lg:w-64 xl:w-96">
+                        <input type="text" name="email" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search for users">
+                    </div>
+                    </form>
+                    <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-circle-check fa-lg"></i></span>                         
+                        </a>
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-circle-xmark fa-lg"></i></span>
+                        </a>
+                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                            <span><i class="fa-solid fa-trash-can fa-lg"></i></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <!-- Table -->
             <div class="flex flex-col">
                 <div class="overflow-x-auto rounded-t-lg">
@@ -1532,6 +1726,12 @@
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                                 <thead class="bg-gray-50 dark:bg-gray-700">
                                     <tr>
+                                        <th scope="col" class="p-4">
+                                            <div class="flex items-center">
+                                                <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                                <label for="checkbox-all" class="sr-only">checkbox</label>
+                                            </div>
+                                        </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                             Nama
@@ -1564,6 +1764,12 @@
                                 </thead>
                                 <tbody class="bg-white dark:bg-gray-800">
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -1644,6 +1850,12 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -1725,6 +1937,12 @@
 
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -1805,6 +2023,12 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -1885,6 +2109,12 @@
                                     </tr>
 
                                     <tr>
+                                        <td class="w-4 p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox" class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-1" class="sr-only">checkbox</label>
+                                </div>
+                            </td>
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             Dipdip Shinta
@@ -1998,6 +2228,9 @@
             </div>
         </div>
     </div>
+
+    </div>
+
     </div>
     </div>
     </div>
