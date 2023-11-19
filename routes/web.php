@@ -46,10 +46,30 @@ Route::get('/tambahKhs', function () {
     return view('mahasiswa.khs-create');
 });
 
+Route::get('/pkl', function () {
+    return view('mahasiswa.pkl');
+});
+
+Route::get('/tambahPkl', function () {
+    return view('mahasiswa.pkl-create');
+});
+
+Route::get('/skripsi', function () {
+    return view('mahasiswa.skripsi');
+});
+
+Route::get('/tambahSkripsi', function () {
+    return view('mahasiswa.skripsi-create');
+});
+
 Route::get('/dashboardOperator', function () {
     return view('operator.dashboard');
 });
 
+Route::get('/profilMahasiswa', function () {
+    return view('mahasiswa.profil');
+});
+
 Route::get('/editprofilMahasiswa', function () {
-    return view('mahasiswa.edit-profil');
+    return view('mahasiswa.profil-edit');
 });

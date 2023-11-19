@@ -23,12 +23,12 @@
                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        <span class="ml-1 text-gray-400 md:ml-2 dark:text-gray-500" aria-current="page">IRS</span>
+                        <span class="ml-1 text-gray-400 md:ml-2 dark:text-gray-500" aria-current="page">Skripsi</span>
                     </div>
                 </li>
             </ol>
         </nav>
-        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">IRS Mahasiswa</h1>
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Skripsi Mahasiswa</h1>
     </div>
 
     <div class="col-span-full xl:col-auto">
@@ -96,75 +96,6 @@
                 </ul>
             </div>
         </div>
-
-        {{-- <div
-            class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-            <div class="flow-root">
-                <ul class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <li class="py-4">
-                        <div class="flex items-center space-x-4">
-                            <div class="flex-shrink-0">
-                                <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
-                                    Daftar IRS
-                                </p>
-                            </div>
-                            <div>
-                                <button
-                                    class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 rounded-lg hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-                                    type="button" data-dropdown-toggle="weekly-sales-dropdown">  Pilih Semester Aktif
-                                    <svg
-                                        class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M19 9l-7 7-7-7"></path>
-                                    </svg></button>
-                                <!-- Dropdown menu -->
-                                <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                                    id="weekly-sales-dropdown"
-                                    style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(354.667px, 706.667px, 0px);"
-                                    data-popper-placement="bottom">
-                                    <ul class="py-1" role="none">
-                                        <li>
-                                            <a href="#"
-                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                role="menuitem">Semester 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                role="menuitem">Semester 2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                role="menuitem">Semester 3</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                role="menuitem">Semester 4</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                role="menuitem">Semester 5</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul> 
-            </div>
-        </div> --}}
     </div>
 @endsection
 
@@ -173,9 +104,10 @@
         <!-- Card header -->
         <div class="items-center justify-between lg:flex">
             <div class="mb-4 lg:mb-0">
-                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Daftar IRS</h3>
+                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Daftar Skripsi</h3>
             </div>
-            <div class="items-center sm:flex">
+            {{-- Filter by semester aktif --}}
+            {{-- <div class="items-center sm:flex">
                 <div class="flex items-center">
                     <button id="dropdownDefault" data-dropdown-toggle="dropdown"
                         class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
@@ -241,7 +173,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         <!-- Table -->
         <div class="flex flex-col mt-6">
@@ -257,11 +189,11 @@
                                     </th>
                                     <th scope="col"
                                         class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Jumlah SKS
+                                        Nilai
                                     </th>
                                     <th scope="col"
                                         class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Scan IRS
+                                        Scan Skripsi
                                     </th>
                                     <th scope="col"
                                         class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -272,71 +204,12 @@
                             <tbody class="bg-white dark:bg-gray-800">
                                 <tr>
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        <span class="font-semibold">1</span>
+                                        <span class="font-semibold">
+                                            8
+                                        </span>
                                     </td>
                                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        18 SKS
-                                    </td>
-                                    <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                        <a href="#">Lihat Scan</a>
-                                    </td>
-                                    <td class="p-4 whitespace-nowrap">
-                                        <span
-                                            class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500">Completed</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        <span class="font-semibold">2</span>
-                                    </td>
-                                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        20 SKS
-                                    </td>
-                                    <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                        <a href="#">Lihat Scan</a>
-                                    </td>
-                                    <td class="p-4 whitespace-nowrap">
-                                        <span
-                                            class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500">Completed</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        <span class="font-semibold">3</span>
-                                    </td>
-                                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        20 SKS
-                                    </td>
-                                    <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                        <a href="#">Lihat Scan</a>
-                                    </td>
-                                    <td class="p-4 whitespace-nowrap">
-                                        <span
-                                            class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-red-100 dark:border-red-400 dark:bg-gray-700 dark:text-red-400">Denied</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        <span class="font-semibold">4</span>
-                                    </td>
-                                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        21 SKS
-                                    </td>
-                                    <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                        <a href="#">Lihat Scan</a>
-                                    </td>
-                                    <td class="p-4 whitespace-nowrap">
-                                        <span
-                                            class="bg-orange-100 text-orange-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-orange-100 dark:bg-gray-700 dark:border-orange-300 dark:text-orange-300">
-                                            In progress</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        <span class="font-semibold">5</span>
-                                    </td>
-                                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        18 SKS
+                                        A
                                     </td>
                                     <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                         <a href="#">Lihat Scan</a>
@@ -360,11 +233,11 @@
                     Upload File Excel
                 </button>
             </div>
-            
+
             <div class="flex-shrink-0">
                 <a href="/tambahIrs"
                     class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
-                    Tambah IRS
+                    Tambah Skripsi
                     <svg class="w-4 h-4 ml-1 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
