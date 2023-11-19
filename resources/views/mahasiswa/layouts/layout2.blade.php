@@ -154,23 +154,23 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <div class="w-full pl-3">
-                                    <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400">Profile settings 
+                                <div class="w-full pl-3 flex items-center">
+                                    <div class="text-gray-500 font-normal text-sm dark:text-gray-400">Profile settings 
                                         <span class="font-semibold text-primary-700 dark:text-primary-400">berhasil</span> di-update!</div>
                                 </div>
                             </a>
 
 
-                            <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600">
-                                <div class="w-full pl-3">
-                                    <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400">Status IRS telah di-
+                            <a href="#" class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+                                <div class="w-full pl-3 flex items-center">
+                                    <div class="text-gray-500 font-normal text-sm dark:text-gray-400">Status IRS telah di-
                                         <span class="font-semibold text-primary-700 dark:text-primary-400">update</span>!</div>
                                 </div>
                             </a>
 
-                            <a href="#" class="flex px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-600">
-                                <div class="w-full pl-3">
-                                    <div class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400">Data mahasiswa
+                            <a href="#" class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+                                <div class="w-full pl-3 flex items-center">
+                                    <div class="text-gray-500 font-normal text-sm dark:text-gray-400">Data mahasiswa
                                         <span class="font-semibold text-primary-700 dark:text-primary-400">berhasil</span> di-import!</div>
                                 </div>
                             </a>
@@ -201,7 +201,7 @@
                             Apps
                         </div>
                         <div class="grid grid-cols-3 gap-4 p-4">
-                            <a href="/editprofilMahasiswa"
+                            <a href="/profilMahasiswa"
                                 class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
                                 <svg class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400" fill="currentColor"
                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -270,7 +270,7 @@
 
                                 </li>
                                 <li>
-                                    <a href="/editprofilMahasiswa"
+                                    <a href="/profilMahasiswa"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Settings</a>
                                 </li>

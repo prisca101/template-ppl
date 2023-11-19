@@ -18,12 +18,13 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/', function () {
-    return view('mahasiswa.dashboard');
+Route::get('/signin', function () {
+    return view('signin');
 });
 
-Route::get('/verification', function () {
-    return view('operator.verification');
+//mahasiswa
+Route::get('/', function () {
+    return view('mahasiswa.dashboard');
 });
 
 Route::get('/dashboardMahasiswa', function () {
@@ -62,14 +63,66 @@ Route::get('/tambahSkripsi', function () {
     return view('mahasiswa.skripsi-create');
 });
 
-Route::get('/dashboardOperator', function () {
-    return view('operator.dashboard');
-});
-
 Route::get('/profilMahasiswa', function () {
     return view('mahasiswa.profil');
 });
 
 Route::get('/editprofilMahasiswa', function () {
     return view('mahasiswa.profil-edit');
+});
+
+
+
+
+// OPERATOR
+Route::get('/dashboardOperator', function () {
+    return view('operator.dashboard');
+});
+
+Route::get('/mahasiswa', function () {
+    return view('operator.mahasiswa');
+});
+
+Route::get('/profilOperator', function () {
+    return view('operator.editprofil');
+});
+
+
+
+
+//doswal
+Route::get('/dashboardDoswal', function () {
+    return view('doswal.dashboard');
+});
+
+Route::get('/perwalian', function () {
+    return view('doswal.perwalian');
+});
+
+Route::get('/details', function () {
+    return view('doswal.details');
+});
+
+Route::get('/profildoswal', function () {
+    return view('doswal.editprofil');
+});
+
+Route::get('/verification', function () {
+    return view('doswal.verification');
+});
+
+Route::get('/listpkl', function () {
+    return view('doswal.listpkl');
+});
+
+Route::get('/listskripsi', function () {
+    return view('doswal.listskripsi');
+});
+
+Route::get('/rekappkl', function () {
+    return view('doswal.rekappkl');
+});
+
+Route::get('/rekapskripsi', function () {
+    return view('doswal.rekapskripsi');
 });
