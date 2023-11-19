@@ -67,3 +67,40 @@ Route::get('/profilOperator', function () {
 Route::get('/verification', function () {
     return view('operator.verification');
 });
+
+//doswal
+Route::get('/dashboardDoswal', function () {
+    return view('doswal.dashboard');
+});
+
+Route::get('/perwalian', function () {
+    return view('doswal.perwalian');
+});
+
+Route::get('/details', function () {
+    return view('doswal.details');
+});
+
+Route::get('/profildoswal', function () {
+    return view('doswal.editprofil');
+});
+
+Route::get('/verification', function () {
+    return view('doswal.verification');
+});
+
+Route::get('/listpkl', function () {
+    return view('doswal.listpkl');
+});
+
+Route::get('/listskripsi', function () {
+    return view('doswal.listskripsi');
+});
+
+Route::get('/rekappkl', function () {
+    return view('doswal.rekappkl');
+});
+
+Route::get('/rekapskripsi', function () {
+    return view('doswal.rekapskripsi');
+});
