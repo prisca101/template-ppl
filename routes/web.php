@@ -53,3 +53,15 @@ Route::get('/dashboardOperator', function () {
 Route::get('/editprofilMahasiswa', function () {
     return view('mahasiswa.edit-profil');
 });
+
+Route::get('/dashboardDepartemen', function () {
+    return view('departemen.dashboard');
+});
+
+Route::get('/pkl', function () {
+    return view('departemen.pkl');
+});
+
+Route::get('/skripsi', function () {
+    return view('departemen.skripsi');
+});
