@@ -67,9 +67,9 @@
                             placeholder="Bonnie" required="" wfd-id="id1" readonly disabled>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="nim"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
-                        <input type="text" name="nim" id="nim"
+                        <label for="nip"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIP</label>
+                        <input type="text" name="nip" id="nip"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="2406XXXXXXXXXX" required="" wfd-id="id2" readonly disabled>
                     </div>
@@ -79,40 +79,6 @@
                         <input type="text" name="username" id="username"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="2406XXXXXXXXXX" required="" wfd-id="id6" disabled>
-                    </div>
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="alamat"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                        <input type="text" name="alamat" id="alamat"
-                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="e.g. Gading Blok C" required="" wfd-id="id3" disabled>
-                    </div>
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="provinsi"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
-                            <select id="provinsi" name="provinsi" class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" disabled>
-                                <option value="" selected>Pilih provinsi</option>
-                                <option>Jawa Tengah</option>
-                                <option>Jawa Barat</option>
-                                <option>Jawa Timur</option>
-                            </select>
-                    </div>
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="kabkota"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten/Kota</label>
-                            <select id="kabkota" name="kabkota" class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" disabled>
-                                <option value="" selected>Pilih kab/kota</option>
-                                <option>Semarang</option>
-                                <option>Surabaya</option>
-                                <option>Surakarta</option>
-                            </select>
-                    </div>
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="noHandphone"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
-                        <input type="text" name="noHandphone" id="noHandphone"
-                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="e.g. +(62)3456 789" required="" wfd-id="id7" disabled>
                     </div>
                     <div class="col-span-6 sm:col-full">
                         <button

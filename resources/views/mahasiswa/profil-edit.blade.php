@@ -34,6 +34,10 @@
     <div class="col-span-full xl:col-auto">
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+
+            <form action="#">
+                @csrf
+                @method('POST')
             <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
                 <img class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0"
                     src="https://flowbite-admin-dashboard.vercel.app/images/users/bonnie-green-2x.png" alt="Jese picture">
@@ -62,6 +66,9 @@
                             Delete
                         </button>
                     </div>
+                    @error('foto')
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                    @enderror
                 </div>
             </div>
         </div>
@@ -70,7 +77,7 @@
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <h3 class="mb-4 text-xl font-semibold dark:text-white">General information</h3>
-            <form action="#">
+            
                 <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-3">
                         <label for="nama"
@@ -92,6 +99,9 @@
                         <input type="text" name="username" id="username"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="2406XXXXXXXXXX" required="" wfd-id="id6">
+                        @error('username')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <label for="alamat"
@@ -99,6 +109,9 @@
                         <input type="text" name="alamat" id="alamat"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="e.g. Gading Blok C" required="" wfd-id="id3">
+                        @error('alamat')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <label for="provinsi"
@@ -110,6 +123,9 @@
                             <option>Jawa Barat</option>
                             <option>Jawa Timur</option>
                         </select>
+                        @error('provinsi')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <label for="kabkota"
@@ -121,6 +137,9 @@
                             <option>Surabaya</option>
                             <option>Surakarta</option>
                         </select>
+                        @error('kabkota')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <label for="noHandphone"
@@ -128,6 +147,9 @@
                         <input type="text" name="noHandphone" id="noHandphone"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="e.g. +(62)3456 789" required="" wfd-id="id7">
+                        @error('noHandphone')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
                     <div class="col-span-6 sm:col-full">
                         <button
@@ -149,6 +171,9 @@
                         <input type="text" name="current_password" id="current_password"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="••••••••" required="">
+                        @error('current_password')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <label for="new_password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">New
@@ -157,6 +182,9 @@
                             id="new_password"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="••••••••" required="">
+                        @error('new_password')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                         <div data-popover="" id="popover-password" role="tooltip"
                             class="absolute z-10 invisible inline-block text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400"
                             style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(680px, -1808.67px, 0px);"
@@ -211,6 +239,9 @@
                         <input type="text" name="new_confirm_password" id="new_confirm_password"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="••••••••" required="">
+                        @error('new_confirm_password')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
                     <div class="col-span-6 sm:col-full">
                         <button

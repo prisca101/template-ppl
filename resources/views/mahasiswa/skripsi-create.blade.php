@@ -113,6 +113,9 @@
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <h3 class="mb-4 text-xl font-semibold dark:text-white">Tambah Skripsi</h3>
             <form action="#">
+                @csrf
+                @method('POST')
+
                 <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-3">
                         <label for="semester_aktif"
@@ -123,6 +126,9 @@
                             <option>Semester 7</option>
                             <option>Semester 8</option>
                         </select>
+                        @error('semester_aktif')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <label for="nilai"
@@ -130,6 +136,9 @@
                         <input type="number" name="nilai" id="nilai"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="24" required="" wfd-id="id2">
+                        @error('nilai')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <label for="lama_studi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lama
@@ -137,6 +146,9 @@
                         <input type="number" name="lama_studi" id="lama_studi"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="24" required="" wfd-id="id3">
+                        @error('lama_studi')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <label for="tgl_sidang"
@@ -153,10 +165,13 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 datepicker-input"
                                 placeholder="Select date">
                         </div>
+                        @error('tanggal_sidang')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="scan_pkl" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Scan
+                        <label for="scanSkripsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Scan
                             PKL</label>
                         <div class="relative inline-block">
                             <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -172,6 +187,9 @@
                                 Upload file
                             </button>
                         </div>
+                        @error('scanSkripsi')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
                     </div>
 
                     <div class="col-span-6 sm:col-full">
