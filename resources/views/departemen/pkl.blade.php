@@ -178,7 +178,7 @@
                             </tr>
                             <tr>
                                 <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                    <span class="font-semibold">1</span>
+                                    <span class="font-semibold">2</span>
                                 </td>
                                 <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                     Taylor Swift
@@ -196,7 +196,7 @@
                             </tr>
                             <tr>
                                 <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                    <span class="font-semibold">1</span>
+                                    <span class="font-semibold">3</span>
                                 </td>
                                 <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                     Niki Zefanya
