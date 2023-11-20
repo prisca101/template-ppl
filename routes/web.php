@@ -110,8 +110,12 @@ Route::get('/details', function () {
     return view('doswal.details');
 });
 
-Route::get('/profildoswal', function () {
-    return view('doswal.editprofil');
+Route::get('/profilDoswal', function () {
+    return view('doswal.profil');
+});
+
+Route::get('/editprofilDoswal', function () {
+    return view('doswal.profil-edit');
 });
 
 Route::get('/verification', function () {
