@@ -137,3 +137,17 @@ Route::get('/rekappkl', function () {
 Route::get('/rekapskripsi', function () {
     return view('doswal.rekapskripsi');
 });
+
+
+// Departemen
+Route::get('/Departemen/dashboard', function () {
+    return view('departemen.dashboard');
+});
+
+Route::get('/Departemen/pkl', function () {
+    return view('departemen.pkl');
+});
+
+Route::get('Departemen/skripsi', function () {
+    return view('departemen.skripsi');
+});
