@@ -53,6 +53,186 @@
 @endsection
 
 @section('content2')
+<div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+    <!-- Card header -->
+    <div class="items-center justify-between lg:flex">
+        <div class="mb-4 lg:mb-0">
+            <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Daftar Mahasiswa Skripsi</h3>
+        </div>
+        <div class="items-center sm:flex">
+            <div class="flex items-center">
+                <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+                    class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                    type="button">
+                    Filter by angkatan
+                    <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <!-- Dropdown menu -->
+                <div id="dropdown" class="z-10 w-56 p-3 bg-white rounded-lg shadow dark:bg-gray-700 hidden"
+                    style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(636px, 3253.33px, 0px);"
+                    data-popper-placement="bottom">
+                    <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
+                        Angkatan
+                    </h6>
+                    <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
+                        <li class="flex items-center">
+                            <input id="apple" type="checkbox" value=""
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+
+                            <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                2019
+                            </label>
+                        </li>
+
+                        <li class="flex items-center">
+                            <input id="fitbit" type="checkbox" value="" checked=""
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+
+                            <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                2020
+                            </label>
+                        </li>
+
+                        <li class="flex items-center">
+                            <input id="dell" type="checkbox" value=""
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+
+                            <label for="dell" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                2021
+                            </label>
+                        </li>
+
+                        <li class="flex items-center">
+                            <input id="asus" type="checkbox" value="" checked=""
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+
+                            <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                2022
+                            </label>
+                        </li>
+                        
+                        <li class="flex items-center">
+                            <input id="asus" type="checkbox" value="" checked=""
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+
+                            <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                2023
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Table -->
+    <div class="flex flex-col mt-6">
+        <div class="overflow-x-auto rounded-lg">
+            <div class="inline-block min-w-full align-middle">
+                <div class="overflow-hidden shadow sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                        <thead class="bg-gray-50 dark:bg-gray-700">
+                            <tr>
+                                <th scope="col"
+                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    Nomor
+                                </th>
+                                <th scope="col"
+                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    Nama
+                                </th>
+                                <th scope="col"
+                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    NIM
+                                </th>
+                                <th scope="col"
+                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    Angkatan
+                                </th>
+                                <th scope="col"
+                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white dark:bg-gray-800">
+                            <tr>
+                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+                                    <span class="font-semibold">1</span>
+                                </td>
+                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                    Ariana Grande
+                                </td>
+                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                    24060121120013
+                                </td>
+                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                    2021
+                                </td>
+                                <td class="p-4 whitespace-nowrap">
+                                    <span
+                                        class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500">Lulus</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+                                    <span class="font-semibold">1</span>
+                                </td>
+                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                    Taylor Swift
+                                </td>
+                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                    24060121130010
+                                </td>
+                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                    2020
+                                </td>
+                                <td class="p-4 whitespace-nowrap">
+                                    <span
+                                        class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500">Lulus</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+                                    <span class="font-semibold">1</span>
+                                </td>
+                                <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                    Niki Zefanya
+                                </td>
+                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                    24060121140151
+                                </td>
+                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                    2019
+                                </td>
+                                <td class="p-4 whitespace-nowrap">
+                                    <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-red-100 dark:border-red-400 dark:bg-gray-700 dark:text-red-400">Tidak Lulus</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Card Footer -->
+    {{-- <div class="flex items-center justify-end pt-3 sm:pt-6">
+        <div class="flex-shrink-0">
+            <a href="/tambahKhs" class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
+                Tambah KHS
+                <svg class="w-4 h-4 ml-1 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+    </div> --}}
+</div>
+@endsection
+
+{{-- @section('content2')
     <div class="col-span-2">
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
@@ -128,4 +308,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection --}}
