@@ -159,3 +159,4 @@ Route::get('/profilDepartemen', function () {
 Route::get('/editprofilDepartemen', function () {
     return view('departemen.profil-edit');
 });
+
