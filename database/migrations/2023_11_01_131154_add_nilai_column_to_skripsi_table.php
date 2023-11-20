@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('username')->unique();;
-            $table->string('password');
-            $table->timestamps();
+        Schema::table('skripsi', function (Blueprint $table) {
+            $table->string('nilai', 1);
+            $table->date('tanggal_sidang')->default('2018-01-01');
         });
     }
 
@@ -24,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::table('skripsi', function (Blueprint $table) {
+            //
+        });
     }
 };

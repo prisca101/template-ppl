@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('username')->unique();;
-            $table->string('password');
-            $table->timestamps();
+        Schema::table('irs', function (Blueprint $table) {
+            $table->dropForeign('irs_nip_foreign'); // Specify the name of the foreign key constraint
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::table('irs', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('generate_akun', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();;
+            $table->string('nim');
+            $table->string('username');
             $table->string('password');
+            $table->foreign('nim')->references('nim')->on('mahasiswa');
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('generate_akun');
     }
 };

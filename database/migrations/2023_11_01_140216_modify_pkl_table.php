@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('username')->unique();;
-            $table->string('password');
-            $table->timestamps();
+        Schema::table('pkl', function (Blueprint $table) {
+            // Add a new 'idkategori' column as a foreign key
+            $table->string('scanPKL')->nullable()->change();
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        //
     }
 };
