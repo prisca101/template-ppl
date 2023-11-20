@@ -151,3 +151,11 @@ Route::get('/Departemen/pkl', function () {
 Route::get('Departemen/skripsi', function () {
     return view('departemen.skripsi');
 });
+
+Route::get('/profilDepartemen', function () {
+    return view('departemen.profil');
+});
+
+Route::get('/editprofilDepartemen', function () {
+    return view('departemen.profil-edit');
+});
