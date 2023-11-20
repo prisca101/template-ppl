@@ -53,9 +53,9 @@
 <div class="flex flex-col mt-6">
     <div class="overflow-x-auto rounded-lg">
         <div class="inline-block min-w-full align-middle">
-            <div class="overflow-hidden shadow sm:rounded-lg">
+            <div class="overflow-hidden shadow sm:rounded-lg border">
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
-                    <thead class="bg-gray-50 dark:bg-gray-700">
+                    <thead class="bg-gray-50 dark:bg-gray-700 border-b">
                         <tr>
                             <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 2018
@@ -82,37 +82,37 @@
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                     <thead class="bg-gray-50 dark:bg-gray-700">
                         <tr>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 Sudah
                             </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 Belum
                             </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 Sudah
                             </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 Belum
                             </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 Sudah
                             </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 Belum
                             </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 Sudah
                             </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 Belum
                             </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 Sudah
                             </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 Belum
                             </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                 Sudah
                             </th>
                             <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -123,41 +123,41 @@
                 <tbody class="bg-white dark:bg-gray-800">
             
                 <tr>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
+                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="" class="hover:underline">25</a>
+                    </td>
+                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="" class="hover:underline">25</a>
+                    </td>
+                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="" class="hover:underline">25</a>
+                    </td>
+                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="" class="hover:underline">25</a>
+                    </td>
+                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="" class="hover:underline">25</a>
+                    </td>
+                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="" class="hover:underline">25</a>
+                    </td>
+                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="" class="hover:underline">25</a>
+                    </td>
+                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="" class="hover:underline">25</a>
+                    </td>
+                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="" class="hover:underline">25</a>
+                    </td>
+                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="" class="hover:underline">25</a>
+                    </td>
+                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        <a href="" class="hover:underline">25</a>
                     </td>
                     <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
-                    </td>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
-                    </td>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
-                    </td>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
-                    </td>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
-                    </td>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
-                    </td>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
-                    </td>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
-                    </td>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
-                    </td>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
-                    </td>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        25
+                        <a href="" class="hover:underline">25</a>
                     </td>
                 </tr>
               </tbody>
@@ -166,5 +166,5 @@
         </div>
       </div>
     </div>
-  </div>
+</div>
 @endsection
