@@ -23,8 +23,8 @@
                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        <a href="/khs"
-                            class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">KHS</a>
+                        <a href="/pkl"
+                            class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">PKL</a>
                     </div>
                 </li>
                 <li>
@@ -35,12 +35,12 @@
                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        <span class="ml-1 text-gray-400 md:ml-2 dark:text-gray-500" aria-current="page">Tambah KHS</span>
+                        <span class="ml-1 text-gray-400 md:ml-2 dark:text-gray-500" aria-current="page">Tambah PKL</span>
                     </div>
                 </li>
             </ol>
         </nav>
-        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">KHS Mahasiswa</h1>
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">PKL Mahasiswa</h1>
     </div>
     <!-- Right Content -->
     <div class="col-span-full xl:col-auto">
@@ -110,52 +110,38 @@
     <div class="col-span-2">
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-            <h3 class="mb-4 text-xl font-semibold dark:text-white">Tambah KHS</h3>
+            <h3 class="mb-4 text-xl font-semibold dark:text-white">Tambah PKL</h3>
             <form action="#">
                 @csrf
                 @method('POST')
+
                 <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-3">
                         <label for="semester_aktif"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Semester Aktif</label>
                         <select id="semester_aktif" name="semester_aktif"
                             class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option>Semester 1</option>
-                            <option>Semester 2</option>
-                            <option>Semester 3</option>
-                            <option>Semester 4</option>
-                            <option>Semester 5</option>
                             <option>Semester 6</option>
                             <option>Semester 7</option>
                             <option>Semester 8</option>
                         </select>
                         @error('semester_aktif')
-                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                         @enderror
                     </div>
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="jumlah_sks" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
-                            SKS yang diambil</label>
-                        <input type="number" name="jumlah_sks" id="jumlah_sks"
+                        <label for="nilai"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nilai</label>
+                        <input type="number" name="nilai" id="nilai"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="24" required="" wfd-id="id2">
-                        @error('jumlah_sks')
+                            @error('nilai')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
-                        @enderror
+                            @enderror
                     </div>
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="ip_semester" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IP
-                            Semester</label>
-                        <input type="text" name="ip_semester" id="ip_semester"
-                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="3.85" required="" wfd-id="id3">
-                        @error('ip_semester')
-                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
-                        @enderror
-                    </div>
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="scanKhs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Scan
-                            KHS</label>
+                        <label for="scanPkl" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Scan
+                            PKL</label>
                         <div class="relative inline-block">
                             <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                             <button type="button"
@@ -170,8 +156,8 @@
                                 Upload file
                             </button>
                         </div>
-                        @error('scanKHS')
-                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @error('scanPKL')
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                         @enderror
                     </div>
                     <div class="col-span-6 sm:col-full">

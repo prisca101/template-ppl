@@ -18,12 +18,13 @@ Route::get('/login', function () {
     return view('login');
 });
 
-Route::get('/', function () {
-    return view('mahasiswa.dashboard');
+Route::get('/signin', function () {
+    return view('signin');
 });
 
-Route::get('/verification', function () {
-    return view('operator.verification');
+//mahasiswa
+Route::get('/', function () {
+    return view('mahasiswa.dashboard');
 });
 
 Route::get('/dashboardMahasiswa', function () {
@@ -46,22 +47,103 @@ Route::get('/tambahKhs', function () {
     return view('mahasiswa.khs-create');
 });
 
+Route::get('/pkl', function () {
+    return view('mahasiswa.pkl');
+});
+
+Route::get('/tambahPkl', function () {
+    return view('mahasiswa.pkl-create');
+});
+
+Route::get('/skripsi', function () {
+    return view('mahasiswa.skripsi');
+});
+
+Route::get('/tambahSkripsi', function () {
+    return view('mahasiswa.skripsi-create');
+});
+
+Route::get('/profilMahasiswa', function () {
+    return view('mahasiswa.profil');
+});
+
+Route::get('/editprofilMahasiswa', function () {
+    return view('mahasiswa.profil-edit');
+});
+
+
+
+
+// OPERATOR
 Route::get('/dashboardOperator', function () {
     return view('operator.dashboard');
 });
 
-Route::get('/editprofilMahasiswa', function () {
-    return view('mahasiswa.edit-profil');
+Route::get('/mahasiswa', function () {
+    return view('operator.mahasiswa');
 });
 
-Route::get('/dashboardDepartemen', function () {
+Route::get('/profilOperator', function () {
+    return view('operator.profil');
+});
+
+Route::get('/editprofilOperator', function () {
+    return view('operator.profil-edit');
+});
+
+Route::get('/importMahasiswa', function () {
+    return view('operator.importMahasiswa');
+});
+
+
+
+//doswal
+Route::get('/dashboardDoswal', function () {
+    return view('doswal.dashboard');
+});
+
+Route::get('/perwalian', function () {
+    return view('doswal.perwalian');
+});
+
+Route::get('/details', function () {
+    return view('doswal.details');
+});
+
+Route::get('/profildoswal', function () {
+    return view('doswal.editprofil');
+});
+
+Route::get('/verification', function () {
+    return view('doswal.verification');
+});
+
+Route::get('/listpkl', function () {
+    return view('doswal.listpkl');
+});
+
+Route::get('/listskripsi', function () {
+    return view('doswal.listskripsi');
+});
+
+Route::get('/rekappkl', function () {
+    return view('doswal.rekappkl');
+});
+
+Route::get('/rekapskripsi', function () {
+    return view('doswal.rekapskripsi');
+});
+
+
+// Departemen
+Route::get('/Departemen/dashboard', function () {
     return view('departemen.dashboard');
 });
 
-Route::get('/pkl', function () {
+Route::get('/Departemen/pkl', function () {
     return view('departemen.pkl');
 });
 
-Route::get('/skripsi', function () {
+Route::get('Departemen/skripsi', function () {
     return view('departemen.skripsi');
 });
