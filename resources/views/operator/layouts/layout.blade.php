@@ -48,7 +48,8 @@
     <meta property="og:type" content="article">
     <meta property="og:image" content="https://flowbite-admin-dashboard.vercel.app/images/og-image.png">
     <meta property="og:image:type" content="image/png">
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 
@@ -258,11 +259,11 @@
                             data-popper-placement="bottom">
                             <div class="px-4 py-3" role="none">
                                 <p class="text-sm text-gray-900 dark:text-white" role="none">
-                                    mayaaa01
+                                    {{Auth::user()->username}}
                                 </p>
                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
                                     role="none">
-                                    mayahart@example.com
+                                    {{Auth::user()->operator->nip}}
                                 </p>
                             </div>
                             <ul class="py-1" role="none">

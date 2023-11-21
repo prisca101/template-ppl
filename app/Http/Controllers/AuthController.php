@@ -31,20 +31,20 @@ class AuthController extends Controller
         
             if ($user->role_id === 1 ) {
                 if($user->cekProfil === 1){
-                    return redirect()->intended('/dashboardMahasiswa');
+                    return redirect()->intended('mahasiswa.dashboard');
                 }
-                return redirect()->route('mahasiswa.edit')->with('error','Harap lengkapi data profil anda!');
+                return redirect()->route('mahasiswa.profil')->with('error','Harap lengkapi data profil anda!');
             } else if ($user->role_id === 2) {
-                return redirect()->intended('/dashboardDosen');
+                return redirect()->intended('doswal.dashboard');
             } else if ($user->role_id === 3) {
                 return redirect()->intended('/dashboardOperator');
             } else if ($user->role_id === 4) {
-                return redirect()->intended('/dashboardDepartemen');
+                return redirect()->intended('departemen.dashboard');
             }
             
         };
 
-        return back()->with('loginError', 'Login Gagal');
+        return back()->with('error', 'Login Gagal');
     }
 
     public function logout(Request $request) {

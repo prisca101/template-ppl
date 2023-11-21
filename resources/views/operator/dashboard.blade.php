@@ -2,19 +2,18 @@
 
 @section('content')
     <div class="mb-4 col-span-full xl:mb-2">
-        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Welcome, operator!</h1>
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Welcome, {{$operators->nama}}!</h1>
     </div>
 
     <div class="col-span-full xl:col-auto">
-        <div
-            class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+        <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
                 <img class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0"
                     src="https://flowbite-admin-dashboard.vercel.app/images/users/bonnie-green-2x.png" alt="Jese picture">
                 <div>
-                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Maya Hart</h3>
+                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{$operators->nama}}</h3>
                     <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                        <p>240225252525</p>
+                        <p>{{$operators->nip}}</p>
                     </div>
                 </div>
             </div>
@@ -25,11 +24,51 @@
         <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
                 <div>
-                    <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Traffic by accounts</h3>
+                    <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Grafik</h3>
                     <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">Users</span>
                 </div>
             </div>
-            <div id="traffic-by-device"></div>
+            <canvas id="grafik"></canvas> <!-- Mengubah div menjadi canvas untuk grafik -->
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var ctx = document.getElementById('grafik').getContext('2d');
+                    var mahasiswaCount = {{ $mahasiswa_count }}; // Perbaikan Blade syntax di sini
+                    var dosenCount = {{ $dosen_count }}; // Perbaikan Blade syntax di sini
+                    var departemenCount = {{ $departemen_count }}; // Perbaikan Blade syntax di sini
+                    
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Mahasiswa', 'Dosen', 'Departemen'],
+                            datasets: [{
+                                label: 'Count',
+                                data: [mahasiswaCount, dosenCount, departemenCount],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                });
+            </script>
+
+            
             <!-- Card Footer -->
             <div class="flex items-center justify-between pt-4 lg:justify-evenly sm:pt-6">
                 <div>
@@ -41,20 +80,9 @@
                     </svg>
                     <h3 class="text-gray-500 dark:text-gray-400">Mahasiswa</h3>
                     <h4 class="text-xl font-bold dark:text-white">
-                        234k
+                        {{$mahasiswa_count}}
                     </h4>
-                    <p class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                        <span class="flex items-center mr-1.5 text-sm text-green-500 dark:text-green-400">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                    d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z">
-                                </path>
-                            </svg>
-                            4%
-                        </span>
-                        vs last month
-                    </p>
+                    
                 </div>
                 <div>
                     <svg class="w-8 h-8 mb-1 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
@@ -66,20 +94,9 @@
                     </svg>
                     <h3 class="text-gray-500 dark:text-gray-400">Dosen Wali</h3>
                     <h4 class="text-xl font-bold dark:text-white">
-                        94k
+                        {{$dosen_count}}
                     </h4>
-                    <p class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                        <span class="flex items-center mr-1.5 text-sm text-red-600 dark:text-red-500">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                    d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z">
-                                </path>
-                            </svg>
-                            1%
-                        </span>
-                        vs last month
-                    </p>
+                    
                 </div>
                 <div>
                     <svg class="w-8 h-8 mb-1 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
@@ -90,20 +107,9 @@
                     </svg>
                     <h3 class="text-gray-500 dark:text-gray-400">Departemen</h3>
                     <h4 class="text-xl font-bold dark:text-white">
-                        16k
+                        {{$departemen_count}}
                     </h4>
-                    <p class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                        <span class="flex items-center mr-1.5 text-sm text-red-600 dark:text-red-500">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"
-                                aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                    d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z">
-                                </path>
-                            </svg>
-                            0,6%
-                        </span>
-                        vs last month
-                    </p>
+                    
                 </div>
             </div>
         </div>
