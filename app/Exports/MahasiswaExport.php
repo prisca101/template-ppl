@@ -1,27 +1,30 @@
 <?php
 
-namespace App\Imports;
+namespace App\Exports;
 
 use App\Models\Mahasiswa;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class MahasiswaImport implements ToModel, WithHeadingRow
+class MahasiswaExport implements FromCollection, WithHeadings
 {
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
+    * @return \Illuminate\Support\Collection
     */
-    public function model(array $row)
+    public function collection()
     {
-        return new Mahasiswa([
-            'nama'      => $row['nama'],
-            'nim'       => $row['nim'], 
-            'angkatan'  => $row['angkatan'], 
-            'status'    => $row['status'],
-            'jalur_masuk' => $row['jalur_masuk'], 
-            'nip'       => $row['nip']
-        ]);
+        return Mahasiswa::join('generate_akun','mahasiswa.nim','=','generate_akun.nim')
+                        ->join('dosen_wali','mahasiswa.nip','=','dosen_wali.nip')
+                        ->select('mahasiswa.nama as Nama',"generate_akun.nim as NIM ",'mahasiswa.angkatan','mahasiswa.status','mahasiswa.nip','dosen_wali.nama as Nama Dosen Wali',"generate_akun.username","generate_akun.password")->get();
     }
+    /**
+     * Write code on Method
+     *
+     * @return response()
+     */
+    public function headings(): array
+    {
+        return ['Nama', 'NIM', 'Angkatan', 'Status', 'NIP', 'Nama Dosen Wali', 'Username', 'Password'];
+    }
+
 }

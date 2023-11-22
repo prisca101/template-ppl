@@ -49,13 +49,13 @@ class DashboardMahasiswaController extends Controller
             $statusIRS = $latestIRS ? $latestIRS->status : null;
             
             if ($mahasiswa) {
-                return view('dashboardMahasiswa', ['statusIRS'=>$statusIRS,'JumlahSKS'=>$JumlahSKS,'SemesterAktif'=>$SemesterAktif,'statusKHS'=>$statusKHS,
+                return view('mahasiswa.dashboard', ['statusIRS'=>$statusIRS,'JumlahSKS'=>$JumlahSKS,'SemesterAktif'=>$SemesterAktif,'statusKHS'=>$statusKHS,
                 'mahasiswa' => $mahasiswa, 'user' => $user,'status'=>$status,'statusSkr'=>$statusSkr, 
                 'statusPKL' => $statusPKL,'statusSkripsi'=>$statusSkripsi,'SKSKumulatif'=>$SKSKumulatif,'IPKumulatif'=>$IPKumulatif]);
             }
         }
 
         // Jika user tidak memiliki role_id 1 atau tidak ditemukan data mahasiswa yang sesuai, Anda dapat mengirimkan tampilan yang sesuai.
-        return view('dashboardMahasiswa'); // Misalnya, tampilan kosong.
+        return view('mahasiswa.dashboard'); // Misalnya, tampilan kosong.
     }
 }

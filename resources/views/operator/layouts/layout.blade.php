@@ -91,7 +91,7 @@
                     </button>
                     <a href="#" class="flex ml-2 md:mr-24">
                         <img src="https://flowbite-admin-dashboard.vercel.app/images/logo.svg" class="h-8 mr-3"
-                            alt="FlowBite Logo">
+                            alt="FlowBite Logo"> 
                         <span
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Proyek
                             PPL</span>
@@ -139,9 +139,7 @@
                             <a href="#"
                                 class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                                 <div class="flex-shrink-0">
-                                    <img class="rounded-full w-11 h-11"
-                                        src="https://flowbite-admin-dashboard.vercel.app/images/users/bonnie-green.png"
-                                        alt="Jese image">
+                                <img src="{{ Auth::user()->getImageURL() }}" class="rounded-full w-11 h-11" alt="foto-profil" />  
                                     <div
                                         class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 border border-white rounded-full bg-primary-700 dark:border-gray-700">
                                         <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
@@ -212,7 +210,7 @@
                                 </svg>
                                 <div class="text-sm font-medium text-gray-900 dark:text-white">Settings</div>
                             </a>
-                            <a href="/signin"
+                            <a href="/login"
                                 class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
                                 <svg class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400" fill="none"
                                     stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -247,9 +245,8 @@
                                 class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                 id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                                 <span class="sr-only">Open user menu</span>
-                                <img class="w-8 h-8 rounded-full"
-                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                                    alt="user photo">
+                                <img src="{{ Auth::user()->getImageURL() }}" class="w-8 h-8 rounded-full" alt="foto-profil" />
+                                
                             </button>
                         </div>
 
@@ -279,7 +276,7 @@
 
                                 </li>
                                 <li>
-                                    <a href="/signin"
+                                    <a href="/login"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Sign out</a>
                                 </li>

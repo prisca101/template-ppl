@@ -2,16 +2,25 @@
 
 namespace App\Imports;
 
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
+use App\Models\Mahasiswa;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class MahasiswaImport implements ToCollection
+class MahasiswaImport implements ToModel, WithHeadingRow
 {
     /**
-    * @param Collection $collection
+    * @param array $row
+    *
+    * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function collection(Collection $collection)
+    public function model(array $row)
     {
-        //
+        return new Mahasiswa([
+            'nama'      => $row['nama'],
+            'nim'       => $row['nim'], 
+            'angkatan'  => $row['angkatan'], 
+            'jalur_masuk' => $row['jalur_masuk'], 
+            'nip'       => $row['nip']
+        ]);
     }
 }

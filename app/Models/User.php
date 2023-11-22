@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
+        'foto',
+        'role_id',
+        'cekProfil'
     ];
 
     /**
@@ -43,6 +45,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function getImageURL(){
+        if($this->foto){
+            return url("storage/" . $this->foto);
+        }
+        return "https://api.dicebear.com/6.x/fun-emoji/svg?seed=($this=>name)";
+    }
+
+    public function mahasiswa()
+    {
+        return $this->hasOne(Mahasiswa::class, 'iduser', 'id');
+    }
+
     public function dosen()
     {
         return $this->hasOne(Dosen::class, 'iduser', 'id');
@@ -52,4 +66,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Operator::class, 'iduser', 'id');
     }
+
+    public function departemen()
+    {
+        return $this->hasOne(Departemen::class, 'iduser', 'id');
+    }
+
 }

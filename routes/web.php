@@ -51,13 +51,14 @@ Route::get('daftar_akun', [UserController::class,'daftar_akun'])->middleware(['a
 Route::middleware(['auth', 'only_operator'])->group(function () {
     Route::get('dashboardOperator', [DashboardOperatorController::class, 'dashboardOperator'])->name('dashboardOperator');
     Route::get('/mahasiswa', [DashboardOperatorController::class, 'mahasiswa'])->name('mahasiswa');
-    Route::get('mahasiswa-create', [OperatorController::class,'create'])->name('mahasiswa.create');
-    Route::post('mahasiswa-create', [OperatorController::class,'store'])->name('mahasiswa.store');
-    Route::get('/profilOperator', [OperatorController::class, 'edit'])->name('operator.edit');
-    Route::get('/profilOperator-edit', [OperatorController::class, 'showEdit'])->name('operator.showEdit');
-    Route::post('/profilOperator-edit', [OperatorController::class, 'update'])->name('operator.update');
-    Route::get('/tambahMahasiswa',[OperatorController::class,'tambah']);
-    Route::post('/tambahMahasiswa',[OperatorController::class,'import'])->name('import');
+    Route::get('/mahasiswa-add', [DashboardOperatorController::class, 'mahasiswa'])->name('create');
+    Route::post('/mahasiswa', [DashboardOperatorController::class, 'store'])->name('store');
+    Route::get('/search', [DashboardOperatorController::class, 'search'])->name('search');
+    Route::get('/profilOperator', [OperatorController::class, 'edit'])->name('edit');
+    Route::get('/profilOperator-edit', [OperatorController::class, 'showEdit'])->name('showEdit');
+    Route::post('/profilOperator-edit', [OperatorController::class, 'update'])->name('update');
+    Route::get('/importMahasiswa',[OperatorController::class,'tambah']);
+    Route::post('/importMahasiswa-import',[OperatorController::class,'import'])->name('mahasiswa.import');
     Route::post('/generateAkun',[OperatorController::class,'generateAkun'])->name('generateAkun');
     Route::post('/dashboardOperator', [OperatorController::class,'export'])->name('export');
 });
@@ -146,19 +147,17 @@ Route::controller(DepartemenController::class)->middleware(['auth','only_departe
 
 
 // blm diubah
-
-Route::get('/signin', function () {
-    return view('signin');
-});
+Route::get('signin', [AuthController::class,'login'])->name('signin');
+Route::post('signin', [AuthController::class, 'authenticate']);
 
 //mahasiswa
-Route::get('/', function () {
-    return view('mahasiswa.dashboard');
-});
+// Route::get('/', function () {
+//     return view('mahasiswa.dashboard');
+// });
 
-Route::get('/dashboardMahasiswa', function () {
-    return view('mahasiswa.dashboard');
-});
+// Route::get('/dashboardMahasiswa', function () {
+//     return view('mahasiswa.dashboard');
+// });
 
 Route::get('/irs', function () {
     return view('mahasiswa.irs');
@@ -208,21 +207,21 @@ Route::get('/editprofilMahasiswa', function () {
 //     return view('operator.dashboard');
 // });
 
-Route::get('/mahasiswa', function () {
-    return view('operator.mahasiswa');
-});
+// Route::get('/mahasiswa', function () {
+//     return view('operator.mahasiswa');
+// });
 
-Route::get('/profilOperator', function () {
-    return view('operator.profil');
-});
+// Route::get('/profilOperator', function () {
+//     return view('operator.profil');
+// });
 
-Route::get('/editprofilOperator', function () {
-    return view('operator.profil-edit');
-});
+// Route::get('/editprofilOperator', function () {
+//     return view('operator.profil-edit');
+// });
 
-Route::get('/importMahasiswa', function () {
-    return view('operator.importMahasiswa');
-});
+// Route::get('/importMahasiswa', function () {
+//     return view('operator.importMahasiswa');
+// });
 
 
 

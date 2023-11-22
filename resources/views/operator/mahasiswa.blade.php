@@ -35,14 +35,18 @@
 @section('content2')
     <div class="sm:flex mb-4">
         <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
-            <form class="lg:pr-3" action="#" method="GET">
-                <label for="users-search" class="sr-only">Search</label>
-                <div class="relative mt-1 lg:w-64 xl:w-96">
-                    <input type="text" name="email" id="users-search"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Search for mahasiswa">
-                </div>
-            </form>
+        <form class="lg:pr-3" action="{{ route('search') }}" method="GET">
+            <label for="search" class="sr-only">Search</label>
+            <div class="relative mt-1 lg:w-64 xl:w-96">
+                <input type="text" name="search" id="search"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    placeholder="Search for mahasiswa">
+                <button type="submit" class="absolute inset-y-0 right-0 px-3 py-1 bg-gray-200 rounded-r-lg">
+                    Search
+                </button>
+            </div>
+        </form>
+
             <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
                 <a href="#"
                     class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -76,7 +80,16 @@
             </a>
         </div>
     </div>
-
+    @if(isset($status))
+        <div class="alert alert-success">
+            {{ $status }}
+        </div>
+    @endif
+    @if(isset($error))
+        <div class="alert alert-danger">
+            {{ $error }}
+        </div>
+    @endif
     <div
         class="bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
         <div class="w-full mb-1">
@@ -87,16 +100,9 @@
                             <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600">
                                 <thead class="bg-gray-100 dark:bg-gray-700">
                                     <tr>
-                                        <th scope="col" class="p-4">
-                                            <div class="flex items-center">
-                                                <input id="checkbox-all" aria-describedby="checkbox-1" type="checkbox"
-                                                    class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
-                                                <label for="checkbox-all" class="sr-only">checkbox</label>
-                                            </div>
-                                        </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Name
+                                            Nama
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
@@ -109,6 +115,10 @@
                                         <th scope="col"
                                             class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                             Status
+                                        </th>
+                                        <th scope="col"
+                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                                            Jalur Masuk
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
@@ -133,50 +143,22 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-
+                                    @foreach($mahasiswas as $mahasiswa)
                                     <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        <td class="w-4 p-4">
-                                            <div class="flex items-center">
-                                                <input id="checkbox-1" aria-describedby="checkbox-1" type="checkbox"
-                                                    class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
-                                                <label for="checkbox-1" class="sr-only">checkbox</label>
-                                            </div>
-                                        </td>
                                         <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                            <img class="w-10 h-10 rounded-full"
-                                                src="https://flowbite-admin-dashboard.vercel.app/images/users/neil-sims.png"
-                                                alt="Neil Sims avatar">
                                             <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                                <div class="text-base font-semibold text-gray-900 dark:text-white">Neil
-                                                    Sims</div>
-                                                <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                                    neil.sims@flowbite.com</div>
+                                                <div class="text-base font-semibold text-gray-900 dark:text-white">
+                                                    {{ $mahasiswa->nama }}</div>
                                             </div>
                                         </td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            20252525252</td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            2022</td>
-                                        <td
-                                            class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                            <div class="flex items-center">
-                                                <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> Active
-                                            </div>
-                                        </td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Pak APW</td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            2021212121</td>
-                                        <td
-                                            class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
-                                            dipdophoops25</td>
-                                        <td
-                                            class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
-                                            rahasiadongs</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ $mahasiswa->nim }}</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ $mahasiswa->angkatan }}</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->status }}</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->jalur_masuk }}</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->nip }}</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->dosen_nama }}</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->username }}</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->password }}</td>
                                         <td class="p-4 space-x-2 whitespace-nowrap">
                                             <button type="button" data-modal-toggle="edit-user-modal"
                                                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
@@ -202,287 +184,8 @@
                                                 Delete user
                                             </button>
                                         </td>
-                                    </tr>
-
-                                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        <td class="w-4 p-4">
-                                            <div class="flex items-center">
-                                                <input id="checkbox-2" aria-describedby="checkbox-1" type="checkbox"
-                                                    class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
-                                                <label for="checkbox-2" class="sr-only">checkbox</label>
-                                            </div>
-                                        </td>
-                                        <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                            <img class="w-10 h-10 rounded-full"
-                                                src="https://flowbite-admin-dashboard.vercel.app/images/users/roberta-casas.png"
-                                                alt="Roberta Casas avatar">
-                                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                                <div class="text-base font-semibold text-gray-900 dark:text-white">Roberta
-                                                    Casas</div>
-                                                <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                                    roberta.casas@flowbite.com</div>
-                                            </div>
-                                        </td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            20252525252</td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            2022</td>
-                                        <td
-                                            class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                            <div class="flex items-center">
-                                                <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> Active
-                                            </div>
-                                        </td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Pak APW</td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            2021212121</td>
-                                        <td
-                                            class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
-                                            dipdophoops25</td>
-                                        <td
-                                            class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
-                                            rahasiadongs</td>
-                                        <td class="p-4 space-x-2 whitespace-nowrap">
-                                            <button type="button" data-modal-toggle="edit-user-modal"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
-                                                    </path>
-                                                    <path fill-rule="evenodd"
-                                                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Edit user
-                                            </button>
-                                            <button type="button" data-modal-toggle="delete-user-modal"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
-                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Delete user
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        <td class="w-4 p-4">
-                                            <div class="flex items-center">
-                                                <input id="checkbox-3" aria-describedby="checkbox-1" type="checkbox"
-                                                    class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
-                                                <label for="checkbox-3" class="sr-only">checkbox</label>
-                                            </div>
-                                        </td>
-                                        <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                            <img class="w-10 h-10 rounded-full"
-                                                src="https://flowbite-admin-dashboard.vercel.app/images/users/michael-gough.png"
-                                                alt="Michael Gough avatar">
-                                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                                <div class="text-base font-semibold text-gray-900 dark:text-white">Michael
-                                                    Gough</div>
-                                                <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                                    michael.gough@flowbite.com</div>
-                                            </div>
-                                        </td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            20252525252</td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            2022</td>
-                                        <td
-                                            class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                            <div class="flex items-center">
-                                                <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> Active
-                                            </div>
-                                        </td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Pak APW</td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            2021212121</td>
-                                        <td
-                                            class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
-                                            dipdophoops25</td>
-                                        <td
-                                            class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
-                                            rahasiadongs</td>
-                                        <td class="p-4 space-x-2 whitespace-nowrap">
-                                            <button type="button" data-modal-toggle="edit-user-modal"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
-                                                    </path>
-                                                    <path fill-rule="evenodd"
-                                                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Edit user
-                                            </button>
-                                            <button type="button" data-modal-toggle="delete-user-modal"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
-                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Delete user
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        <td class="w-4 p-4">
-                                            <div class="flex items-center">
-                                                <input id="checkbox-4" aria-describedby="checkbox-1" type="checkbox"
-                                                    class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
-                                                <label for="checkbox-4" class="sr-only">checkbox</label>
-                                            </div>
-                                        </td>
-                                        <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                            <img class="w-10 h-10 rounded-full"
-                                                src="https://flowbite-admin-dashboard.vercel.app/images/users/jese-leos.png"
-                                                alt="Jese Leos avatar">
-                                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                                <div class="text-base font-semibold text-gray-900 dark:text-white">Jese
-                                                    Leos</div>
-                                                <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                                    jese.leos@flowbite.com</div>
-                                            </div>
-                                        </td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            20252525252</td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            2022</td>
-                                        <td
-                                            class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                            <div class="flex items-center">
-                                                <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> Active
-                                            </div>
-                                        </td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Pak APW</td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            2021212121</td>
-                                        <td
-                                            class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
-                                            dipdophoops25</td>
-                                        <td
-                                            class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
-                                            rahasiadongs</td>
-                                        <td class="p-4 space-x-2 whitespace-nowrap">
-                                            <button type="button" data-modal-toggle="edit-user-modal"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
-                                                    </path>
-                                                    <path fill-rule="evenodd"
-                                                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Edit user
-                                            </button>
-                                            <button type="button" data-modal-toggle="delete-user-modal"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
-                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Delete user
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        <td class="w-4 p-4">
-                                            <div class="flex items-center">
-                                                <input id="checkbox-5" aria-describedby="checkbox-1" type="checkbox"
-                                                    class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600">
-                                                <label for="checkbox-5" class="sr-only">checkbox</label>
-                                            </div>
-                                        </td>
-                                        <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                            <img class="w-10 h-10 rounded-full"
-                                                src="https://flowbite-admin-dashboard.vercel.app/images/users/bonnie-green.png"
-                                                alt="Bonnie Green avatar">
-                                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                                <div class="text-base font-semibold text-gray-900 dark:text-white">Bonnie
-                                                    Green</div>
-                                                <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                                    bonnie.green@flowbite.com</div>
-                                            </div>
-                                        </td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            20252525252</td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            2022</td>
-                                        <td
-                                            class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                            <div class="flex items-center">
-                                                <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div> Active
-                                            </div>
-                                        </td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Pak APW</td>
-                                        <td
-                                            class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            2021212121</td>
-                                        <td
-                                            class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
-                                            dipdophoops25</td>
-                                        <td
-                                            class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">
-                                            rahasiadongs</td>
-                                        <td class="p-4 space-x-2 whitespace-nowrap">
-                                            <button type="button" data-modal-toggle="edit-user-modal"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
-                                                    </path>
-                                                    <path fill-rule="evenodd"
-                                                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Edit user
-                                            </button>
-                                            <button type="button" data-modal-toggle="delete-user-modal"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
-                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Delete user
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    </tr>  
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -512,8 +215,7 @@
                 </svg>
             </a>
             <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
-                    class="font-semibold text-gray-900 dark:text-white">1-20</span> of <span
-                    class="font-semibold text-gray-900 dark:text-white">2290</span></span>
+                    class="font-semibold text-gray-900 dark:text-white">1-20</span> </span>
         </div>
     </div>
 
@@ -655,60 +357,96 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-6 space-y-6">
-                    <form action="#">
+                    <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="nama"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                                <input type="text" name="nama" placeholder="nama" id="nama"
+                                <label for="namamhs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
+                                <input type="text" name="namamhs" placeholder="Nama" id="namamhs"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     required>
+                                @error('namamhs')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="nim"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
-                                <input type="text" name="nim" placeholder="nim" id="nim"
+                                <label for="nimmhs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
+                                <input type="text" name="nimmhs" placeholder="NIM" id="nimmhs"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     required>
+                                @error('nimmhs')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
+                            <!-- Bagian Angkatan -->
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="angkatan"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Angkatan</label>
-                                <select id="angkatan"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option selected="">Select angkatan</option>
-                                    <option value="FL">2023</option>
-                                    <option value="FL">2022</option>
-                                    <option value="RE">2021</option>
-                                    <option value="AN">2020</option>
-                                    <option value="VU">2019</option>
+                                <label for="angkatanmhs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Angkatan</label>
+                                <select name="angkatanmhs" id="angkatanmhs" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                    <option selected disabled>Pilih Angkatan</option>
+                                    @php
+                                        $startYear = 2016; // Tahun awal
+                                        $endYear = 2023; // Tahun akhir
+                                    @endphp
+                                    @for ($i = $startYear; $i <= $endYear; $i++)
+                                        <option value="{{ $i }}"> {{ $i }} </option>
+                                    @endfor
                                 </select>
+                                @error('angkatanmhs')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
+
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="doswal"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dosen Wali</label>
-                                <select id="doswal"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option selected="">Select doswal</option>
-                                    <option value="FL">Pak APW</option>
-                                    <option value="FL">Bu Retno</option>
-                                    <option value="RE">Pak Sandy</option>
+                                <label for="nipdsn" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dosen Wali</label>
+                                <select name="nipdsn" id="nipdsn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                    <option selected disabled>Pilih Dosen Wali</option>
+                                    @foreach ($dosens as $dosen)
+                                        <option value="{{ $dosen->nip }}">{{ $dosen->nama }}</option>
+                                    @endforeach
                                 </select>
+                                @error('nipdsn')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="jalur_masukmhs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jalur Masuk</label>
+                                <select name="jalur_masukmhs" id="jalur_masukmhs" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                    <option selected disabled>Pilih Jalur Masuk</option>
+                                    <option value="SNMPTN">SNMPTN</option>
+                                    <option value="SBMPTN">SBMPTN</option>
+                                    <option value="MANDIRI">MANDIRI</option>
+                                </select>
+                                @error('jalur_masukmhs')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Tombol untuk menyimpan data -->
+                            <div class="col-span-6 sm:col-span-3">
+                                <button type="submit"
+                                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                    data-modal-toggle="add-user-modal">
+                                    Add mahasiswa
+                                </button>
                             </div>
                         </div>
+                    </form>
                 </div>
-                <!-- Modal footer -->
-                <div class="items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700">
-                    <button
-                        class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                        type="submit" data-modal-toggle="add-user-modal">
-                        Add mahasiswa
-                    </button>
-                </div>
-                </form>
             </div>
         </div>
     </div>
+
 
     <!-- Delete User Modal -->
     <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"

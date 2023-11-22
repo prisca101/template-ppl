@@ -31,9 +31,9 @@ class AuthController extends Controller
         
             if ($user->role_id === 1 ) {
                 if($user->cekProfil === 1){
-                    return redirect()->intended('mahasiswa.dashboard');
+                    return redirect()->intended('/dashboardMahasiswa');
                 }
-                return redirect()->route('mahasiswa.profil')->with('error','Harap lengkapi data profil anda!');
+                return redirect()->route('mahasiswa.edit')->with('error','Harap lengkapi data profil anda!');
             } else if ($user->role_id === 2) {
                 return redirect()->intended('doswal.dashboard');
             } else if ($user->role_id === 3) {
@@ -51,7 +51,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('login');
+        return view('login');
     }
 
 }
