@@ -164,20 +164,21 @@
                         <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
                             Category
                         </h6>
-                        <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
-                            @for ($semester = 1; $semester <= 14; $semester++)
-                                <li class="flex items-center">
-                                    <input id="semester{{ $semester }}" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-
-                                    <label for="semester{{ $semester }}"
-                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                        Semester {{ $semester }}
-                                    </label>
-                                </li>
-                            @endfor
-
-                        </ul>
+                        <form method="GET" action="{{ route('khs.index') }}">
+                            @csrf <!-- Tambahkan CSRF token untuk keamanan -->
+                            @if ($khsData->count() > 0)
+                                <ul class="dropdown-menu" aria-labelledby="dropdownDefault">
+                                    @foreach ($khsData as $khs)
+                                        <li>
+                                            <input type="checkbox" id="semester_{{ $khs->semester_aktif }}" name="semester_aktif[]" value="{{ $khs->semester_aktif }}"
+                                                {{ in_array($khs->semester_aktif, (array)request()->input('semester_aktif')) ? 'checked' : '' }}>
+                                            <label for="semester_{{ $khs->semester_aktif }}">{{ $khs->semester_aktif }}</label>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <button type="submit" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Filter</button>
+                            @endif
+                        </form>
                     </div>
                 </div>
             </div>
@@ -205,6 +206,14 @@
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                            Jumlah SKS Kumulatif
+                                        </th>
+                                        <th scope="col"
+                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                            IP Kumulatif
+                                        </th>
+                                        <th scope="col"
+                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                             Scan KHS
                                         </th>
                                         <th scope="col"
@@ -229,9 +238,17 @@
                                                 {{ $khs->ip_semester }}
                                             </td>
                                             <td
+                                                class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                {{ $khs->jumlah_sks_kumulatif }} SKS
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                                {{ $khs->ip_kumulatif }}
+                                            </td>
+                                            <td
                                                 class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                                 <a href="{{ asset('storage/' . $khs->scanKHS) }}" target="_blank"
-                                                    class="hover:underline">Lihat Scan</a>
+                                                    class="hover:underline">Lihat KHS</a>
                                             </td>
                                             <td class="p-4 whitespace-nowrap">
                                                 <span

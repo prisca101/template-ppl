@@ -5,7 +5,7 @@
         <nav class="flex mb-5" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
                 <li class="inline-flex items-center">
-                    <a href="/"
+                    <a href="/dashboardMahasiswa"
                         class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white">
                         <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -35,14 +35,13 @@
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
-                <img class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0"
-                    src="https://flowbite-admin-dashboard.vercel.app/images/users/bonnie-green-2x.png" alt="Jese picture">
+                <img src="{{ Auth::user()->getImageURL() }}" class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0" alt="foto-profil">
                 <div>
-                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Maya Hart</h3>
+                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{$mahasiswa->nama}}</h3>
                     <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                        <p>24060121100037</p>
+                        <p>{{$mahasiswa->nim}}</p>
                         <p>INFORMATIKA</p>
-                        <p>2021</p>
+                        <p>{{$mahasiswa->angkatan}}</p>
                     </div>
                 </div>
             </div>
@@ -88,7 +87,7 @@
                                     Dosen Wali
                                 </p>
                                 <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
-                                    Johny Depp
+                                    {{$mahasiswa->dosen_nama}}
                                 </p>
                             </div>
                         </div>
@@ -106,8 +105,7 @@
             <div class="mb-4 lg:mb-0">
                 <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Daftar PKL</h3>
             </div>
-            {{-- Filter by semester aktif --}}
-            {{-- <div class="items-center sm:flex">
+            <div class="items-center sm:flex">
                 <div class="flex items-center">
                     <button id="dropdownDefault" data-dropdown-toggle="dropdown"
                         class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
@@ -125,100 +123,76 @@
                         <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
                             Category
                         </h6>
-                        <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
-                            <li class="flex items-center">
-                                <input id="apple" type="checkbox" value=""
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-
-                                <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Semester 1
-                                </label>
-                            </li>
-
-                            <li class="flex items-center">
-                                <input id="fitbit" type="checkbox" value="" checked=""
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-
-                                <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Semester 2
-                                </label>
-                            </li>
-
-                            <li class="flex items-center">
-                                <input id="dell" type="checkbox" value=""
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-
-                                <label for="dell" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Semester 3
-                                </label>
-                            </li>
-
-                            <li class="flex items-center">
-                                <input id="asus" type="checkbox" value="" checked=""
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-
-                                <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Semester 4
-                                </label>
-                            </li>
-
-                            <li class="flex items-center">
-                                <input id="asus" type="checkbox" value="" checked=""
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-
-                                <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Semester 5
-                                </label>
-                            </li>
-                        </ul>
+                        <form method="GET" action="{{ route('pkl.index') }}">
+                            @csrf <!-- Tambahkan CSRF token untuk keamanan -->
+                            @if ($pklData->count() > 0)
+                                <ul class="dropdown-menu" aria-labelledby="dropdownDefault">
+                                    @foreach ($pklData as $pkl)
+                                        <li>
+                                            <input type="checkbox" id="semester_{{ $pkl->semester_aktif }}" name="semester_aktif[]" value="{{ $pkl->semester_aktif }}"
+                                                {{ in_array($pkl->semester_aktif, (array)request()->input('semester_aktif')) ? 'checked' : '' }}>
+                                            <label for="semester_{{ $pkl->semester_aktif }}">{{ $pkl->semester_aktif }}</label>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <button type="submit" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Filter</button>
+                            @endif
+                        </form>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
         <!-- Table -->
         <div class="flex flex-col mt-6">
             <div class="overflow-x-auto rounded-lg">
                 <div class="inline-block min-w-full align-middle">
                     <div class="overflow-hidden shadow sm:rounded-lg">
-                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
-                            <thead class="bg-gray-50 dark:bg-gray-700">
-                                <tr>
-                                    <th scope="col"
-                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Semester Aktif
-                                    </th>
-                                    <th scope="col"
-                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Nilai
-                                    </th>
-                                    <th scope="col"
-                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Scan PKL
-                                    </th>
-                                    <th scope="col"
-                                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                        Status
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white dark:bg-gray-800">
-                                <tr>
-                                    <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        <span class="font-semibold">6</span>
-                                    </td>
-                                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        A
-                                    </td>
-                                    <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                        <a href="#">Lihat Scan</a>
-                                    </td>
-                                    <td class="p-4 whitespace-nowrap">
-                                        <span
-                                            class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500">Completed</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        @if ($pklData->count() > 0)
+                            <div id="pklDetail" class="ms-3">
+                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                                    <thead class="bg-gray-50 dark:bg-gray-700">
+                                        <tr>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Semester Aktif</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Nilai</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Status PKL</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Scan IRS</th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-600">
+                                        @foreach ($pklData as $pkl)
+                                            <tr class="pkl-row">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">{{ $pkl->semester_aktif }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-normal text-gray-500 dark:text-gray-400">{{ $pkl->nilai }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-normal text-gray-500 dark:text-gray-400">{{ $pkl->statusPKL }}</td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900 dark:text-white">
+                                                    <a href="{{ asset('storage/' . $pkl->scanPKL) }}" target="_blank" class="text-blue-500 hover:underline">Lihat PKL</a>
+                                                </td>
+                                                <td class="p-4 whitespace-nowrap">
+                                                    <span
+                                                        class="@if($pkl->status == 'verified') bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500
+                                                        @elseif ($pkl->status == 'pending') bg-orange-100 text-orange-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-orange-100 dark:bg-gray-700 dark:border-orange-300 dark:text-orange-300
+                                                        @else bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md border border-red-100 dark:border-red-400 dark:bg-gray-700 dark:text-red-400
+                                                        @endif">{{ $pkl->status }}
+                                                    </span>
+                                                </td>  
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <div class="flex justify-center">
+                                <p class="text-lg text-red-500 dark:text-red-400">
+                                    <i class="bi bi-exclamation-circle-fill"></i> Belum ada PKL yang diisi.
+                                </p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

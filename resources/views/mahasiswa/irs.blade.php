@@ -165,7 +165,7 @@
         <div class="flex flex-col mt-6">
             <div class="overflow-x-auto rounded-lg">
                 <div class="min-w-full align-middle">
-                <div class="overflow-hidden shadow sm:rounded-lg">
+                    <div class="overflow-hidden shadow sm:rounded-lg">
                         @if ($irsData->count() > 0)
                             <div id="irsDetail" class="ms-3">
                                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">

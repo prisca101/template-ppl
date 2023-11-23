@@ -9,17 +9,28 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class PKLController extends Controller
 {
     public function index(Request $request)
     {
-        $mahasiswa = Mahasiswa::select('nama', 'nim')->get();
+        $mahasiswa = Mahasiswa::leftJoin('users', 'mahasiswa.iduser', '=', 'users.id')
+            ->leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+            ->where('mahasiswa.iduser', Auth::user()->id)
+            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk')
+            ->first();
         $nim = $request->user()->mahasiswa->nim;
-        $pklData = PKL::where('nim',$nim)
-                ->select('semester_aktif','nilai','statusPKL','scanPKL','nim','status')->get();
+        $pklData = PKL::where('nim',$nim);
+
+        $semester = $request->input('semester_aktif');
+        if ($semester) {
+            $pklData->whereIn('semester_aktif', $semester);
+        }
+
+        $pklData = $pklData->select('nim', 'status', 'scanPKL', 'nilai', 'statusPKL', 'status', 'semester_aktif')->get();
         
-        return view('pkl', [
+        return view('mahasiswa.pkl', [
             'mahasiswa' => $mahasiswa,
             'pklData' => $pklData,
         ]);
@@ -28,7 +39,10 @@ class PKLController extends Controller
     public function create(Request $request)
     {
         $nim = $request->user()->mahasiswa->nim; // Use the logged-in user to get the nim
-        $mahasiswa = Mahasiswa::where('nim', $nim)->first();
+        $mahasiswa = Mahasiswa::leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+                            ->where('mahasiswa.nim', $nim)
+                            ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','dosen_wali.nama as dosen_nama', 'dosen_wali.nip')
+                            ->first();
         // Periksa apakah data PKL sudah ada untuk semester yang dipilih
         $existingPKL = PKL::where('nim', $nim)->first();
 
@@ -50,7 +64,7 @@ class PKLController extends Controller
             return redirect()->route('pkl.index')->with('error', 'Mahasiswa not found with the provided nim.');
         }
         
-        return view('pkl-create', compact('availableSemesters', 'mahasiswa'));
+        return view('mahasiswa.pkl-create', compact('availableSemesters', 'mahasiswa'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -58,7 +72,6 @@ class PKLController extends Controller
         
         $validated = $request->validate([
             'semester_aktif' => ['required', 'numeric'],
-            'statusPKL' => [Rule::in(['lulus', 'tidak lulus'])],
             'nilai' => [Rule::in(['A', 'B', 'C', 'D', 'E'])],
             'scanPKL' => ['required', 'file', 'mimes:pdf', 'max:10240'],
         ]);
@@ -89,7 +102,6 @@ class PKLController extends Controller
     private function update(Request $request, PKL $existingPKL): RedirectResponse
     {
         $validated = $request->validate([
-            'statusPKL' => [Rule::in(['lulus', 'tidak lulus'])],
             'nilai' => [Rule::in(['A', 'B', 'C', 'D', 'E'])],
             'scanPKL' => ['required', 'file', 'mimes:pdf', 'max:10240'],
         ]);

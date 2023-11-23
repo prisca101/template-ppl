@@ -31,10 +31,14 @@ class KHSController extends Controller
         // // Ambil NIM dari Mahasiswa yang saat ini sudah login
         $nim = $request->user()->mahasiswa->nim;
 
-        // // Ambil data KHS yang sesuai dengan NIM Mahasiswa yang sedang login
-        $khsData = KHS::where('nim', $nim)
-            ->select('nim', 'status', 'jumlah_sks', 'semester_aktif', 'scanKHS', 'semester_aktif', 'jumlah_sks_kumulatif', 'ip_semester', 'ip_kumulatif')
-            ->get();
+        $khsData = KHS::where('nim', $nim);
+
+        $semester = $request->input('semester_aktif');
+        if ($semester) {
+            $khsData->whereIn('semester_aktif', $semester);
+        }
+
+        $khsData = $khsData->select('nim', 'status', 'jumlah_sks', 'jumlah_sks_kumulatif','semester_aktif', 'ip_semester','ip_kumulatif','scanKHS')->get();
 
         return view('mahasiswa.khs', [
             'mahasiswa' => $mahasiswa,
@@ -58,7 +62,10 @@ class KHSController extends Controller
     public function create(Request $request)
     {
         $nim = $request->user()->mahasiswa->nim; // Use the logged-in user to get the nim
-        $mahasiswa = Mahasiswa::where('nim', $nim)->first();
+        $mahasiswa = Mahasiswa::leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+                            ->where('mahasiswa.nim', $nim)
+                            ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','dosen_wali.nama as dosen_nama', 'dosen_wali.nip')
+                            ->first();
 
         if ($mahasiswa) {
             // Get the active semesters for the given student

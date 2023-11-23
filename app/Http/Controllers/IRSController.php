@@ -26,8 +26,6 @@ class IRSController extends Controller
         $latestIRS = IRS::where('nim', $nim)->orderBy('created_at', 'desc')->first();
         $SemesterAktif = $latestIRS ? $latestIRS->semester_aktif : null;
 
-        $nim = $request->user()->mahasiswa->nim;
-
         $irsData = IRS::where('nim', $nim);
 
         $semester = $request->input('semester_aktif');

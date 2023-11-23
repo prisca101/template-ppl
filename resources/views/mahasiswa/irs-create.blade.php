@@ -133,7 +133,7 @@
                             SKS yang diambil</label>
                         <input type="number" name="jumlah_sks" id="jumlah_sks"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="24" required="" wfd-id="id2" max = "24">
+                            placeholder="24" required="" wfd-id="id2" max = "24" min="18">
                         @error('jumlah_sks')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                         @enderror

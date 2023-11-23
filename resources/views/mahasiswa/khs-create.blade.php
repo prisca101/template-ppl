@@ -5,7 +5,7 @@
         <nav class="flex mb-5" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
                 <li class="inline-flex items-center">
-                    <a href="/"
+                    <a href="/dashboardMahasiswa"
                         class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white">
                         <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -47,14 +47,13 @@
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
-                <img class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0"
-                    src="https://flowbite-admin-dashboard.vercel.app/images/users/bonnie-green-2x.png" alt="Jese picture">
+                <img src="{{ Auth::user()->getImageURL() }}" class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0" alt="foto-profil">
                 <div>
-                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Maya Hart</h3>
+                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{$mahasiswa->nama}}</h3>
                     <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                        <p>24060121100037</p>
+                        <p>{{$mahasiswa->nim}}</p>
                         <p>INFORMATIKA</p>
-                        <p>2021</p>
+                        <p>{{$mahasiswa->angkatan}}</p>
                     </div>
                 </div>
             </div>
@@ -98,7 +97,7 @@
                                     Dosen Wali
                                 </p>
                                 <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
-                                    Johny Depp
+                                    {{$mahasiswa->dosen_nama}}
                                 </p>
                             </div>
                         </div>
@@ -111,7 +110,7 @@
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <h3 class="mb-4 text-xl font-semibold dark:text-white">Tambah KHS</h3>
-            <form action="#">
+            <form action="{{route('khs.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="grid grid-cols-6 gap-6">
@@ -120,14 +119,10 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Semester Aktif</label>
                         <select id="semester_aktif" name="semester_aktif"
                             class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option>Semester 1</option>
-                            <option>Semester 2</option>
-                            <option>Semester 3</option>
-                            <option>Semester 4</option>
-                            <option>Semester 5</option>
-                            <option>Semester 6</option>
-                            <option>Semester 7</option>
-                            <option>Semester 8</option>
+                            <option selected disabled>Pilih semester</option>
+                            @foreach ($availableSemesters as $semester)
+                                <option value="{{ $semester }}">{{ $semester }}</option>
+                            @endforeach
                         </select>
                         @error('semester_aktif')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
@@ -138,8 +133,18 @@
                             SKS yang diambil</label>
                         <input type="number" name="jumlah_sks" id="jumlah_sks"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="24" required="" wfd-id="id2">
+                            placeholder="24" required="" wfd-id="id2" max="24" min="18">
                         @error('jumlah_sks')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
+                    </div>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="jumlah_sks_kumulatif" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah
+                            SKS Kumulatif</label>
+                        <input type="number" name="jumlah_sks_kumulatif" id="jumlah_sks_kumulatif"
+                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="24" required="" wfd-id="id2" min="18">
+                        @error('jumlah_sks_kumulatif')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                         @enderror
                     </div>
@@ -148,25 +153,28 @@
                             Semester</label>
                         <input type="text" name="ip_semester" id="ip_semester"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="3.85" required="" wfd-id="id3">
+                            placeholder="3.85" required="" wfd-id="id3" max="4.00">
                         @error('ip_semester')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                         @enderror
                     </div>
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="scanKhs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Scan
+                        <label for="ip_kumulatif" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IP
+                            Kumulatif</label>
+                        <input type="text" name="ip_kumulatif" id="ip_kumulatif"
+                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="3.85" required="" wfd-id="id3" max="4.00">
+                        @error('ip_kumulatif')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
+                    </div>
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="scanKHS" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Scan
                             KHS</label>
                         <div class="relative inline-block">
-                            <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                            <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="scanKHS" name="scanKHS" accept=".pdf"/>
                             <button type="button"
                                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                <svg class="w-4 h-4 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z">
-                                    </path>
-                                    <path d="M9 13h2v5a1 1 0 11-2 0v-5z"></path>
-                                </svg>
                                 Upload file
                             </button>
                         </div>
