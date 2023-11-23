@@ -213,6 +213,18 @@
                         <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
                             Category
                         </h6>
+                        @if ($irsData->count() > 0)
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownSemester"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Pilih Semester Aktif
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownSemester">
+                                @foreach ($irsData as $irs)
+                                    <li class="dropdown-item" data-semester="{{ $irs->semester_aktif }}">{{ $irs->semester_aktif }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                         <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
                             <li class="flex items-center">
                                 <input id="apple" type="checkbox" value=""
