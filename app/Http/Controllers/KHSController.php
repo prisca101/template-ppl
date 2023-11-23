@@ -3,26 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\Models\KHS;
+use App\Models\User;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class KHSController extends Controller
 {
     public function index(Request $request)
     {
-        $mahasiswa = Mahasiswa::select('nama', 'nim')->get();
+        $mahasiswa = Mahasiswa::leftJoin('users', 'mahasiswa.iduser', '=', 'users.id')
+                ->leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+                ->where('mahasiswa.iduser', Auth::user()->id)
+                ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'dosen_wali.nama as dosen_nama','mahasiswa.jalur_masuk')
+                ->first();
         $nim = $request->user()->mahasiswa->nim;
-        $khsData = KHS::where('nim',$nim)
-                ->select('nim', 'status', 'jumlah_sks', 'semester_aktif','jumlah_sks_kumulatif','ip_semester','ip_kumulatif','scanKHS')
-                ->get();
+        $user = User::where('id', Auth::user()->id)->select('foto')->first();
+        $latestKHS = KHS::where('nim',$nim)
+                    ->orderBy('created_at', 'desc')->first();
+        $IPKumulatif = $latestKHS ? $latestKHS->ip_kumulatif : null;
+        $JumlahSKSKumulatif = $latestKHS ? $latestKHS->jumlah_sks_kumulatif : null;
+
+
+        // // Ambil NIM dari Mahasiswa yang saat ini sudah login
+        $nim = $request->user()->mahasiswa->nim;
+
+        // // Ambil data KHS yang sesuai dengan NIM Mahasiswa yang sedang login
+        $khsData = KHS::where('nim', $nim)
+            ->select('nim', 'status', 'jumlah_sks', 'semester_aktif', 'scanKHS', 'semester_aktif', 'jumlah_sks_kumulatif', 'ip_semester', 'ip_kumulatif')
+            ->get();
 
         return view('mahasiswa.khs', [
             'mahasiswa' => $mahasiswa,
             'khsData' => $khsData,
+            'IPKumulatif' => $IPKumulatif,
+            'JumlahSKSKumulatif' => $JumlahSKSKumulatif
         ]);
+
+        // $mahasiswa = Mahasiswa::select('nama', 'nim')->get();
+        // $nim = $request->user()->mahasiswa->nim;
+        // $khsData = KHS::where('nim',$nim)
+        //         ->select('nim', 'status', 'jumlah_sks', 'semester_aktif','jumlah_sks_kumulatif','ip_semester','ip_kumulatif','scanKHS')
+        //         ->get();
+
+        // return view('mahasiswa.khs', [
+        //     'mahasiswa' => $mahasiswa,
+        //     'khsData' => $khsData,
+        // ]);
     }
 
     public function create(Request $request)
@@ -42,7 +72,7 @@ class KHSController extends Controller
             return redirect()->route('khs.index')->with('error', 'Mahasiswa not found with the provided nim.');
         }
         
-        return view('khs-create', compact('availableSemesters', 'mahasiswa'));
+        return view('mahasiswa.khs-create', compact('availableSemesters', 'mahasiswa'));
     }
 
     public function store(Request $request): RedirectResponse

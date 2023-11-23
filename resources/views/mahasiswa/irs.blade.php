@@ -220,5 +220,13 @@
             </div>
         </div>
     </div>
+    <script>
+        // Tampilkan tabel IRS jika data tersedia
+        var irsDetail = document.getElementById('irsDetail');
+        if ({{ $irsData->count() }} > 0) {
+            irsDetail.style.display = 'block';
+    }
+</script>
+    
 @endsection
                 
