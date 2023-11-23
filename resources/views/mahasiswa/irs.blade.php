@@ -220,57 +220,10 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownSemester">
                                 @foreach ($irsData as $irs)
-                                    <li class="dropdown-item" data-semester="{{ $irs->semester_aktif }}">{{ $irs->semester_aktif }}
-                                    </li>
+                                    <li class="dropdown-item" data-semester="{{ $irs->semester_aktif }}">{{ $irs->semester_aktif }}</li>
                                 @endforeach
                             </ul>
-                        </div>
-                        <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
-                            <li class="flex items-center">
-                                <input id="apple" type="checkbox" value=""
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-
-                                <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Semester 1
-                                </label>
-                            </li>
-
-                            <li class="flex items-center">
-                                <input id="fitbit" type="checkbox" value="" checked=""
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-
-                                <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Semester 2
-                                </label>
-                            </li>
-
-                            <li class="flex items-center">
-                                <input id="dell" type="checkbox" value=""
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-
-                                <label for="dell" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Semester 3
-                                </label>
-                            </li>
-
-                            <li class="flex items-center">
-                                <input id="asus" type="checkbox" value="" checked=""
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-
-                                <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Semester 4
-                                </label>
-                            </li>
-
-                            <li class="flex items-center">
-                                <input id="asus" type="checkbox" value="" checked=""
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-
-                                <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Semester 5
-                                </label>
-                            </li>
-                        </ul>
+                        @endif
                     </div>
                 </div>
             </div>
