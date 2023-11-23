@@ -16,41 +16,47 @@ class IRSController extends Controller
     public function index(Request $request)
     {
         $mahasiswa = Mahasiswa::leftJoin('users', 'mahasiswa.iduser', '=', 'users.id')
-                ->leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
-                ->where('mahasiswa.iduser', Auth::user()->id)
-                ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'dosen_wali.nama as dosen_nama','mahasiswa.jalur_masuk')
-                ->first();
+            ->leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+            ->where('mahasiswa.iduser', Auth::user()->id)
+            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk')
+            ->first();
+
         $nim = $request->user()->mahasiswa->nim;
         $user = User::where('id', Auth::user()->id)->select('foto')->first();
-        $latestIRS = IRS::where('nim',$nim)
-                    ->orderBy('created_at', 'desc')->first();
+        $latestIRS = IRS::where('nim', $nim)->orderBy('created_at', 'desc')->first();
         $SemesterAktif = $latestIRS ? $latestIRS->semester_aktif : null;
 
-        // Ambil NIM dari Mahasiswa yang saat ini sudah login
         $nim = $request->user()->mahasiswa->nim;
 
-        // Ambil data IRS yang sesuai dengan NIM Mahasiswa yang sedang login
-        $irsData = IRS::where('nim', $nim)
-            ->select('nim', 'status', 'jumlah_sks', 'semester_aktif', 'scanIRS')
-            ->get();
+        $irsData = IRS::where('nim', $nim);
+
+        $semester = $request->input('semester_aktif');
+        if ($semester) {
+            $irsData->whereIn('semester_aktif', $semester);
+        }
+
+        $irsData = $irsData->select('nim', 'status', 'jumlah_sks', 'semester_aktif', 'scanIRS')->get();
 
         return view('mahasiswa.irs', [
             'mahasiswa' => $mahasiswa,
             'irsData' => $irsData,
-            'SemesterAktif' =>$SemesterAktif
+            'SemesterAktif' => $SemesterAktif
         ]);
     }
 
     public function create(Request $request)
     {
         $nim = $request->user()->mahasiswa->nim; // Use the logged-in user to get the nim
-        $mahasiswa = Mahasiswa::where('nim', $nim)->first();
+        $mahasiswa = Mahasiswa::leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+                            ->where('mahasiswa.nim', $nim)
+                            ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','dosen_wali.nama as dosen_nama', 'dosen_wali.nip')
+                            ->first();
 
         if ($mahasiswa) {
             // Get the active semesters for the given student
             $latestIRS = IRS::where('nim', $nim)->orderBy('semester_aktif', 'desc')->first();
             $semesterAktifIRS = IRS::where('nim', $nim)->pluck('semester_aktif')->toArray();
-
+            //dd($latestIRS, $semesterAktifIRS);
             // Create an array of available semesters by diffing the full range and active semesters
             $availableSemesters = array_diff(range(1, 14), $semesterAktifIRS);
         } else {
@@ -63,13 +69,14 @@ class IRSController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        //dd($request);
         $nim = $request->user()->mahasiswa->nim;
         $latestIRS = IRS::where('nim', $nim)->orderBy('semester_aktif', 'desc')->first();
         
         if ($latestIRS) {
             $latestSemester = $latestIRS->semester_aktif;
             $inputSemester = $request->input('semester_aktif');
-    
+
             if ($inputSemester > $latestSemester + 1) {
                 // IRS diisi tidak sesuai urutan, berikan pesan kesalahan
                 return redirect()->route('irs.create')->with('error', 'Anda harus mengisi semester sebelumnya terlebih dahulu.');
@@ -108,6 +115,7 @@ class IRSController extends Controller
             return redirect()->route('irs.create')->with('error', 'Failed to add IRS');
         }
     }
+
 
     public function status (Request $request){
         return view('login');
