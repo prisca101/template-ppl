@@ -19,7 +19,7 @@ class KHSController extends Controller
                 ->select('nim', 'status', 'jumlah_sks', 'semester_aktif','jumlah_sks_kumulatif','ip_semester','ip_kumulatif','scanKHS')
                 ->get();
 
-        return view('khs', [
+        return view('mahasiswa.khs', [
             'mahasiswa' => $mahasiswa,
             'khsData' => $khsData,
         ]);

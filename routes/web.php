@@ -91,26 +91,26 @@ Route::controller(ListController::class)->middleware(['auth', 'only_departemen']
 
 Route::controller(IRSController::class)->middleware(['auth', 'only_mahasiswa','verified'])->group(function () {
     Route::get('/irs', 'index')->name('irs.index');
-    Route::get('/irs-create', 'create')->name('irs.create');
+    Route::get('/tambahIrs', 'create')->name('irs.create');
     Route::post('/irs-store', 'store')->name('irs.store');
     Route::post('/irs-updateStatus', 'status')->name('irs.updateStatus');
 });
 
 Route::controller(KHSController::class)->middleware(['auth', 'only_mahasiswa','verified'])->group(function () {
     Route::get('/khs', 'index')->name('khs.index');
-    Route::get('/khs-create', 'create')->name('khs.create');
+    Route::get('/tambahKhs', 'create')->name('khs.create');
     Route::post('/khs-store', 'store')->name('khs.store');
 });
 
 Route::controller(PKLController::class)->middleware(['auth', 'only_mahasiswa','verified'])->group(function () {
     Route::get('/pkl', 'index')->name('pkl.index');
-    Route::get('/pkl-create', 'create')->name('pkl.create');
+    Route::get('/tambahPkl', 'create')->name('pkl.create');
     Route::post('/pkl-store', 'store')->name('pkl.store');
 });
 
 Route::controller(SkripsiController::class)->middleware(['auth', 'only_mahasiswa','verified'])->group(function () {
     Route::get('/skripsi', 'index')->name('skripsi.index');
-    Route::get('/skripsi-create', 'create')->name('skripsi.create');
+    Route::get('/tambahSkripsi', 'create')->name('skripsi.create');
     Route::post('/skripsi-store', 'store')->name('skripsi.store');
 });
 
@@ -159,37 +159,37 @@ Route::post('signin', [AuthController::class, 'authenticate']);
 //     return view('mahasiswa.dashboard');
 // });
 
-Route::get('/irs', function () {
-    return view('mahasiswa.irs');
-});
+// Route::get('/irs', function () {
+//     return view('mahasiswa.irs');
+// });
 
-Route::get('/tambahIrs', function () {
-    return view('mahasiswa.irs-create');
-});
+// Route::get('/tambahIrs', function () {
+//     return view('mahasiswa.irs-create');
+// });
 
-Route::get('/khs', function () {
-    return view('mahasiswa.khs');
-});
+// Route::get('/khs', function () {
+//     return view('mahasiswa.khs');
+// });
 
-Route::get('/tambahKhs', function () {
-    return view('mahasiswa.khs-create');
-});
+// Route::get('/tambahKhs', function () {
+//     return view('mahasiswa.khs-create');
+// });
 
-Route::get('/pkl', function () {
-    return view('mahasiswa.pkl');
-});
+// Route::get('/pkl', function () {
+//     return view('mahasiswa.pkl');
+// });
 
-Route::get('/tambahPkl', function () {
-    return view('mahasiswa.pkl-create');
-});
+// Route::get('/tambahPkl', function () {
+//     return view('mahasiswa.pkl-create');
+// });
 
-Route::get('/skripsi', function () {
-    return view('mahasiswa.skripsi');
-});
+// Route::get('/skripsi', function () {
+//     return view('mahasiswa.skripsi');
+// });
 
-Route::get('/tambahSkripsi', function () {
-    return view('mahasiswa.skripsi-create');
-});
+// Route::get('/tambahSkripsi', function () {
+//     return view('mahasiswa.skripsi-create');
+// });
 
 Route::get('/profilMahasiswa', function () {
     return view('mahasiswa.profil');

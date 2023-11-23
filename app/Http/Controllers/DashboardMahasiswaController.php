@@ -28,11 +28,13 @@ class DashboardMahasiswaController extends Controller
 
             $latestPKL = PKL::where('nim',$nim)
                         ->orderBy('created_at', 'desc')->first();
+            $nilaiPKL = $latestPKL ? $latestPKL->nilai : null;
             $statusPKL = $latestPKL ? $latestPKL->statusPKL : null;
             $status = $latestPKL ? $latestPKL->status : null;
 
             $latestSkripsi = Skripsi::where('nim',$nim)
                         ->orderBy('created_at', 'desc')->first();
+            $nilaiSkripsi = $latestSkripsi ? $latestSkripsi->nilai : null;
             $statusSkripsi = $latestSkripsi ? $latestSkripsi->statusSkripsi : null;
             $statusSkr = $latestSkripsi ? $latestSkripsi->status : null;
 
@@ -51,7 +53,7 @@ class DashboardMahasiswaController extends Controller
             if ($mahasiswa) {
                 return view('mahasiswa.dashboard', ['statusIRS'=>$statusIRS,'JumlahSKS'=>$JumlahSKS,'SemesterAktif'=>$SemesterAktif,'statusKHS'=>$statusKHS,
                 'mahasiswa' => $mahasiswa, 'user' => $user,'status'=>$status,'statusSkr'=>$statusSkr, 
-                'statusPKL' => $statusPKL,'statusSkripsi'=>$statusSkripsi,'SKSKumulatif'=>$SKSKumulatif,'IPKumulatif'=>$IPKumulatif]);
+                'statusPKL' => $statusPKL,'statusSkripsi'=>$statusSkripsi,'SKSKumulatif'=>$SKSKumulatif,'IPKumulatif'=>$IPKumulatif,'nilaiPKL'=>$nilaiPKL,'nilaiSkripsi'=>$nilaiSkripsi]);
             }
         }
 

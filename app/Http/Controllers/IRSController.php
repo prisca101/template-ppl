@@ -3,17 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\IRS;
+use App\Models\User;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class IRSController extends Controller
 {
     public function index(Request $request)
     {
-        $mahasiswa = Mahasiswa::select('nama', 'nim')->get();
+        $mahasiswa = Mahasiswa::leftJoin('users', 'mahasiswa.iduser', '=', 'users.id')
+                ->leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+                ->where('mahasiswa.iduser', Auth::user()->id)
+                ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'dosen_wali.nama as dosen_nama','mahasiswa.jalur_masuk')
+                ->first();
+        $nim = $request->user()->mahasiswa->nim;
+        $user = User::where('id', Auth::user()->id)->select('foto')->first();
+        $latestIRS = IRS::where('nim',$nim)
+                    ->orderBy('created_at', 'desc')->first();
+        $SemesterAktif = $latestIRS ? $latestIRS->semester_aktif : null;
 
         // Ambil NIM dari Mahasiswa yang saat ini sudah login
         $nim = $request->user()->mahasiswa->nim;
@@ -23,9 +34,10 @@ class IRSController extends Controller
             ->select('nim', 'status', 'jumlah_sks', 'semester_aktif', 'scanIRS')
             ->get();
 
-        return view('irs', [
+        return view('mahasiswa.irs', [
             'mahasiswa' => $mahasiswa,
             'irsData' => $irsData,
+            'SemesterAktif' =>$SemesterAktif
         ]);
     }
 
@@ -46,7 +58,7 @@ class IRSController extends Controller
             return redirect()->route('irs.index')->with('error', 'Mahasiswa not found with the provided nim.');
         }
         
-        return view('irs-create', compact('availableSemesters', 'mahasiswa'));
+        return view('mahasiswa.irs-create', compact('availableSemesters', 'mahasiswa'));
     }
 
     public function store(Request $request): RedirectResponse

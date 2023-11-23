@@ -66,6 +66,26 @@
                             </div>
                         </div>
                     </li>
+                    <li class="pt-4 pb-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-shrink-0">
+                                <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                                    Semester Aktif
+                                </p>
+                                <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
+                                    {{$SemesterAktif}}
+                                </p>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -78,10 +98,10 @@
         class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="w-full">
             <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">IRS</h3>
-            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">24 SKS</span>
+            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{$JumlahSKS}}</span>
             <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                <span class="flex items-center mr-3 text-sm text-green-500 dark:text-green-400"><i class="fa-solid fa-check mr-1"></i> Aktif </span>
-                pending
+                <span class="flex items-center mr-3 text-sm"></span>
+                    {{$statusIRS}}
             </p>
         </div>
     </div>
@@ -89,10 +109,10 @@
         class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="w-full">
             <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">KHS</h3>
-            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">100 SKS</span>
+            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{$SKSKumulatif}}</span>
             <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                <span class="flex items-center mr-3 text-sm text-red-500 dark:text-red-400"><i class="fas fa-arrow-down mr-1"></i> IPK 3.25 </span>
-                pending
+                <span class="flex items-center mr-3 text-sm text-blue-500 dark:text-blue-400">IPK {{$IPKumulatif}} </span>
+                {{$statusKHS}}
             </p>
         </div>
     </div>
@@ -100,21 +120,34 @@
         class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="w-full">
             <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">PKL</h3>
-            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">A</span>
+            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{$nilaiPKL}}</span>
             <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                <span class="flex items-center mr-3 text-sm text-green-500 dark:text-green-400"><i class="fa-solid fa-check mr-1"></i> Lulus </span>
-                approved
+                @if($statusPKL === 'verified')
+                    <span class="flex items-center mr-3 text-sm text-green-500 dark:text-green-400">
+                        <i class="fa-solid fa-check mr-1"></i> {{$statusPKL}}
+                    </span>
+                @else 
+                    <span class="flex items-center mr-3 text-sm">{{$statusPKL}}</span>
+                @endif
+                {{$status}}
             </p>
         </div>
     </div>
+
     <div
         class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="w-full">
             <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">Skripsi</h3>
-            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">—</span>
+            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{$nilaiSkripsi}}</span>
             <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                {{-- <span class="flex items-center mr-3 text-sm text-green-500 dark:text-green-400"> — </span> --}}
-                —
+                @if($statusSkr === 'verified')
+                    <span class="flex items-center mr-3 text-sm text-green-500 dark:text-green-400">
+                        <i class="fa-solid fa-check mr-1"></i> {{$statusSkripsi}}
+                    </span>
+                @else 
+                    <span class="flex items-center mr-3 text-sm">{{$statusSkripsi}}</span>
+                @endif
+                {{$statusSkr}}
             </p>
         </div>
     </div>
