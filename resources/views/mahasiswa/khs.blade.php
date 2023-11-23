@@ -249,7 +249,7 @@
                         @else
                             <div class="flex justify-center">
                                 <p class="text-lg text-red-500 dark:text-red-400">
-                                    <i class="bi bi-exclamation-circle-fill"></i> Belum ada IRS yang diisi.
+                                    <i class="bi bi-exclamation-circle-fill"></i> Belum ada KHS yang diisi.
                                 </p>
                             </div>
                         @endif
