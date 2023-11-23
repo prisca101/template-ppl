@@ -100,48 +100,7 @@
 
 @section('content2')
     <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-        <!-- Card header -->
-        <div class="items-center justify-between lg:flex">
-            <div class="mb-4 lg:mb-0">
-                <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Daftar PKL</h3>
-            </div>
-            <div class="items-center sm:flex">
-                <div class="flex items-center">
-                    <button id="dropdownDefault" data-dropdown-toggle="dropdown"
-                        class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                        type="button">
-                        Filter by semester aktif
-                        <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    <!-- Dropdown menu -->
-                    <div id="dropdown" class="z-10 w-56 p-3 bg-white rounded-lg shadow dark:bg-gray-700 hidden"
-                        style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(636px, 3253.33px, 0px);"
-                        data-popper-placement="bottom">
-                        <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-                            Category
-                        </h6>
-                        <form method="GET" action="{{ route('pkl.index') }}">
-                            @csrf <!-- Tambahkan CSRF token untuk keamanan -->
-                            @if ($pklData->count() > 0)
-                                <ul class="dropdown-menu" aria-labelledby="dropdownDefault">
-                                    @foreach ($pklData as $pkl)
-                                        <li>
-                                            <input type="checkbox" id="semester_{{ $pkl->semester_aktif }}" name="semester_aktif[]" value="{{ $pkl->semester_aktif }}"
-                                                {{ in_array($pkl->semester_aktif, (array)request()->input('semester_aktif')) ? 'checked' : '' }}>
-                                            <label for="semester_{{ $pkl->semester_aktif }}">{{ $pkl->semester_aktif }}</label>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                                <button type="submit" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Filter</button>
-                            @endif
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <!-- Table -->
         <div class="flex flex-col mt-6">
             <div class="overflow-x-auto rounded-lg">
@@ -159,7 +118,7 @@
                                             <th scope="col"
                                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Status PKL</th>
                                             <th scope="col"
-                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Scan IRS</th>
+                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Scan PKL</th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Status</th>
                                         </tr>

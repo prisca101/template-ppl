@@ -9,17 +9,26 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class SkripsiController extends Controller
 {
     public function index(Request $request)
     {
-        $mahasiswa = Mahasiswa::select('nama', 'nim')->get();
+        $mahasiswa = Mahasiswa::leftJoin('users', 'mahasiswa.iduser', '=', 'users.id')
+            ->leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+            ->where('mahasiswa.iduser', Auth::user()->id)
+            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk')
+            ->first();
         $nim = $request->user()->mahasiswa->nim;
-        $skripsiData = Skripsi::where('nim',$nim)
-                    ->select('semester_aktif','nilai','lama_studi','tanggal_sidang','statusSkripsi','nim','status','scanSkripsi')->get();
+        $skripsiData = Skripsi::where('nim',$nim);
+        $semester = $request->input('semester_aktif');
+        if ($semester) {
+            $skripsiData->whereIn('semester_aktif', $semester);
+        }
 
-        return view('skripsi', [
+        $skripsiData = $skripsiData->select('nim', 'status', 'scanSkripsi', 'nilai', 'statusSkripsi', 'status', 'semester_aktif','lama_studi','tanggal_sidang')->get();
+        return view('mahasiswa.skripsi', [
             'mahasiswa' => $mahasiswa,
             'skripsiData' => $skripsiData,
         ]);
@@ -28,7 +37,10 @@ class SkripsiController extends Controller
     public function create(Request $request)
     {
         $nim = $request->user()->mahasiswa->nim; // Use the logged-in user to get the nim
-        $mahasiswa = Mahasiswa::where('nim', $nim)->first();
+        $mahasiswa = Mahasiswa::leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+                            ->where('mahasiswa.nim', $nim)
+                            ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','dosen_wali.nama as dosen_nama', 'dosen_wali.nip')
+                            ->first();
         // Periksa apakah data PKL sudah ada untuk semester yang dipilih
         $existingSkripsi = Skripsi::where('nim', $nim)->first();
 
@@ -50,14 +62,13 @@ class SkripsiController extends Controller
             return redirect()->route('skripsi.index')->with('error', 'Mahasiswa not found with the provided nim.');
         }
         
-        return view('skripsi-create', compact('availableSemesters', 'mahasiswa'));
+        return view('mahasiswa.skripsi-create', compact('availableSemesters', 'mahasiswa'));
     }
 
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'semester_aktif' => ['required', 'numeric'], // Correct the validation rule syntax
-            'statusSkripsi' => [Rule::in(['lulus', 'tidak lulus'])],
             'nilai'=>[Rule::in(['A', 'B','C','D','E'])],
             'lama_studi'=>[Rule::in(['3', '4','5','6','7'])],
             'tanggal_sidang'=>['required'],
@@ -71,20 +82,16 @@ class SkripsiController extends Controller
         }
 
         $skripsi = new Skripsi();
-        $skripsi->semester_aktif = $request->input('semester_aktif');
+        $skripsi->semester_aktif = $validated['semester_aktif'];
         $skripsi->statusSkripsi = $request->input('statusSkripsi');
-        $skripsi->nilai = $request->input('nilai');
-        $skripsi->lama_studi = $request->input('lama_studi');
-        $skripsi->tanggal_sidang = $request->input('tanggal_sidang');
+        $skripsi->nilai = $validated['nilai'];
+        $skripsi->lama_studi = $validated['lama_studi'];
+        $skripsi->tanggal_sidang = $validated['tanggal_sidang'];
         $skripsi->status = 'pending';
         $skripsi->scanSkripsi = $PDFPath; // Assign the PDF path here
         $skripsi->nim = $request->user()->mahasiswa->nim;
         $skripsi->nip = $request->user()->mahasiswa->nip;
         $saved = $skripsi->save();
-
-        $cekSkripsiValue = 1; // Nilai yang akan diupdate ke 'cekPKL'
-
-
 
         if ($saved) {
             return redirect()->route('skripsi.index')->with('success', 'Skripsi added successfully');
@@ -96,8 +103,9 @@ class SkripsiController extends Controller
     private function update(Request $request, Skripsi $existingSkripsi): RedirectResponse
     {
         $validated = $request->validate([
-            'statusSkripsi' => [Rule::in(['lulus', 'tidak lulus'])],
             'nilai' => [Rule::in(['A', 'B', 'C', 'D', 'E'])],
+            'lama_studi'=>[Rule::in(['3', '4','5','6','7'])],
+            'tanggal_sidang'=>['required'],
             'scanSkripsi' => ['required', 'file', 'mimes:pdf', 'max:10240'],
         ]);
 
@@ -108,7 +116,9 @@ class SkripsiController extends Controller
         }
 
         $existingSkripsi->statusSkripsi = $request->input('statusSkripsi');
-        $existingSkripsi->nilai = $request->input('nilai');
+        $existingSkripsi->nilai = $validated['nilai'];
+        $existingSkripsi->lama_studi = $validated['lama_studi'];
+        $existingSkripsi->tanggal_sidang = $validated['tanggal_sidang'];
         $existingSkripsi->status = 'pending';
         $existingSkripsi->scanSkripsi = $PDFPath; // Assign the PDF path here
         $saved = $existingSkripsi->save();

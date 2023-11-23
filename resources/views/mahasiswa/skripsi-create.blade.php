@@ -5,7 +5,7 @@
         <nav class="flex mb-5" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
                 <li class="inline-flex items-center">
-                    <a href="/"
+                    <a href="/dashboardMahasiswa"
                         class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white">
                         <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -48,14 +48,13 @@
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
-                <img class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0"
-                    src="https://flowbite-admin-dashboard.vercel.app/images/users/bonnie-green-2x.png" alt="Jese picture">
+            <img src="{{ Auth::user()->getImageURL() }}" class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0" alt="foto-profil">
                 <div>
-                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Maya Hart</h3>
+                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{$mahasiswa->nama}}</h3>
                     <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                        <p>24060121100037</p>
+                        <p>{{$mahasiswa->nim}}</p>
                         <p>INFORMATIKA</p>
-                        <p>2021</p>
+                        <p>{{$mahasiswa->angkatan}}</p>
                     </div>
                 </div>
             </div>
@@ -99,7 +98,7 @@
                                     Dosen Wali
                                 </p>
                                 <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
-                                    Johny Depp
+                                    {{$mahasiswa->dosen_nama}}
                                 </p>
                             </div>
                         </div>
@@ -112,7 +111,7 @@
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <h3 class="mb-4 text-xl font-semibold dark:text-white">Tambah Skripsi</h3>
-            <form action="#">
+            <form action="{{ route('skripsi.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
 
@@ -122,9 +121,10 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Semester Aktif</label>
                         <select id="semester_aktif" name="semester_aktif"
                             class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option>Semester 6</option>
-                            <option>Semester 7</option>
-                            <option>Semester 8</option>
+                            <option selected disabled>Pilih semester</option>
+                            @foreach ($availableSemesters as $semester)
+                                <option value="{{ $semester }}">{{ $semester }}</option>
+                            @endforeach
                         </select>
                         @error('semester_aktif')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
@@ -133,9 +133,14 @@
                     <div class="col-span-6 sm:col-span-3">
                         <label for="nilai"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nilai</label>
-                        <input type="number" name="nilai" id="nilai"
-                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="24" required="" wfd-id="id2">
+                            <select id="nilai" name="nilai" class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option selected disabled>Pilih nilai</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                            <option value="E">E</option>
+                        </select>
                         @error('nilai')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                         @enderror
@@ -143,15 +148,21 @@
                     <div class="col-span-6 sm:col-span-3">
                         <label for="lama_studi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lama
                             studi</label>
-                        <input type="number" name="lama_studi" id="lama_studi"
-                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="24" required="" wfd-id="id3">
+                        <select id="lama_studi" name="lama_studi" class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option selected disabled>Pilih lama studi</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
                         @error('lama_studi')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                         @enderror
                     </div>
+
                     <div class="col-span-6 sm:col-span-3">
-                        <label for="tgl_sidang"
+                        <label for="tanggal_sidang"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal sidang</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 ml-2 flex items-center ps-3 pointer-events-none">
@@ -161,9 +172,9 @@
                                         d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                                 </svg>
                             </div>
-                            <input datepicker datepicker-autohide type="text" name="tgl_sidang" id="tgl_sidang"
+                            <input type="text" name="tanggal_sidang" id="tanggal_sidang"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 datepicker-input"
-                                placeholder="Select date">
+                                placeholder="Select date" value="{{ old('tanggal_sidang', date('Y-m-d')) }}">
                         </div>
                         @error('tanggal_sidang')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
@@ -171,19 +182,21 @@
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
+                        <label for="statusSkripsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status Skripsi</label>
+                        <input type="hidden" name="statusSkripsi" value="Lulus" > <!-- Simpan nilai "Lulus" sebagai hidden input -->
+                        <input type="text" id="statusSkripsi" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="24" value="Lulus" disabled>
+                        @error('statusSkripsi')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
                         <label for="scanSkripsi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Scan
-                            PKL</label>
+                            Skripsi</label>
                         <div class="relative inline-block">
-                            <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                        <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="scanSkripsi" name="scanSkripsi" accept=".pdf">
                             <button type="button"
                                 class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                <svg class="w-4 h-4 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z">
-                                    </path>
-                                    <path d="M9 13h2v5a1 1 0 11-2 0v-5z"></path>
-                                </svg>
                                 Upload file
                             </button>
                         </div>

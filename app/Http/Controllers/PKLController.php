@@ -83,9 +83,9 @@ class PKLController extends Controller
         }
 
         $pkl = new PKL();
-        $pkl->semester_aktif = $request->input('semester_aktif');
+        $pkl->semester_aktif = $validated['semester_aktif'];
         $pkl->statusPKL = $request->input('statusPKL');
-        $pkl->nilai = $request->input('nilai');
+        $pkl->nilai = $validated['nilai'];
         $pkl->status = 'pending';
         $pkl->scanPKL = $PDFPath; // Assign the PDF path here
         $pkl->nim = $request->user()->mahasiswa->nim;
@@ -113,7 +113,7 @@ class PKLController extends Controller
         }
 
         $existingPKL->statusPKL = $request->input('statusPKL');
-        $existingPKL->nilai = $request->input('nilai');
+        $existingPKL->nilai = $validated['nilai'];
         $existingPKL->status = 'pending';
         $existingPKL->scanPKL = $PDFPath; // Assign the PDF path here
         $saved = $existingPKL->save();
