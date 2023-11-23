@@ -115,9 +115,9 @@ Route::controller(SkripsiController::class)->middleware(['auth', 'only_mahasiswa
 });
 
 Route::controller(MahasiswaController::class)->middleware(['auth', 'only_mahasiswa'])->group(function () {
-    Route::get('/profilMahasiswa', 'edit')->name('mahasiswa.edit');
-    Route::get('/profilMahasiswa-edit', 'showEdit')->name('mahasiswa.showEdit');
-    Route::post('/profilMahasiswa-edit', 'update')->name('mahasiswa.update');
+    Route::get('/profilMahasiswa','edit')->name('mhs.edit');
+    Route::get('/profilMahasiswa-edit','showEdit')->name('mhs.showEdit');
+    Route::post('/profilMahasiswa-edit', 'update')->name('mhs.update');
     Route::get('/editprofilMahasiswa', 'editProfil')->name('mahasiswa.editProfil')->middleware('verified');
     Route::get('/editprofilMahasiswa-show', 'showProfil')->name('mahasiswa.showProfil')->middleware('verified');
     Route::post('/editprofilMahasiswa-show', 'updateProfil')->name('mahasiswa.updateProfil')->middleware('verified');
@@ -191,13 +191,13 @@ Route::post('signin', [AuthController::class, 'authenticate']);
 //     return view('mahasiswa.skripsi-create');
 // });
 
-Route::get('/profilMahasiswa', function () {
-    return view('mahasiswa.profil');
-});
+// Route::get('/profilMahasiswa', function () {
+//     return view('mahasiswa.profil');
+// });
 
-Route::get('/editprofilMahasiswa', function () {
-    return view('mahasiswa.profil-edit');
-});
+// Route::get('/editprofilMahasiswa', function () {
+//     return view('mahasiswa.profil-edit');
+// });
 
 
 

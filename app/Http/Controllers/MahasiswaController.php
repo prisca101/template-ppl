@@ -20,19 +20,18 @@ class MahasiswaController extends Controller
             ->where('nim', $nim)
             ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'mahasiswa.nip', 'mahasiswa.alamat', 'mahasiswa.kabkota', 'mahasiswa.provinsi', 'mahasiswa.noHandphone', 'users.id', 'users.username', 'users.password','users.foto')
             ->first();
-        return view('profilMahasiswa', ['user' => $user, 'mahasiswas' => $mahasiswas]);
+        return view('mahasiswa.profil', ['user' => $user, 'mahasiswas' => $mahasiswas]);
     }
 
     public function showEdit(Request $request): View
     {
         $user = $request->user();
         $nim = $request->user()->mahasiswa->nim;
-        $kabupatenKotaOptions = ["Kabupaten Demak", "Kabupaten Kudus", "Kabupaten Boyolali", "Kota Solo","Kota Bandung", "Kabupaten Ciamis", "Kabupaten Cianjur", "Kabupaten Cirebon"];
         $mahasiswas = Mahasiswa::join('users', 'mahasiswa.iduser', '=', 'users.id')
             ->where('nim', $nim)
             ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'mahasiswa.nip', 'mahasiswa.alamat', 'mahasiswa.kabkota', 'mahasiswa.provinsi', 'mahasiswa.noHandphone', 'users.id', 'users.username', 'users.password','users.foto')
             ->first();
-        return view('profilMahasiswa-edit', ['user' => $user, 'mahasiswas' => $mahasiswas,'kabupatenKotaOptions'=>$kabupatenKotaOptions]);
+        return view('mahasiswa.profil-edit', ['user' => $user, 'mahasiswas' => $mahasiswas]);
     }
 
     public function update(Request $request)
@@ -40,10 +39,10 @@ class MahasiswaController extends Controller
         $user = $request->user();
 
         $validated = $request->validate([
-            'alamat' => 'required|string',
-            'kabkota' => 'required|string',
-            'provinsi' => 'required|string',
-            'noHandphone' => 'required',
+            'alamat' => 'nullable|string',
+            'kabkota' => 'nullable|string',
+            'provinsi' => 'nullable|string',
+            'noHandphone' => 'nullable|string',
             'username' => 'nullable|string',
             'current_password' => 'nullable|string',
             'new_password' => 'nullable|string|min:8',
@@ -65,7 +64,7 @@ class MahasiswaController extends Controller
         if ($validated['new_password'] !== null) {
             if (!Hash::check($validated['current_password'], $user->password)) {
                 return redirect()
-                    ->route('mahasiswa.showEdit')
+                    ->route('mhs.showEdit')
                     ->with('error', 'Password lama tidak cocok.');
             }
         }
@@ -95,12 +94,12 @@ class MahasiswaController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('dashboardMahasiswa')
+                ->route('mhs.edit')
                 ->with('success', 'Profil berhasil diperbarui');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()
-                ->route('mahasiswa.showEdit')
+                ->route('mhs.showEdit')
                 ->with('error', 'Gagal memperbarui profil.');
         }
     }
