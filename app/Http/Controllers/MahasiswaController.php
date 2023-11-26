@@ -49,50 +49,53 @@ class MahasiswaController extends Controller
             'new_confirm_password' => 'nullable|same:new_password',
             'foto' => 'max:10240|image|mimes:jpeg,png,jpg',
         ]);
-
+        //dd($validated);
 
         if ($request->has('foto')) {
             $fotoPath = $request->file('foto')->store('profile', 'public');
             $validated['foto'] = $fotoPath;
-
-            
+        
             $user->update([
                 'foto' => $validated['foto'],
             ]);
         }
-
-        if ($validated['new_password'] !== null) {
+        
+        if (isset($validated['new_password']) && $validated['new_password'] !== null) {
             if (!Hash::check($validated['current_password'], $user->password)) {
-                return redirect()
-                    ->route('mhs.showEdit')
-                    ->with('error', 'Password lama tidak cocok.');
+                return redirect()->route('operator.showEdit')->with('error', 'Password lama tidak cocok.');
             }
         }
-
+        //dd($validated);
         DB::beginTransaction();
-
+        
         try {
             $user->update([
                 'username' => $validated['username'],
                 'cekProfil' => 1,
             ]);
-
-            Mahasiswa::where('iduser', $user->id)->update([
-                'username' => $validated['username'],
-                'alamat' => $validated['alamat'],
-                'kabkota' => $validated['kabkota'],
-                'provinsi' => $validated['provinsi'],
-                'noHandphone' => $validated['noHandphone'],
-            ]);
-
-            if ($validated['new_password'] !== null) {
+        
+            $mahasiswa = Mahasiswa::where('iduser', $user->id)->first();
+        
+            if ($mahasiswa) {
+                $mahasiswa->update([
+                    'username' => $validated['username'],
+                    'alamat' => $validated['alamat'],
+                    'kabkota' => $validated['kabkota'],
+                    'provinsi' => $validated['provinsi'],
+                    'noHandphone' => $validated['noHandphone'],
+                ]);
+            } else {
+                // Handle if Mahasiswa is not found for the user
+            }
+        
+            if (!empty($validated['new_password'])) {
                 $user->update([
                     'password' => Hash::make($validated['new_password']),
                 ]);
             }
-
+        
             DB::commit();
-
+        
             return redirect()
                 ->route('mhs.edit')
                 ->with('success', 'Profil berhasil diperbarui');

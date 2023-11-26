@@ -84,26 +84,20 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
                         <input type="text" name="alamat" id="alamat"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="e.g. Gading Blok C" required="" wfd-id="id3" disabled>
+                            value="{{ $mahasiswas->alamat }}" wfd-id="id3" disabled>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <label for="provinsi"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Provinsi</label>
                             <select id="provinsi" name="provinsi" class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" disabled>
-                                <option selected disabled>Pilih provinsi</option>
-                                <option>Jawa Tengah</option>
-                                <option>Jawa Barat</option>
-                                <option>Jawa Timur</option>
+                                <option value="{{ $mahasiswas->provinsi }}" selected disabled>{{ $mahasiswas->provinsi }}</option>
                             </select>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
                         <label for="kabkota"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kabupaten/Kota</label>
                             <select id="kabkota" name="kabkota" class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" disabled>
-                                <option selected disabled>Select kab/kota</option>
-                                <option>Semarang</option>
-                                <option>Surabaya</option>
-                                <option>Surakarta</option>
+                                <option value="{{ $mahasiswas->kabkota }}" selected disabled>{{ $mahasiswas->kabkota }}</option>
                             </select>
                     </div>
                     <div class="col-span-6 sm:col-span-3">
@@ -111,7 +105,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
                         <input type="text" name="noHandphone" id="noHandphone"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="e.g. +(62)3456 789" required="" wfd-id="id7" disabled>
+                            value="{{ $mahasiswas->noHandphone }}" required="" wfd-id="id7" disabled>
                     </div>
                     <div class="col-span-6 sm:col-full">
                         <button
