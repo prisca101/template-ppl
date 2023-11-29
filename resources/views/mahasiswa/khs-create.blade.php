@@ -171,13 +171,10 @@
                     <div class="col-span-6 sm:col-span-3">
                         <label for="scanKHS" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Scan
                             KHS</label>
-                        <div class="relative inline-block">
-                            <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="scanKHS" name="scanKHS" accept=".pdf"/>
-                            <button type="button"
-                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                Upload file
-                            </button>
-                        </div>
+                            <input type="file"
+                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            id="scanKHS" name="scanKHS" accept=".pdf">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PDF (MAX. 5MB)</p>
                         @error('scanKHS')
                             <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                         @enderror
