@@ -407,6 +407,7 @@
 
     <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
     <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
 
     <svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1"
