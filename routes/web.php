@@ -118,6 +118,9 @@ Route::controller(MahasiswaController::class)->middleware(['auth', 'only_mahasis
     Route::get('/profilMahasiswa','edit')->name('mhs.edit');
     Route::get('/profilMahasiswa-edit','showEdit')->name('mhs.showEdit');
     Route::post('/profilMahasiswa-edit', 'update')->name('mhs.update');
+    Route::get('/profilMahasiswa2','edit2')->name('mhs.edit2');
+    Route::get('/profilMahasiswa-edit2','showEdit2')->name('mhs.showEdit2');
+    Route::post('/profilMahasiswa-edit2', 'update2')->name('mhs.update2');
     Route::get('/editprofilMahasiswa', 'editProfil')->name('mahasiswa.editProfil')->middleware('verified');
     Route::get('/editprofilMahasiswa-show', 'showProfil')->name('mahasiswa.showProfil')->middleware('verified');
     Route::post('/editprofilMahasiswa-show', 'updateProfil')->name('mahasiswa.updateProfil')->middleware('verified');
