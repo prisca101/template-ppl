@@ -193,69 +193,28 @@
             <div class="overflow-hidden shadow sm:rounded-lg border">
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                     <thead class="bg-gray-50 dark:bg-gray-700 border-b">
-                        <tr>
+                    <tr>
+                        @foreach($angkatan as $tahun)
                             <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                2018
+                                {{ $tahun }}
                             </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                2019
-                            </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                2020
-                            </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                2021
-                            </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                2022
-                            </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                2023
-                            </th>
-                        </tr>
+                        @endforeach
+                    </tr>
                     </thead>
                 <tbody class="bg-white dark:bg-gray-800">
                 
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                     <thead class="bg-gray-50 dark:bg-gray-700">
-                        <tr>
+                    <tr>
+                        @foreach($angkatan as $tahun)
                             <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Sudah
-                            </th>
-                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Belum
+                                Sudah - {{ $tahun }}
                             </th>
                             <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Sudah
+                                Belum - {{ $tahun }}
                             </th>
-                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Belum
-                            </th>
-                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Sudah
-                            </th>
-                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Belum
-                            </th>
-                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Sudah
-                            </th>
-                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Belum
-                            </th>
-                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Sudah
-                            </th>
-                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Belum
-                            </th>
-                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Sudah
-                            </th>
-                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Belum
-                            </th>
-                        </tr>
+                        @endforeach
+                    </tr>
                     </thead>
                 <tbody class="bg-white dark:bg-gray-800">
             
@@ -336,26 +295,13 @@
                 <div class="overflow-hidden shadow sm:rounded-lg border">
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                         <thead class="bg-gray-50 dark:bg-gray-700 border-b">
-                            <tr>
+                        <tr>
+                            @foreach($angkatan as $tahun)
                                 <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    2018
+                                    {{ $tahun }}
                                 </th>
-                                <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    2019
-                                </th>
-                                <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    2020
-                                </th>
-                                <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    2021
-                                </th>
-                                <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    2022
-                                </th>
-                                <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    2023
-                                </th>
-                            </tr>
+                            @endforeach
+                        </tr>
                         </thead>
                     <tbody class="bg-white dark:bg-gray-800">
                     
