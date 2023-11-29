@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="mb-4 col-span-full xl:mb-2">
-        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Daftar Lulus PKL Mahasiswa Informatika</h1>
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Daftar Belum Lulus PKL Mahasiswa Informatika</h1>
         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Fakultas Sains dan Matematika</h1>
     </div>
 
@@ -58,11 +58,11 @@
     <!-- Card header -->
     <div class="items-center justify-between lg:flex">
         <div class="mb-4 lg:mb-0">
-            <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Daftar Mahasiswa PKL</h3>
+            <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Daftar Mahasiswa Skripsi</h3>
         </div>
         <div class="items-center sm:flex">
             @foreach ($mahasiswas as $mahasiswa)
-                <a href="{{ route('PreviewListPKLLulus', ['angkatan' => $mahasiswa->angkatan, 'status' => 'verified']) }}" target="_blank" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700 mr-5">
+                <a href="{{ route('PreviewListPKLBelum', ['angkatan' => $mahasiswa->angkatan, 'status' => 'pending']) }}" target="_blank" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700 mr-5">
                     <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path>
                     </svg>
@@ -160,10 +160,6 @@
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                     Angkatan
                                 </th>
-                                <th scope="col"
-                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Nilai
-                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white dark:bg-gray-800">
@@ -183,9 +179,6 @@
                                 </td>
                                 <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                                     {{$mahasiswa->angkatan}}
-                                </td>
-                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                    {{$mahasiswa->nilai}}
                                 </td>
                             </tr>
                             @endforeach

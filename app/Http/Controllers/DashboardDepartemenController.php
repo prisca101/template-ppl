@@ -28,6 +28,8 @@ class DashboardDepartemenController extends Controller
                 $angkatan[] = $tahunSekarang - $i;
             }
 
+            $mahasiswa = Mahasiswa::all();
+
             $mahasiswas = DB::table('mahasiswa as m')
                 ->rightJoin('pkl as p', 'm.nim', '=', 'p.nim')
                 ->rightJoin(DB::raw('(SELECT DISTINCT angkatan FROM mahasiswa) as a'), function ($join) {
@@ -51,7 +53,7 @@ class DashboardDepartemenController extends Controller
 
             // $user = User::where('id', Auth::user()->id)->select('foto')->first();
             if ($departemen) {
-                return view('departemen.dashboard', ['departemen' => $departemen, 'mahasiswas' => $mahasiswas, 'mahasiswasSkripsi' => $mahasiswasSkripsi, 'angkatan'=>$angkatan]);
+                return view('departemen.dashboard', ['departemen' => $departemen, 'mahasiswas' => $mahasiswas, 'mahasiswasSkripsi' => $mahasiswasSkripsi, 'angkatan'=>$angkatan, 'mahasiswa'=>$mahasiswa]);
             }
         }
         return view('departemen.dashboard');

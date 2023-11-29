@@ -220,10 +220,10 @@
                         <tr>
                             @foreach($mahasiswas as $dataAngkatan)
                                 <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                    <a href="" class="hover:underline">{{ $dataAngkatan->pkl_lulus_count }}</a>
+                                    <a href="{{ route('list.index', ['angkatan' => $dataAngkatan->angkatan, 'status' => 'verified']) }}" class="hover:underline">{{ $dataAngkatan->pkl_lulus_count ?? 'Data tidak tersedia' }}</a>
                                 </td>
                                 <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                    <a href="" class="hover:underline">{{ $dataAngkatan->pkl_tidak_lulus_count}}</a>
+                                <a href="{{ route('list.index2', ['angkatan' => $dataAngkatan->angkatan, 'status' => 'pending']) }}" class="hover:underline">{{ $dataAngkatan->pkl_tidak_lulus_count ?? 'Data tidak tersedia' }}</a>
                                 </td>
                             @endforeach
                         </tr>
@@ -294,10 +294,10 @@
                     <tr>
                         @foreach($mahasiswasSkripsi as $dataAngkatan)
                             <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                <a href="" class="hover:underline">{{ $dataAngkatan->lulus_count }}</a>
+                                <a href="{{ route('list.skripsi', ['angkatan' => $dataAngkatan->angkatan, 'status' => 'verified']) }}" class="hover:underline">{{ $dataAngkatan->lulus_count ?? 'Data tidak tersedia' }}</a>
                             </td>
                             <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                <a href="" class="hover:underline">{{ $dataAngkatan->tidak_lulus_count}}</a>
+                                <a href="{{ route('list.skripsi2', ['angkatan' => $dataAngkatan->angkatan, 'status' => 'pending']) }}" class="hover:underline">{{ $dataAngkatan->tidak_lulus_count ?? 'Data tidak tersedia' }}</a>
                             </td>
                         @endforeach
                     </tr>
