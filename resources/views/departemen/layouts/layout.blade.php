@@ -205,7 +205,7 @@
                                 </svg>
                                 <div class="text-sm font-medium text-gray-900 dark:text-white">Settings</div>
                             </a>
-                            <a href="#"
+                            <a href="/logout"
                                 class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
                                 <svg class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400" fill="none"
                                     stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -241,7 +241,7 @@
                                 id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                                 <span class="sr-only">Open user menu</span>
                                 <img class="w-8 h-8 rounded-full"
-                                    src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                                    src="{{ Auth::user()->getImageURL() }}"
                                     alt="user photo">
                             </button>
                         </div>
@@ -272,7 +272,7 @@
 
                                 </li>
                                 <li>
-                                    <a href="#"
+                                    <a href="/logout"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Sign out</a>
                                 </li>
