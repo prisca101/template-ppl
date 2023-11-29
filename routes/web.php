@@ -30,7 +30,7 @@ use App\Http\Controllers\VerifikasiController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 })->middleware('auth');
 
 Route::get('login', [AuthController::class,'login'])->name('login');
