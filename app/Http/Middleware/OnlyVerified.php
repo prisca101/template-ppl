@@ -16,7 +16,7 @@ class OnlyVerified
     public function handle(Request $request, Closure $next): Response
     {
         if(auth()->check() && auth()->user()->cekProfil==0){
-            return redirect()->route('mahasiswa.edit')->with('error','Harap lengkapi data profil anda!');
+            return redirect()->route('mhs.edit2')->with('error','Harap lengkapi data profil anda!');
         }
         return $next($request);
     }
