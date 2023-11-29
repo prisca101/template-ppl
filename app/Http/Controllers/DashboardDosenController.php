@@ -27,12 +27,12 @@ class DashboardDosenController extends Controller
             
             $user = User::where('id', Auth::user()->id)->select('foto')->first();
             if ($dosens) {
-                return view('dashboardDosen', ['dosens' => $dosens, 'user' => $user, 'mahasiswaCount'=> $mahasiswaCount,'mahasiswaPerwalian'=>$mahasiswaPerwalian,'mahasiswaPerwalianCount'=>$mahasiswaPerwalianCount]);
+                return view('dosen.dashboard', ['dosens' => $dosens, 'user' => $user, 'mahasiswaCount'=> $mahasiswaCount,'mahasiswaPerwalian'=>$mahasiswaPerwalian,'mahasiswaPerwalianCount'=>$mahasiswaPerwalianCount]);
             }
         }
 
         // Jika user tidak memiliki role_id 1 atau tidak ditemukan data mahasiswa yang sesuai, Anda dapat mengirimkan tampilan yang sesuai.
-        return view('dashboardDosen'); // Misalnya, tampilan kosong.
+        return view('dosen.dashboard'); // Misalnya, tampilan kosong.
     } 
 
     public function searchMahasiswa(Request $request)
