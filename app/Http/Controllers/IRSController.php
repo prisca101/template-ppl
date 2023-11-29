@@ -59,7 +59,7 @@ class IRSController extends Controller
             $availableSemesters = array_diff(range(1, 14), $semesterAktifIRS);
         } else {
             // Handle the case where the Mahasiswa is not found
-            return redirect()->route('irs.index')->with('error', 'Mahasiswa not found with the provided nim.');
+            return redirect()->route('irs.index')->with('error', 'Mahasiswa not found with the provided nim');
         }
         
         return view('mahasiswa.irs-create', compact('availableSemesters', 'mahasiswa'));
@@ -77,10 +77,10 @@ class IRSController extends Controller
 
             if ($inputSemester > $latestSemester + 1) {
                 // IRS diisi tidak sesuai urutan, berikan pesan kesalahan
-                return redirect()->route('irs.create')->with('error', 'Anda harus mengisi semester sebelumnya terlebih dahulu.');
+                return redirect()->route('irs.create')->with('error', 'Anda harus mengisi semester sebelumnya terlebih dahulu');
             }
         }elseif($request->input('semester_aktif') != 1){
-            return redirect()->route('irs.create')->with('error', 'Anda harus memulai dengan IRS semester 1.');
+            return redirect()->route('irs.create')->with('error', 'Anda harus memulai dengan IRS semester 1');
         }
 
         // Lanjutkan dengan validasi input
