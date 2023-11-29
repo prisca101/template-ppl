@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\Departemen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,10 @@ class ListController extends Controller
     }    
 
     public function index2(Request $request, $angkatan, $status) {
+        $departemen = Departemen::leftJoin('users', 'departemen.iduser', '=', 'users.id')
+                ->where('departemen.iduser', Auth::user()->id)
+                ->select('departemen.nama', 'departemen.kode', 'users.username')
+                ->first();
         $mahasiswas = Mahasiswa::leftJoin('pkl', function ($join) use ($status) {
                 $join->on('mahasiswa.nim', '=', 'pkl.nim')
                     ->where('pkl.status', '=', 'verified');
@@ -41,7 +46,7 @@ class ListController extends Controller
                 ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'pkl.nilai', 'pkl.status')
                 ->get();
     
-        return view('listMahasiswa2', ['mahasiswas' => $mahasiswas]);
+        return view('listMahasiswa2', ['mahasiswas' => $mahasiswas,'departemen'=>$departemen]);
     }    
 
     public function skripsi(Request $request, $angkatan, $status){

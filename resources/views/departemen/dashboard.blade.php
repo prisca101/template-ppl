@@ -205,59 +205,30 @@
                 
                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                     <thead class="bg-gray-50 dark:bg-gray-700">
-                    <tr>
-                        @foreach($angkatan as $tahun)
-                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Sudah - {{ $tahun }}
-                            </th>
-                            <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                Belum - {{ $tahun }}
-                            </th>
-                        @endforeach
-                    </tr>
+                        <tr>
+                            @foreach($angkatan as $tahun)
+                                <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    Sudah
+                                </th>
+                                <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    Belum
+                                </th>
+                            @endforeach
+                        </tr>
                     </thead>
-                <tbody class="bg-white dark:bg-gray-800">
-            
-                <tr>
-                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                    <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                    <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                        <a href="" class="hover:underline">25</a>
-                    </td>
-                </tr>
-              </tbody>
-            </table>
+                    <tbody class="bg-white dark:bg-gray-800">
+                        <tr>
+                            @foreach($mahasiswas as $dataAngkatan)
+                                <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                    <a href="" class="hover:underline">{{ $dataAngkatan->pkl_lulus_count }}</a>
+                                </td>
+                                <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                    <a href="" class="hover:underline">{{ $dataAngkatan->pkl_tidak_lulus_count}}</a>
+                                </td>
+                            @endforeach
+                        </tr>
+                    </tbody>
+                </table>
           </div>
         </div>
       </div>
@@ -307,84 +278,28 @@
                     
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                         <thead class="bg-gray-50 dark:bg-gray-700">
-                            <tr>
+                        <tr>
+                            @foreach($angkatan as $tahun)
                                 <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                     Sudah
                                 </th>
                                 <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                     Belum
                                 </th>
-                                <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Sudah
-                                </th>
-                                <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Belum
-                                </th>
-                                <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Sudah
-                                </th>
-                                <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Belum
-                                </th>
-                                <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Sudah
-                                </th>
-                                <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Belum
-                                </th>
-                                <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Sudah
-                                </th>
-                                <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Belum
-                                </th>
-                                <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Sudah
-                                </th>
-                                <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Belum
-                                </th>
-                            </tr>
+                            @endforeach
+                        </tr>
                         </thead>
                     <tbody class="bg-white dark:bg-gray-800">
                 
                     <tr>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
-                        <td class="text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                            <a href="" class="hover:underline">25</a>
-                        </td>
+                        @foreach($mahasiswasSkripsi as $dataAngkatan)
+                            <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                <a href="" class="hover:underline">{{ $dataAngkatan->lulus_count }}</a>
+                            </td>
+                            <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                <a href="" class="hover:underline">{{ $dataAngkatan->tidak_lulus_count}}</a>
+                            </td>
+                        @endforeach
                     </tr>
                   </tbody>
                 </table>
