@@ -31,7 +31,7 @@ class AuthController extends Controller
         
             if ($user->role_id === 1 ) {
                 if($user->cekProfil === 1){
-                    return redirect()->intended('/dashboardMahasiswa');
+                    return redirect()->intended('/dashboardMahasiswa')->with('success-login', 'Login successful!');
                 }
                 return redirect()->route('mahasiswa.edit')->with('error','Harap lengkapi data profil anda!');
             } else if ($user->role_id === 2) {
