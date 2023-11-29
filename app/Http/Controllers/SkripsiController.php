@@ -67,66 +67,74 @@ class SkripsiController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'semester_aktif' => ['required', 'numeric'], // Correct the validation rule syntax
-            'nilai'=>[Rule::in(['A', 'B','C','D','E'])],
-            'lama_studi'=>[Rule::in(['3', '4','5','6','7'])],
-            'tanggal_sidang'=>['required'],
-            'scanSkripsi' => ['required', 'file', 'mimes:pdf', 'max:10240'], // Correct the validation rule syntax
-        ]);
+        try{
+            $validated = $request->validate([
+                'semester_aktif' => ['required', 'numeric'], // Correct the validation rule syntax
+                'nilai'=>[Rule::in(['A', 'B','C','D','E'])],
+                'lama_studi'=>[Rule::in(['3', '4','5','6','7'])],
+                'tanggal_sidang'=>['required'],
+                'scanSkripsi' => ['required', 'file', 'mimes:pdf', 'max:10240'], // Correct the validation rule syntax
+            ]);
 
-        $PDFPath = null;
+            $PDFPath = null;
 
-        if ($request->hasFile('scanSkripsi') && $request->file('scanSkripsi')->isValid()) {
-            $PDFPath = $request->file('scanSkripsi')->store('file', 'public');
-        }
+            if ($request->hasFile('scanSkripsi') && $request->file('scanSkripsi')->isValid()) {
+                $PDFPath = $request->file('scanSkripsi')->store('file', 'public');
+            }
 
-        $skripsi = new Skripsi();
-        $skripsi->semester_aktif = $validated['semester_aktif'];
-        $skripsi->statusSkripsi = $request->input('statusSkripsi');
-        $skripsi->nilai = $validated['nilai'];
-        $skripsi->lama_studi = $validated['lama_studi'];
-        $skripsi->tanggal_sidang = $validated['tanggal_sidang'];
-        $skripsi->status = 'pending';
-        $skripsi->scanSkripsi = $PDFPath; // Assign the PDF path here
-        $skripsi->nim = $request->user()->mahasiswa->nim;
-        $skripsi->nip = $request->user()->mahasiswa->nip;
-        $saved = $skripsi->save();
+            $skripsi = new Skripsi();
+            $skripsi->semester_aktif = $validated['semester_aktif'];
+            $skripsi->statusSkripsi = $request->input('statusSkripsi');
+            $skripsi->nilai = $validated['nilai'];
+            $skripsi->lama_studi = $validated['lama_studi'];
+            $skripsi->tanggal_sidang = $validated['tanggal_sidang'];
+            $skripsi->status = 'pending';
+            $skripsi->scanSkripsi = $PDFPath; // Assign the PDF path here
+            $skripsi->nim = $request->user()->mahasiswa->nim;
+            $skripsi->nip = $request->user()->mahasiswa->nip;
+            $saved = $skripsi->save();
 
-        if ($saved) {
-            return redirect()->route('skripsi.index')->with('success', 'Skripsi added successfully');
-        } else {
-            return redirect()->route('skripsi.create')->with('error', 'Failed to add Skripsi');
+            if ($saved) {
+                return redirect()->route('skripsi.index')->with('success', 'Skripsi added successfully');
+            } else {
+                return redirect()->route('skripsi.create')->with('error', 'Failed to add Skripsi');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('skripsi.create')->with('error', 'An error occurred while adding Skripsi: ' . $e->getMessage());
         }
     }
 
     private function update(Request $request, Skripsi $existingSkripsi): RedirectResponse
     {
-        $validated = $request->validate([
-            'nilai' => [Rule::in(['A', 'B', 'C', 'D', 'E'])],
-            'lama_studi'=>[Rule::in(['3', '4','5','6','7'])],
-            'tanggal_sidang'=>['required'],
-            'scanSkripsi' => ['required', 'file', 'mimes:pdf', 'max:10240'],
-        ]);
+        try{
+            $validated = $request->validate([
+                'nilai' => [Rule::in(['A', 'B', 'C', 'D', 'E'])],
+                'lama_studi'=>[Rule::in(['3', '4','5','6','7'])],
+                'tanggal_sidang'=>['required'],
+                'scanSkripsi' => ['required', 'file', 'mimes:pdf', 'max:10240'],
+            ]);
 
-        $PDFPath = null;
+            $PDFPath = null;
 
-        if ($request->hasFile('scanSkripsi') && $request->file('scanSkripsi')->isValid()) {
-            $PDFPath = $request->file('scanSkripsi')->store('file', 'public');
-        }
+            if ($request->hasFile('scanSkripsi') && $request->file('scanSkripsi')->isValid()) {
+                $PDFPath = $request->file('scanSkripsi')->store('file', 'public');
+            }
 
-        $existingSkripsi->statusSkripsi = $request->input('statusSkripsi');
-        $existingSkripsi->nilai = $validated['nilai'];
-        $existingSkripsi->lama_studi = $validated['lama_studi'];
-        $existingSkripsi->tanggal_sidang = $validated['tanggal_sidang'];
-        $existingSkripsi->status = 'pending';
-        $existingSkripsi->scanSkripsi = $PDFPath; // Assign the PDF path here
-        $saved = $existingSkripsi->save();
+            $existingSkripsi->statusSkripsi = $request->input('statusSkripsi');
+            $existingSkripsi->nilai = $validated['nilai'];
+            $existingSkripsi->lama_studi = $validated['lama_studi'];
+            $existingSkripsi->tanggal_sidang = $validated['tanggal_sidang'];
+            $existingSkripsi->status = 'pending';
+            $existingSkripsi->scanSkripsi = $PDFPath; // Assign the PDF path here
+            $saved = $existingSkripsi->save();
 
-        if ($saved) {
-            return redirect()->route('skripsi.index')->with('success', 'Skripsi updated successfully');
-        } else {
-            return redirect()->route('skripsi.create')->with('error', 'Failed to update Skripsi');
+            if ($saved) {
+                return redirect()->route('skripsi.index')->with('success', 'Skripsi updated successfully');
+            } else {
+                return redirect()->route('skripsi.create')->with('error', 'Failed to update Skripsi');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('skripsi.create')->with('error', 'An error occurred while updating Skripsi: ' . $e->getMessage());
         }
     }
 }
