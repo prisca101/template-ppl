@@ -229,9 +229,9 @@ Route::post('signin', [AuthController::class, 'authenticate']);
 
 
 //doswal
-Route::get('/dashboardDoswal', function () {
-    return view('doswal.dashboard');
-});
+// Route::get('/dashboardDoswal', function () {
+//     return view('doswal.dashboard');
+// });
 
 Route::get('/perwalian', function () {
     return view('doswal.perwalian');

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="mb-4 col-span-full xl:mb-2">
-    <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Welcome, dosen wali!</h1>
+    <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Welcome, {{$dosens->nama}}!</h1>
 </div>
 
 <div class="col-span-full xl:col-auto">
