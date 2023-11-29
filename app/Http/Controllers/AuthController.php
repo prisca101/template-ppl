@@ -35,11 +35,11 @@ class AuthController extends Controller
                 }
                 return redirect()->route('mhs.edit2')->with('error','Harap lengkapi data profil anda');
             } else if ($user->role_id === 2) {
-                return redirect()->intended('doswal.dashboard');
+                return redirect()->intended('/dashboardDosen');
             } else if ($user->role_id === 3) {
                 return redirect()->intended('/dashboardOperator');
             } else if ($user->role_id === 4) {
-                return redirect()->intended('departemen.dashboard');
+                return redirect()->intended('/dashboardDepartemen');
             }
             
         };

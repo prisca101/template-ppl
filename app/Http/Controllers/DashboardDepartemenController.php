@@ -22,9 +22,9 @@ class DashboardDepartemenController extends Controller
 
             // $user = User::where('id', Auth::user()->id)->select('foto')->first();
             if ($departemen) {
-                return view('dashboardDepartemen', ['departemen' => $departemen]);
+                return view('departemen.dashboard', ['departemen' => $departemen]);
             }
         }
-        return view('dashboardDepartemen');
+        return view('departemen.dashboard');
     }
 }
