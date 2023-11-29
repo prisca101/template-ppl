@@ -138,7 +138,8 @@
                             <a href="#"
                                 class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                                 <div class="flex-shrink-0">
-                                    <img src="{{ Auth::user()->getImageURL() }}" class="rounded-full w-11 h-11" alt="foto-profil" />  
+                                    <img src="{{ Auth::user()->getImageURL() }}" class="rounded-full w-11 h-11"
+                                        alt="foto-profil" />
                                     <div
                                         class="absolute flex items-center justify-center w-5 h-5 ml-6 -mt-5 border border-white rounded-full bg-primary-700 dark:border-gray-700">
                                         <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20"
@@ -153,23 +154,34 @@
                                     </div>
                                 </div>
                                 <div class="w-full pl-3 flex items-center">
-                                    <div class="text-gray-500 font-normal text-sm dark:text-gray-400">Profile settings 
-                                        <span class="font-semibold text-primary-700 dark:text-primary-400">berhasil</span> di-update!</div>
+                                    <div class="text-gray-500 font-normal text-sm dark:text-gray-400">Profile settings
+                                        <span
+                                            class="font-semibold text-primary-700 dark:text-primary-400">berhasil</span>
+                                        di-update!
+                                    </div>
                                 </div>
                             </a>
 
 
-                            <a href="#" class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+                            <a href="#"
+                                class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                                 <div class="w-full pl-3 flex items-center">
-                                    <div class="text-gray-500 font-normal text-sm dark:text-gray-400">Status IRS telah di-
-                                        <span class="font-semibold text-primary-700 dark:text-primary-400">update</span>!</div>
+                                    <div class="text-gray-500 font-normal text-sm dark:text-gray-400">Status IRS telah
+                                        di-
+                                        <span
+                                            class="font-semibold text-primary-700 dark:text-primary-400">update</span>!
+                                    </div>
                                 </div>
                             </a>
 
-                            <a href="#" class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
+                            <a href="#"
+                                class="flex px-4 py-3 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600">
                                 <div class="w-full pl-3 flex items-center">
                                     <div class="text-gray-500 font-normal text-sm dark:text-gray-400">Data mahasiswa
-                                        <span class="font-semibold text-primary-700 dark:text-primary-400">berhasil</span> di-import!</div>
+                                        <span
+                                            class="font-semibold text-primary-700 dark:text-primary-400">berhasil</span>
+                                        di-import!
+                                    </div>
                                 </div>
                             </a>
                         </div>
@@ -199,7 +211,7 @@
                             Apps
                         </div>
                         <div class="grid grid-cols-3 gap-4 p-4">
-                            <a href="{{route('mhs.edit')}}"
+                            <a href="{{ route('mhs.edit') }}"
                                 class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
                                 <svg class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400" fill="currentColor"
                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -221,12 +233,17 @@
                             </a>
                         </div>
                     </div>
-                    <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
-                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <button id="theme-toggle" data-tooltip-target="tooltip-toggle" type="button"
+                        class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor"
+                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                         </svg>
-                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor"
+                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                                fill-rule="evenodd" clip-rule="evenodd"></path>
                         </svg>
                     </button>
                     <div id="tooltip-toggle" role="tooltip"
@@ -244,7 +261,8 @@
                                 class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                 id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                                 <span class="sr-only">Open user menu</span>
-                                <img src="{{ Auth::user()->getImageURL() }}" class="w-8 h-8 rounded-full" alt="foto-profil" />
+                                <img src="{{ Auth::user()->getImageURL() }}" class="w-8 h-8 rounded-full"
+                                    alt="foto-profil" />
                             </button>
                         </div>
 
@@ -254,11 +272,11 @@
                             data-popper-placement="bottom">
                             <div class="px-4 py-3" role="none">
                                 <p class="text-sm text-gray-900 dark:text-white" role="none">
-                                    {{Auth::user()->mahasiswa->nama}}
+                                    {{ Auth::user()->mahasiswa->nama }}
                                 </p>
                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
                                     role="none">
-                                    {{Auth::user()->mahasiswa->nim}}
+                                    {{ Auth::user()->mahasiswa->nim }}
                                 </p>
                             </div>
                             <ul class="py-1" role="none">
@@ -393,6 +411,37 @@
 
         <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
             <main>
+                <div class="absolute w-full flex justify-center top-0 mt-5">
+                    @if (session('success'))
+                        <div id="alert-1"
+                            class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                            role="alert">
+                            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div class="ms-3 text-sm font-medium">
+                                {{ session('success') }}!
+                            </div>
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div id="alert-1"
+                            class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                            role="alert">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <div class="ms-3 text-sm font-medium">
+                                {{ session('error') }}!
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
+
+
                 <div class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-3 xl:gap-4 dark:bg-gray-900">
                     @yield('content')
                 </div>
@@ -405,9 +454,21 @@
 
     </div>
 
+    <script>
+        // Add a script to hide the alert after 10 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var alertElement = document.getElementById('alert-1');
+                if (alertElement) {
+                    alertElement.style.display = 'none';
+                }
+            }, 3000); // 10000 milliseconds = 10 seconds
+        });
+    </script>
+
     <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
     <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
 
     <svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1"
