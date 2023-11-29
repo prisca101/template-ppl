@@ -69,59 +69,66 @@ class PKLController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        try{
+            $validated = $request->validate([
+                'semester_aktif' => ['required', 'numeric'],
+                'nilai' => [Rule::in(['A', 'B', 'C', 'D', 'E'])],
+                'scanPKL' => ['required', 'file', 'mimes:pdf', 'max:10240'],
+            ]);
+
+            $PDFPath = null;
+
+            if ($request->hasFile('scanPKL') && $request->file('scanPKL')->isValid()) {
+                $PDFPath = $request->file('scanPKL')->store('file', 'public');
+            }
+
+            $pkl = new PKL();
+            $pkl->semester_aktif = $validated['semester_aktif'];
+            $pkl->statusPKL = $request->input('statusPKL');
+            $pkl->nilai = $validated['nilai'];
+            $pkl->status = 'pending';
+            $pkl->scanPKL = $PDFPath; // Assign the PDF path here
+            $pkl->nim = $request->user()->mahasiswa->nim;
+            $pkl->nip = $request->user()->mahasiswa->nip;
+            $saved = $pkl->save();
         
-        $validated = $request->validate([
-            'semester_aktif' => ['required', 'numeric'],
-            'nilai' => [Rule::in(['A', 'B', 'C', 'D', 'E'])],
-            'scanPKL' => ['required', 'file', 'mimes:pdf', 'max:10240'],
-        ]);
-
-        $PDFPath = null;
-
-        if ($request->hasFile('scanPKL') && $request->file('scanPKL')->isValid()) {
-            $PDFPath = $request->file('scanPKL')->store('file', 'public');
-        }
-
-        $pkl = new PKL();
-        $pkl->semester_aktif = $validated['semester_aktif'];
-        $pkl->statusPKL = $request->input('statusPKL');
-        $pkl->nilai = $validated['nilai'];
-        $pkl->status = 'pending';
-        $pkl->scanPKL = $PDFPath; // Assign the PDF path here
-        $pkl->nim = $request->user()->mahasiswa->nim;
-        $pkl->nip = $request->user()->mahasiswa->nip;
-        $saved = $pkl->save();
-        
-        if ($saved) {
-            return redirect()->route('pkl.index')->with('success', 'PKL added successfully');
-        } else {
-            return redirect()->route('pkl.create')->with('error', 'Failed to add PKL');
+            if ($saved) {
+                return redirect()->route('pkl.index')->with('success', 'PKL added successfully');
+            } else {
+                return redirect()->route('pkl.create')->with('error', 'Failed to add PKL');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('pkl.create')->with('error', 'An error occurred while adding PKL: ' . $e->getMessage());
         }
     }
 
     private function update(Request $request, PKL $existingPKL): RedirectResponse
     {
-        $validated = $request->validate([
-            'nilai' => [Rule::in(['A', 'B', 'C', 'D', 'E'])],
-            'scanPKL' => ['required', 'file', 'mimes:pdf', 'max:10240'],
-        ]);
+        try {
+            $validated = $request->validate([
+                'nilai' => [Rule::in(['A', 'B', 'C', 'D', 'E'])],
+                'scanPKL' => ['required', 'file', 'mimes:pdf', 'max:10240'],
+            ]);
 
-        $PDFPath = null;
+            $PDFPath = null;
 
-        if ($request->hasFile('scanPKL') && $request->file('scanPKL')->isValid()) {
-            $PDFPath = $request->file('scanPKL')->store('file', 'public');
-        }
+            if ($request->hasFile('scanPKL') && $request->file('scanPKL')->isValid()) {
+                $PDFPath = $request->file('scanPKL')->store('file', 'public');
+            }
 
-        $existingPKL->statusPKL = $request->input('statusPKL');
-        $existingPKL->nilai = $validated['nilai'];
-        $existingPKL->status = 'pending';
-        $existingPKL->scanPKL = $PDFPath; // Assign the PDF path here
-        $saved = $existingPKL->save();
+            $existingPKL->statusPKL = $request->input('statusPKL');
+            $existingPKL->nilai = $validated['nilai'];
+            $existingPKL->status = 'pending';
+            $existingPKL->scanPKL = $PDFPath; // Assign the PDF path here
+            $saved = $existingPKL->save();
 
-        if ($saved) {
-            return redirect()->route('pkl.index')->with('success', 'PKL updated successfully');
-        } else {
-            return redirect()->route('pkl.create')->with('error', 'Failed to update PKL');
+            if ($saved) {
+                return redirect()->route('pkl.index')->with('success', 'PKL updated successfully');
+            } else {
+                return redirect()->route('pkl.create')->with('error', 'Failed to update PKL');
+            }
+        }catch (\Exception $e) {
+            return redirect()->route('pkl.create')->with('error', 'An error occurred while updating PKL: ' . $e->getMessage());
         }
     }
 
