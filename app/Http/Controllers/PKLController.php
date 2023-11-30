@@ -98,7 +98,7 @@ class PKLController extends Controller
                 return redirect()->route('pkl.create')->with('error', 'Failed to add PKL');
             }
         } catch (\Exception $e) {
-            return redirect()->route('pkl.create')->with('error', 'An error occurred while adding PKL: ' . $e->getMessage());
+            return redirect()->route('pkl.create')->with('error', $e->getMessage());
         }
     }
 
