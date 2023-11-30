@@ -41,9 +41,9 @@ class VerifikasiController extends Controller
                 ->where('dosen_wali.nip',$nip)
                 ->join('skripsi','skripsi.nim','=','mahasiswa.nim')
                 ->where('skripsi.status','pending')
-                ->select('mahasiswa.nama','mahasiswa.nim','skripsi.semester_aktif','skripsi.scanSkripsi','skripsi.nilai','skripsi.statusSkripsi')
+                ->select('mahasiswa.nama','mahasiswa.nim','skripsi.semester_aktif','skripsi.scanSkripsi','skripsi.nilai','skripsi.statusSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang')
                 ->get();
-        return view('showAllVerifikasi', ['irs'=>$irs,'khs'=>$khs,'pkl'=>$pkl,'skripsi'=>$skripsi]);
+        return view('doswal.verification', ['irs'=>$irs,'khs'=>$khs,'pkl'=>$pkl,'skripsi'=>$skripsi]);
     }
 
     public function verifikasi(Request $request,$nim, $semester_aktif)
@@ -78,6 +78,41 @@ class VerifikasiController extends Controller
             return redirect()->route('showAll')->with('error', 'Tidak dapat menolak.');
         }
     }
+
+    public function vieweditIRS($nim,$semester_aktif){
+        $irs = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+                ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
+                ->where('irs.nim', $nim)
+                ->where('irs.semester_aktif', $semester_aktif)
+                ->join('irs','irs.nim','=','mahasiswa.nim')
+                ->where('irs.status','pending')
+                ->select('mahasiswa.nama','mahasiswa.nim','irs.semester_aktif','irs.jumlah_sks','irs.scanIRS')
+                ->first();
+        return view('doswal.vieweditIRS',['irs'=>$irs]);
+    }
+
+    public function editIRS(Request $request, $nim, $semester_aktif)
+    {
+        // Mendapatkan IRS berdasarkan nim dan semester aktif
+        $irs = IRS::where('nim', $nim)
+            ->where('semester_aktif', $semester_aktif)
+            ->first();
+        $validated = $request->validate([
+            'semester_aktif' => ['required', 'numeric'], // Correct the validation rule syntax
+            'jumlah_sks' => ['required', 'numeric', 'between:1,24'], // Correct the validation rule syntax
+            'scanIRS' => ['required', 'file', 'mimes:pdf', 'max:10240'], // Correct the validation rule syntax
+        ]);
+        if ($irs) {
+            $irs->semester_aktif = $validated['semester_aktif'];
+            $irs->jumlah_sks = $validated['jumlah_sks'];
+            $irs->save();
+
+            return redirect()->route('showAll')->with('success', 'IRS berhasil diverifikasi.');
+        } else {
+            return redirect()->route('showAll')->with('error', 'Tidak dapat memverifikasi IRS.');
+        }
+    }
+
 
     public function verifikasiKHS($nim, $semester_aktif)
     {
