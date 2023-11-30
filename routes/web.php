@@ -139,9 +139,12 @@ Route::controller(VerifikasiController::class)->middleware(['auth','only_dosen']
     Route::post('/rejectedSkripsi/{nim}/{semester_aktif}','rejectedSkripsi')->name('rejectedSkripsi');
 });
 
+Route::controller(DashboardDepartemenController::class)->middleware(['auth','only_departemen'])->group(function(){
+    Route::get('/RekapPKLDepartemen','PreviewPKL')->name('rekapPKL');
+    Route::get('/RekapSkripsiDepartemen','PreviewSkripsi')->name('rekapSkripsi');
+});
+
 Route::controller(DepartemenController::class)->middleware(['auth','only_departemen'])->group(function (){
-    Route::get('/RekapPKLDepartemen','RekapPKL')->name('rekapPKL');
-    Route::get('/RekapSkripsiDepartemen','RekapSkripsi')->name('rekapSkripsi');
     Route::get('/DownloadRekapPKLDepartemen', 'RekapPDFPKL')->name('generateRekapPKL');
     Route::get('/DownloadRekapSkripsiDepartemen', 'RekapPDFSkripsi')->name('generateRekapSkripsi');
     Route::get('/DownloadRekapPKLDepart','PreviewPKL')->name('PreviewPKL');

@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\View;
 class ListController extends Controller
 {
     public function index(Request $request, $angkatan, $status) {
+        $departemen = Departemen::leftJoin('users', 'departemen.iduser', '=', 'users.id')
+                ->where('departemen.iduser', Auth::user()->id)
+                ->select('departemen.nama', 'departemen.kode', 'users.username')
+                ->first();
         $mahasiswas = Mahasiswa::leftJoin('pkl', function ($join) use ($status) {
                                     $join->on('mahasiswa.nim', '=', 'pkl.nim')
                                         ->where('pkl.status', '=', 'verified');
@@ -24,7 +28,7 @@ class ListController extends Controller
                                 ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'pkl.nilai', 'pkl.statusPKL', 'pkl.status')
                                 ->get();
     
-        return view('listMahasiswa', ['mahasiswas' => $mahasiswas->isEmpty() ? [] : $mahasiswas]);
+        return view('departemen.luluspkl', ['mahasiswas' => $mahasiswas->isEmpty() ? [] : $mahasiswas, 'departemen'=>$departemen]);
     }    
 
     public function index2(Request $request, $angkatan, $status) {
@@ -46,10 +50,14 @@ class ListController extends Controller
                 ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'pkl.nilai', 'pkl.status')
                 ->get();
     
-        return view('listMahasiswa2', ['mahasiswas' => $mahasiswas,'departemen'=>$departemen]);
+        return view('departemen.tidakluluspkl', ['mahasiswas' => $mahasiswas,'departemen'=>$departemen]);
     }    
 
     public function skripsi(Request $request, $angkatan, $status){
+        $departemen = Departemen::leftJoin('users', 'departemen.iduser', '=', 'users.id')
+                ->where('departemen.iduser', Auth::user()->id)
+                ->select('departemen.nama', 'departemen.kode', 'users.username')
+                ->first();
         $mahasiswas = Mahasiswa::leftJoin('skripsi', function ($join) use ($status) {
             $join->on('mahasiswa.nim', '=', 'skripsi.nim')
                 ->where('skripsi.status', '=', 'verified');
@@ -58,13 +66,17 @@ class ListController extends Controller
         ->where(function ($query) use ($status) {
             $query->where('skripsi.status', $status);
         })
-        ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.nilai', 'skripsi.status')
+        ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.nilai', 'skripsi.status','skripsi.tanggal_sidang','skripsi.lama_studi')
         ->get();
     
-        return view('listMahasiswaSkripsi', ['mahasiswas' => $mahasiswas]);
+        return view('departemen.lulusskripsi', ['mahasiswas' => $mahasiswas, 'departemen'=>$departemen]);
     }    
 
     public function skripsi2(Request $request, $angkatan, $status){
+        $departemen = Departemen::leftJoin('users', 'departemen.iduser', '=', 'users.id')
+                ->where('departemen.iduser', Auth::user()->id)
+                ->select('departemen.nama', 'departemen.kode', 'users.username')
+                ->first();
         $mahasiswas = Mahasiswa::leftJoin('skripsi', function ($join) use ($status) {
                                 $join->on('mahasiswa.nim', '=', 'skripsi.nim')
                                     ->where('skripsi.status', '=', 'verified');
@@ -79,7 +91,7 @@ class ListController extends Controller
                                 ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.nilai', 'skripsi.status')
                                 ->get();
 
-        return view('listMahasiswaSkripsi2', ['mahasiswas' => $mahasiswas]);
+        return view('departemen.tidaklulusskripsi', ['mahasiswas' => $mahasiswas,'departemen'=>$departemen]);
     }
     
     public function PreviewListPKLLulus(Request $request, $angkatan, $status) {
@@ -93,49 +105,16 @@ class ListController extends Controller
                             })
                             ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'pkl.nilai', 'pkl.statusPKL', 'pkl.status')
                             ->get();
+        $pdf = app('dompdf.wrapper');
+        $pdf ->loadView('departemen.downloadlistlulusPKL',['mahasiswas'=>$mahasiswas, 'status'=>$status]);
+        return $pdf->stream('daftar-list-pkl-lulus.pdf');
     
         if ($mahasiswas->isEmpty()) {
             // Lakukan penanganan jika $mahasiswas kosong, seperti menampilkan pesan atau mengarahkan ke halaman lain
             return redirect()->back()->with('error', 'Tidak ada data yang tersedia.');
         }
-    
-        return view('DownloadListPKLDepartemenLulus', ['mahasiswas' => $mahasiswas]);
     }
     
-    public function ListPDFPKLLulus(Request $request, $angkatan, $status) {
-        $mahasiswas = Mahasiswa::leftJoin('pkl', function ($join) use ($status) {
-                                $join->on('mahasiswa.nim', '=', 'pkl.nim')
-                                    ->where('pkl.status', '=', 'verified');
-                            })
-                            ->where('mahasiswa.angkatan', $angkatan)
-                            ->where(function ($query) use ($status) {
-                                $query->where('pkl.status', $status);
-                            })
-                            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'pkl.nilai', 'pkl.statusPKL', 'pkl.status')
-                            ->get();
-    
-        if ($mahasiswas->isEmpty()) {
-            // Lakukan penanganan jika $mahasiswas kosong, seperti menampilkan pesan atau mengembalikan response kosong
-            return response()->json(['error' => 'Tidak ada data yang tersedia.'], 404);
-        }
-    
-        // Mengambil HTML dari view
-        $html = View::make('DownloadListPKLDepartemenLulus', ['mahasiswas' => $mahasiswas])->render();
-    
-        $pdf = new Dompdf();
-        $pdf->loadHtml($html);
-    
-        // (Opsional) Set konfigurasi PDF
-        $pdf->setPaper('A4', 'portrait');
-    
-        // Render PDF (generate)
-        $pdf->render();
-    
-        // Mengembalikan respons dengan file PDF
-        return $pdf->stream('list_lulus_pkl.pdf');
-    }
-    
-
     public function PreviewListPKLBelum(Request $request, $angkatan, $status){
     
         $mahasiswas = Mahasiswa::leftJoin('pkl', function ($join) use ($status) {
@@ -151,44 +130,14 @@ class ListController extends Controller
                                 })
                                 ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'pkl.nilai', 'pkl.status')
                                 ->get();
-
-        return view('DownloadListPKLDepartemenBelum', ['mahasiswas' => $mahasiswas]);
-    }
-
-    public function ListPDFPKLBelum(Request $request, $angkatan, $status) {
-        $mahasiswas = Mahasiswa::leftJoin('pkl', function ($join) use ($status) {
-                            $join->on('mahasiswa.nim', '=', 'pkl.nim')
-                                ->where('pkl.status', '=', 'verified');
-                            })
-                            ->where('mahasiswa.angkatan', $angkatan)
-                            ->where(function ($query) use ($status) {
-                                $query->whereNull('pkl.nim')
-                                    ->orWhere(function ($query) use ($status) {
-                                        $query->where('pkl.status', '=', $status);
-                                    });
-                            })
-                            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'pkl.nilai', 'pkl.status')
-                            ->get();
-
-        // Mengambil HTML dari view
-        $html = View::make('DownloadListPKLDepartemenBelum', ['mahasiswas' => $mahasiswas])->render();
-
-        $pdf = new Dompdf();
-        $pdf->loadHtml($html);
-
-        // (Opsional) Set konfigurasi PDF
-        $pdf->setPaper('A4', 'portrait');
-
-        // Render PDF (generate)
-        $pdf->render();
-
-        // Mengembalikan respons dengan file PDF
-        return $pdf->stream('list_belum_pkl.pdf');
+        $pdf = app('dompdf.wrapper');
+        $pdf ->loadView('departemen.downloadlisttidaklulusPKL',['mahasiswas'=>$mahasiswas, 'status'=>$status]);
+        return $pdf->stream('daftar-list-pkl-tidak-lulus.pdf');
     }
 
     public function PreviewListSkripsiLulus(Request $request, $angkatan, $status) {
         $mahasiswas = Mahasiswa::leftJoin('skripsi', function ($join) use ($status) {
-                                $join->on('mahasiswa.nim', '=', 'pkl.nim')
+                                $join->on('mahasiswa.nim', '=', 'skripsi.nim')
                                     ->where('skripsi.status', '=', 'verified');
                             })
                             ->where('mahasiswa.angkatan', $angkatan)
@@ -202,43 +151,12 @@ class ListController extends Controller
             // Lakukan penanganan jika $mahasiswas kosong, seperti menampilkan pesan atau mengarahkan ke halaman lain
             return redirect()->back()->with('error', 'Tidak ada data yang tersedia.');
         }
-    
-        return view('DownloadListSkripsiDepartemenLulus', ['mahasiswas' => $mahasiswas]);
-    }
-    
-    public function ListPDFSkripsiLulus(Request $request, $angkatan, $status) {
-        $mahasiswas = Mahasiswa::leftJoin('skripsi', function ($join) use ($status) {
-                                $join->on('mahasiswa.nim', '=', 'skripsi.nim')
-                                    ->where('skripsi.status', '=', 'verified');
-                            })
-                            ->where('mahasiswa.angkatan', $angkatan)
-                            ->where(function ($query) use ($status) {
-                                $query->where('skripsi.status', $status);
-                            })
-                            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.nilai', 'skripsi.statusSkripsi', 'skripsi.status')
-                            ->get();
-    
-        if ($mahasiswas->isEmpty()) {
-            // Lakukan penanganan jika $mahasiswas kosong, seperti menampilkan pesan atau mengembalikan response kosong
-            return response()->json(['error' => 'Tidak ada data yang tersedia.'], 404);
-        }
-    
-        // Mengambil HTML dari view
-        $html = View::make('DownloadListPKLDepartemenLulus', ['mahasiswas' => $mahasiswas])->render();
-    
-        $pdf = new Dompdf();
-        $pdf->loadHtml($html);
-    
-        // (Opsional) Set konfigurasi PDF
-        $pdf->setPaper('A4', 'portrait');
-    
-        // Render PDF (generate)
-        $pdf->render();
-    
-        // Mengembalikan respons dengan file PDF
-        return $pdf->stream('list_lulus_skripsi.pdf');
-    }
 
+        $pdf = app('dompdf.wrapper');
+        $pdf ->loadView('departemen.downloadlistlulusSkripsi',['mahasiswas'=>$mahasiswas, 'status'=>$status]);
+        return $pdf->stream('daftar-list-skripsi-lulus.pdf');
+    }
+    
     public function PreviewListSkripsiBelum(Request $request, $angkatan, $status){
     
         $mahasiswas = Mahasiswa::leftJoin('skripsi', function ($join) use ($status) {
@@ -254,38 +172,8 @@ class ListController extends Controller
                                 })
                                 ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.nilai', 'skripsi.status')
                                 ->get();
-
-        return view('DownloadListSkripsiDepartemenBelum', ['mahasiswas' => $mahasiswas]);
-    }
-
-    public function ListPDFSkripsiBelum(Request $request, $angkatan, $status) {
-        $mahasiswas = Mahasiswa::leftJoin('skripsi', function ($join) use ($status) {
-                            $join->on('mahasiswa.nim', '=', 'skripsi.nim')
-                                ->where('skripsi.status', '=', 'verified');
-                            })
-                            ->where('mahasiswa.angkatan', $angkatan)
-                            ->where(function ($query) use ($status) {
-                                $query->whereNull('skripsi.nim')
-                                    ->orWhere(function ($query) use ($status) {
-                                        $query->where('skripsi.status', '=', $status);
-                                    });
-                            })
-                            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.nilai', 'skripsi.status')
-                            ->get();
-
-        // Mengambil HTML dari view
-        $html = View::make('DownloadListSkripsiDepartemenBelum', ['mahasiswas' => $mahasiswas])->render();
-
-        $pdf = new Dompdf();
-        $pdf->loadHtml($html);
-
-        // (Opsional) Set konfigurasi PDF
-        $pdf->setPaper('A4', 'portrait');
-
-        // Render PDF (generate)
-        $pdf->render();
-
-        // Mengembalikan respons dengan file PDF
-        return $pdf->stream('list_belum_skripsi.pdf');
+        $pdf = app('dompdf.wrapper');
+        $pdf ->loadView('departemen.downloadlisttidaklulusSkripsi',['mahasiswas'=>$mahasiswas, 'status'=>$status]);
+        return $pdf->stream('daftar-list-skripsi-tidak-lulus.pdf');
     }
 }

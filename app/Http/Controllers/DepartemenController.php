@@ -13,7 +13,7 @@ class DepartemenController extends Controller
 {
     public function index_list()
     {
-        return view('listMahasiswa');
+        return view('mahasiswa.luluspkl');
     }
 
     public function listPKL(){
@@ -22,7 +22,7 @@ class DepartemenController extends Controller
                 ->join('dosen_wali','dosen_wali.nip','=','mahasiswa.nip')
                 ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','pkl.semester_aktif','pkl.scanPKL','pkl.nilai','pkl.status','pkl.statusPKL','dosen_wali.nama as dosen_nama')
                 ->get();
-        return view('listPKLDepartemen', ['pkl'=>$pkl]);
+        return view('mahasiswa.luluspkl', ['pkl'=>$pkl]);
     }
 
     public function listSkripsi(){
