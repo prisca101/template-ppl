@@ -23,6 +23,7 @@ class Mahasiswa extends Model
         'provinsi',
         'username',
         'noHandphone',
+        'iduser',
         'jalur_masuk',
         'cekPKL',
         'cekSkripsi'

@@ -16,6 +16,7 @@ use Illuminate\View\View;
 use App\Imports\MahasiswaImport;
 use App\Exports\MahasiswaExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -126,117 +127,199 @@ class OperatorController extends Controller
         return view('operator.importMahasiswa', compact('mahasiswas'));
     }
 
+    // public function import(Request $request)
+    // {
+    //     //dd($request);
+    //     $request->validate([
+    //         'file' => 'required|mimes:xlsx', // Validasi file yang diunggah
+    //     ]);
+    //     //dd($request);
+    //     $file = $request->file('file');
+    //     //dd($file);
+
+    //     if ($file) {
+    //         if ($file->getClientOriginalExtension() !== 'xlsx') {
+    //             return redirect('importMahasiswa')->with('error', 'File yang diunggah harus dalam format Excel XLSX.');
+    //         }
+
+    //         $data = Excel::toArray(new MahasiswaImport, $file)[0];
+            
+
+    //         foreach ($data as $row) {
+                
+    //             $validator = Validator::make($row, [
+    //                 'nama' => 'required|regex:/^[a-zA-Z\s]+$/u', // Nama harus string tanpa angka dan simbol
+    //                 'nim' => [
+    //                     'required',
+    //                     'string',
+    //                     'regex:/^\d{1,20}$/',
+    //                 ],
+    //                 'angkatan' => 'required|integer',
+    //                 'jalur_masuk' => [
+    //                     'required',
+    //                     'regex:/^(SNMPTN|SBMPTN|MANDIRI)$/', // Jalur masuk harus di antara tiga pilihan ini
+    //                     'uppercase', // Tulisan harus kapital
+    //                 ],
+    //                 'nip' => 'required|exists:dosen_wali,nip',
+    //             ]);
+
+
+    //             // if ($validator->fails()) {
+    //             //     return redirect('importMahasiswa')->withErrors($validator)->withInput();
+    //             //     // Mengembalikan dengan error dan input sebelumnya jika validasi gagal
+    //             // }
+                
+    //         }
+
+    //         Excel::import(new MahasiswaImport, $file);
+    //         return redirect('importMahasiswa')->with('success', 'Data Mahasiswa berhasil ditambahkan.');
+    //     } else {
+    //         return redirect('importMahasiswa')->with('error', 'Anda belum mengunggah file.');
+    //     }
+    // }
+
     public function import(Request $request)
-    {
-        //dd($request);
-        $request->validate([
-            'file' => 'required|mimes:xlsx', // Validasi file yang diunggah
+{
+
+    $request->validate([
+        'file' => 'required|mimes:xlsx',
+    ]);
+
+    $data = Excel::toArray(new MahasiswaImport, $request->file('file'));
+
+    foreach ($data[0] as $row) {
+        $validator = Validator::make($row, [
+            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+            'nim' => 'required|numeric|digits_between:1,20',
+            'angkatan' => 'required|integer',
+            'jalur_masuk' => 'required|in:SNMPTN,SBMPTN,MANDIRI',
+            'nip' => 'required|numeric'
         ]);
-        //dd($request);
-        $file = $request->file('file');
-        //dd($file);
-        if ($file) {
-            if ($file->getClientOriginalExtension() !== 'xlsx') {
-                return redirect('importMahasiswa')->with('error', 'File yang diunggah harus dalam format Excel XLSX.');
-            }
 
-            $import = Excel::toArray(new MahasiswaImport, $file);
-            $data = $import[0]; // Mengambil data dari file Excel
-
-            foreach ($data as $row) {
-                $validator = Validator::make($row, [
-                    'nama' => 'required|regex:/^[a-zA-Z\s]+$/u', // Nama harus string tanpa angka dan simbol
-                    'nim' => [
-                        'required',
-                        'string',
-                        'regex:/^\d{1,20}$/',
-                    ],
-                    'angkatan' => 'required|integer',
-                    'status' => 'required',
-                    'nip' => 'required|exists:dosen_wali,nip',
-                    'jalur_masuk' => [
-                        'required',
-                        'regex:/^(SNMPTN|SBMPTN|MANDIRI)$/', // Jalur masuk harus di antara tiga pilihan ini
-                        'uppercase', // Tulisan harus kapital
-                    ],
-                ]);
-
-                //dd($data);
-
-                if ($validator->fails()) {
-                    return redirect('importMahasiswa')->withErrors($validator)->withInput();
-                    // Mengembalikan dengan error dan input sebelumnya jika validasi gagal
-                }
-            }
-
-            Excel::import(new MahasiswaImport, $file, 'Xlsx');
-            return redirect('importMahasiswa')->with('status', 'Data Mahasiswa berhasil ditambahkan.');
-        } else {
-            return redirect('importMahasiswa')->with('error', 'Anda belum mengunggah file.');
+        if ($validator->fails()) {
+            // Handle validation failure
+            // For example, you can redirect back with errors
+            return redirect()->back()->withErrors($validator)->withInput();
         }
     }
+
+    session(['mahasiswa_data' => $data[0]]);
+    return redirect()->route('mahasiswa.preview');
+}
+
+
+
+    public function preview()
+    {
+        $data = session('mahasiswa_data');
+        return view('operator.importMahasiswa', ['data' => $data]);
+    }
+
+    public function generateAkun()
+    {
+        $data = session('mahasiswa_data');
+    
+        foreach ($data as $row) {
+            if(Mahasiswa::where('nim', $row['nim'])->exists()){
+                return redirect()->route('mahasiswa.preview')->with('error', 'NIM / Mahasiswa sudah terdaftar');
+            }
+
+            $username = strtolower(str_replace(' ', '', $row['nama']));
+    
+            while (User::where('username', $username)->exists()) {
+                $username = strtolower(str_replace(' ', '', $row['nama'])) . rand(1, 100);
+            }
+    
+            $password = Str::random(8);
+
+            $user = User::create([
+                'username' => $username,
+                'password' => Hash::make($password), // Hash the password
+                'role_id' => 1,
+            ]);
+    
+            $row['iduser'] = $user->id;
+            $row['username'] = $username;
+            $row['status'] = 'active';
+
+    
+            Mahasiswa::create($row);
+            
+            GenerateAkun::create([
+                'nim' => $row['nim'],
+                'username' => $username,
+                'password' => $password, // Password belum di-hash
+            ]);
+        }
+        return redirect()->route('mahasiswa')->with('success', 'Data Mahasiswa berhasil ditambahkan');
+    }
+    
+
+
 
     public function export()
     {
         return Excel::download(new MahasiswaExport, 'mahasiswa.xlsx');
     }
 
-    public function generateAkun(Request $request) {
-        // Get the array of NIMs in the Mahasiswa table with a null "iduser"
-        $nimsWithNullIduser = Mahasiswa::whereNull('iduser')->pluck('nim');
+    // public function generateAkun(Request $request) {
+    //     // Get the array of NIMs in the Mahasiswa table with a null "iduser"
+    //     $nimsWithNullIduser = Mahasiswa::whereNull('iduser')->pluck('nim');
     
-        // Memulai transaksi database
-        DB::beginTransaction();
+    //     // Memulai transaksi database
+    //     DB::beginTransaction();
     
-        try {
-            foreach ($nimsWithNullIduser as $generate_akun_nim) {
-                // Get the Mahasiswa record related to this NIM
-                $mahasiswa = Mahasiswa::where('nim', $generate_akun_nim)->first();
+    //     try {
+    //         foreach ($nimsWithNullIduser as $generate_akun_nim) {
+    //             // Get the Mahasiswa record related to this NIM
+    //             $mahasiswa = Mahasiswa::where('nim', $generate_akun_nim)->first();
     
-                if ($mahasiswa) {
-                    // Generate a username by removing spaces and making it lowercase
-                    $username = strtolower(str_replace(' ', '', $mahasiswa->nama));
+    //             if ($mahasiswa) {
+    //                 // Generate a username by removing spaces and making it lowercase
+    //                 $username = strtolower(str_replace(' ', '', $mahasiswa->nama));
     
-                    // Check if the username already exists, and append a random number until it's unique
-                    while (User::where('username', $username)->exists()) {
-                        $username = strtolower(str_replace(' ', '', $mahasiswa->nama)) . rand(1, 100);
-                    }
+    //                 // Check if the username already exists, and append a random number until it's unique
+    //                 while (User::where('username', $username)->exists()) {
+    //                     $username = strtolower(str_replace(' ', '', $mahasiswa->nama)) . rand(1, 100);
+    //                 }
     
-                    $password = Str::random(8);
+    //                 $password = Str::random(8);
                     
-                    GenerateAkun::create([
-                        'nim' => $generate_akun_nim,
-                        'username' => $username,
-                        'password' => $password, // Password belum di-hash
-                    ]);
+    //                 GenerateAkun::create([
+    //                     'nim' => $generate_akun_nim,
+    //                     'username' => $username,
+    //                     'password' => $password, // Password belum di-hash
+    //                 ]);
     
-                    // Create a new User in the "user" table
-                    $user = User::create([
-                        'username' => $username,
-                        'password' => Hash::make($password), // Hash the password
-                        'role_id' => 1,
-                    ]);
+    //                 // Create a new User in the "user" table
+    //                 $user = User::create([
+    //                     'username' => $username,
+    //                     'password' => Hash::make($password), // Hash the password
+    //                     'role_id' => 1,
+    //                 ]);
     
-                    // Update the Mahasiswa with the generated username and "iduser"
-                    $mahasiswa->username = $username;
-                    $mahasiswa->iduser = $user->id;
-                    $mahasiswa->save();
-                } else {
-                    // Handle the case where Mahasiswa record doesn't exist
-                    DB::rollBack();
-                    return redirect('importMahasiswa')->with('error', 'Mahasiswa record not found for NIM: ' . $generate_akun_nim);
-                }
-            }
+    //                 // Update the Mahasiswa with the generated username and "iduser"
+    //                 $mahasiswa->username = $username;
+    //                 $mahasiswa->iduser = $user->id;
+    //                 $mahasiswa->save();
+    //             } else {
+    //                 // Handle the case where Mahasiswa record doesn't exist
+    //                 DB::rollBack();
+    //                 return redirect('importMahasiswa')->with('error', 'Mahasiswa record not found for NIM: ' . $generate_akun_nim);
+    //             }
+    //         }
     
-            // Commit the transaction
-            DB::commit();
+    //         // Commit the transaction
+    //         DB::commit();
     
-            return redirect('dashboardOperator')->with('status', 'Data Mahasiswa berhasil digenerate.');
-        } catch (\Exception $e) {
-            // Rollback the transaction in case of any errors
-            DB::rollBack();
-            return redirect('importMahasiswa')->with('error', 'Gagal menggenerate akun Mahasiswa.');
-        }
-    }    
+    //         return redirect('dashboardOperator')->with('status', 'Data Mahasiswa berhasil digenerate.');
+    //     } catch (\Exception $e) {
+    //         // Rollback the transaction in case of any errors
+    //         DB::rollBack();
+    //         return redirect('importMahasiswa')->with('error', 'Gagal menggenerate akun Mahasiswa.');
+    //     }
+    // }    
+
+
 
 }

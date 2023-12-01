@@ -8,19 +8,16 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class MahasiswaImport implements ToModel, WithHeadingRow
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
     public function model(array $row)
     {
         return new Mahasiswa([
-            'nama'      => $row['nama'],
-            'nim'       => $row['nim'], 
-            'angkatan'  => $row['angkatan'], 
-            'jalur_masuk' => $row['jalur_masuk'], 
-            'nip'       => $row['nip']
+            'nama' => $row['nama'],
+            'nim' => $row['nim'],
+            'angkatan' => $row['angkatan'],
+            'status' => 'active',
+            'jalur_masuk' => $row['jalur_masuk'],
+            'nip' => $row['nip']
         ]);
     }
 }
+
