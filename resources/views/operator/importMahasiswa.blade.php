@@ -56,7 +56,7 @@
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
                         <input
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            aria-describedby="file_input_help" id="file_input" name="file_input" type="file" accept=".xlsx" required>
+                            aria-describedby="file_input_help" id="file" name="file" type="file" accept=".xlsx" required>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">.xlsx files only (MAX. 5MB).</p>
                     </div>
 
@@ -119,25 +119,22 @@
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                            Nama Doswal
-                                        </th>
-                                        <th scope="col"
-                                            class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                             NIP Doswal
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                                    @foreach($mahasiswas as $mahasiswa)
+                                    @if(isset($data))
+                                    @foreach($data as $mahasiswa)
                                     <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ $mahasiswa->nama }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ $mahasiswa->nim }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ $mahasiswa->angkatan }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->jalur_masuk }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->nip }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->dosen_nama }}</td>                
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ $mahasiswa['nama'] }}</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ $mahasiswa['nim'] }}</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ $mahasiswa['angkatan'] }}</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa['jalur_masuk'] }}</td>
+                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa['nip'] }}</td>
                                     </tr>  
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

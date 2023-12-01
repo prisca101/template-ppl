@@ -129,7 +129,7 @@ class DashboardOperatorController extends Controller
             ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'generate_akun.password', 'dosen_wali.nip', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk', 'users.foto')
             ->get();
         $dosens = Dosen::all();
-        return view('operator.mahasiswa', ['mahasiswas' => $mahasiswas, 'dosens' => $dosens, 'status' => 'Data Mahasiswa berhasil ditambahkan.']);
+        return view('operator.mahasiswa', ['mahasiswas' => $mahasiswas, 'dosens' => $dosens, 'success' => 'Data Mahasiswa berhasil ditambahkan.']);
     }
 
     public function search(Request $request)
