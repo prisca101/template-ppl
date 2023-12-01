@@ -15,7 +15,7 @@
                         Home
                     </a>
                 </li>
-                <li class="inline-flex items-center">
+                <li class="flex items-center">
                     <a href="/showAllVerifikasi"
                         class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white">
                         <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
@@ -40,11 +40,11 @@
                 </li>
             </ol>
         </nav>
-        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Edit IRS</h1>
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Edit PKL</h1>
     </div>
     <!-- Right Content -->
     <div class="col-span-full xl:col-auto">
-            <form action="{{ route('editIRS', ['idirs' => $irs->idirs]) }}}" method="post">
+            <form action="{{ route('editPKL', ['idpkl' => $pkl->idpkl]) }}}" method="post">
                 @csrf
         </div>
         <div class="col-span-4">
@@ -58,26 +58,26 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
                                 <input type="text" name="nama" id="nama"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->nama }}" wfd-id="id1" readonly disabled>
+                                    value="{{ $pkl->nama }}" wfd-id="id1" readonly disabled>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="nim"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
                                 <input type="text" name="nim" id="nim"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->nim }}" wfd-id="id2" readonly disabled>
+                                    value="{{ $pkl->nim }}" wfd-id="id2" readonly disabled>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="angkatan"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Angkatan</label>
                                 <input type="text" name="angkatan" id="angkatan"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->angkatan }}" wfd-id="id2" readonly disabled>
+                                    value="{{ $pkl->angkatan }}" wfd-id="id2" readonly disabled>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="semester_aktif"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Semester Aktif</label>
-                                    <select id="semester_aktif" name="semester_aktif" value = "{{$irs->semester_aktif}}"
+                                    <select id="semester_aktif" name="semester_aktif" value = "{{$pkl->semester_aktif}}"
                                         class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                         <option disabled>Pilih semester</option>
                                         @for ($i = 1; $i <= 14; $i++)
@@ -90,12 +90,18 @@
                                 @enderror
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="jumlah_sks"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah SKS</label>
-                                <input type="text" name="jumlah_sks" id="jumlah_sks"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->jumlah_sks }}" wfd-id="id6"  max = "24" min="18">
-                                @error('jumlah_sks')
+                                <label for="nilai"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nilai</label>
+                                    <select id="nilai" name="nilai" value="{{$pkl->nilai}}"
+                                        class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option disabled>Pilih nilai</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                                    </select>
+                                @error('nilai')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                                 @enderror
                             </div>

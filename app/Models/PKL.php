@@ -10,7 +10,7 @@ use Illuminate\Validation\Rules\Exists;
 class PKL extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'idpkl';
     protected $table = 'pkl';
 
     protected $fillable = ['semester_aktif', 'nilai','statusPKL','scanPKL', 'status'];

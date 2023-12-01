@@ -134,7 +134,7 @@ class OperatorController extends Controller
         ]);
         //dd($request);
         $file = $request->file('file');
-
+        //dd($file);
         if ($file) {
             if ($file->getClientOriginalExtension() !== 'xlsx') {
                 return redirect('importMahasiswa')->with('error', 'File yang diunggah harus dalam format Excel XLSX.');

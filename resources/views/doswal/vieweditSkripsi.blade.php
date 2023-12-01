@@ -15,7 +15,7 @@
                         Home
                     </a>
                 </li>
-                <li class="inline-flex items-center">
+                <li class="flex items-center">
                     <a href="/showAllVerifikasi"
                         class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white">
                         <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
@@ -40,11 +40,11 @@
                 </li>
             </ol>
         </nav>
-        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Edit IRS</h1>
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Edit PKL</h1>
     </div>
     <!-- Right Content -->
     <div class="col-span-full xl:col-auto">
-            <form action="{{ route('editIRS', ['idirs' => $irs->idirs]) }}}" method="post">
+            <form action="{{ route('editSkripsi', ['idskripsi' => $skripsi->idskripsi]) }}}" method="post">
                 @csrf
         </div>
         <div class="col-span-4">
@@ -58,26 +58,26 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
                                 <input type="text" name="nama" id="nama"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->nama }}" wfd-id="id1" readonly disabled>
+                                    value="{{ $skripsi->nama }}" wfd-id="id1" readonly disabled>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="nim"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
                                 <input type="text" name="nim" id="nim"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->nim }}" wfd-id="id2" readonly disabled>
+                                    value="{{ $skripsi->nim }}" wfd-id="id2" readonly disabled>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="angkatan"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Angkatan</label>
                                 <input type="text" name="angkatan" id="angkatan"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->angkatan }}" wfd-id="id2" readonly disabled>
+                                    value="{{ $skripsi->angkatan }}" wfd-id="id2" readonly disabled>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="semester_aktif"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Semester Aktif</label>
-                                    <select id="semester_aktif" name="semester_aktif" value = "{{$irs->semester_aktif}}"
+                                    <select id="semester_aktif" name="semester_aktif" value = "{{$skripsi->semester_aktif}}"
                                         class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                         <option disabled>Pilih semester</option>
                                         @for ($i = 1; $i <= 14; $i++)
@@ -90,16 +90,57 @@
                                 @enderror
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="jumlah_sks"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah SKS</label>
-                                <input type="text" name="jumlah_sks" id="jumlah_sks"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->jumlah_sks }}" wfd-id="id6"  max = "24" min="18">
-                                @error('jumlah_sks')
+                                <label for="nilai"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nilai</label>
+                                    <select id="nilai" name="nilai" value="{{$skripsi->nilai}}"
+                                        class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option disabled>Pilih nilai</option>
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="E">E</option>
+                                    </select>
+                                @error('nilai')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                                 @enderror
                             </div>
-
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="tanggal_sidang"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal sidang</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 ml-2 flex items-center ps-3 pointer-events-none">
+                                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                            <path
+                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                        </svg>
+                                    </div>
+                                    <input datepicker datepicker-format="yyyy-mm-dd" type="text" name="tanggal_sidang" id="tanggal_sidang"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 datepicker-input"
+                                        placeholder="Select date" value="{{ $skripsi->tanggal_sidang }}">
+                                </div>
+                                
+                                @error('tanggal_sidang')
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                                @enderror
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="lama_studi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lama
+                                    studi</label>
+                                <select id="lama_studi" name="lama_studi" value="{{$skripsi->lama_studi}}"
+                                    class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <option disabled>Pilih lama studi</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
+                                @error('lama_studi')
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                                @enderror
+                            </div>
                             <div class="col-span-6 sm:col-full">
                                 <button
                                     class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

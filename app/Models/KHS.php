@@ -10,7 +10,7 @@ use Illuminate\Validation\Rules\Exists;
 class KHS extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'idkhs';
     protected $table = 'khs';
 
     protected $fillable = ['semester_aktif', 'jumlah_sks','jumlah_sks_kumulatif', 'ip_semester','ip_kumulatif','scanKHS', 'status'];

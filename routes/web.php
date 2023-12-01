@@ -131,7 +131,16 @@ Route::controller(VerifikasiController::class)->middleware(['auth','only_dosen']
     Route::get('/showAllVerifikasi','showAll')->name('showAll');
     Route::post('/verifikasi/{nim}/{semester_aktif}','verifikasi')->name('verifikasi');
     Route::post('/rejected/{nim}/{semester_aktif}','rejected')->name('rejected');
-    Route::get('/vieweditIRS/{nim}/{semester_aktif}','vieweditIRS')->name('vieweditIRS');
+
+    Route::get('/vieweditIRS/{idirs}','vieweditIRS')->name('vieweditIRS');
+    Route::post('/editIRS/{idirs}','editIRS')->name('editIRS');
+    Route::get('/vieweditKHS/{idkhs}','vieweditKHS')->name('vieweditKHS');
+    Route::post('/editKHS/{idkhs}','editKHS')->name('editKHS');
+    Route::get('/vieweditPKL/{idpkl}','vieweditPKL')->name('vieweditPKL');
+    Route::post('/editPKL/{idpkl}','editPKL')->name('editPKL');
+    Route::get('/vieweditSkripsi/{idskripsi}','vieweditSkripsi')->name('vieweditSkripsi');
+    Route::post('/editSkripsi/{idskripsi}','editSkripsi')->name('editSkripsi');
+
     Route::post('/verifikasiKHS/{nim}/{semester_aktif}','verifikasiKHS')->name('verifikasiKHS');
     Route::post('/rejectedKHS/{nim}/{semester_aktif}','rejectedKHS')->name('rejectedKHS');
     Route::post('/verifikasiPKL/{nim}/{semester_aktif}','verifikasiPKL')->name('verifikasiPKL');

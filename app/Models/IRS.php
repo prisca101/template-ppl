@@ -10,7 +10,7 @@ use Illuminate\Validation\Rules\Exists;
 class IRS extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'idirs';
     protected $table = 'irs';
 
     protected $fillable = ['semester_aktif', 'jumlah_sks', 'scanIRS', 'status'];

@@ -106,6 +106,10 @@
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                            Angkatan
+                                        </th>
+                                        <th scope="col"
+                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                             Semester Aktif
                                         </th>
                                         <th scope="col"
@@ -123,9 +127,9 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white dark:bg-gray-800">
-
-                                    <tr>
                                     @foreach($irs as $ir)
+                                    <tr>
+                                    
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             {{$ir->nama}}
@@ -133,6 +137,10 @@
                                         <td
                                             class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                             {{$ir->nim}}
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{$ir->angkatan}}
                                         </td>
                                         <td
                                             class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
@@ -178,7 +186,7 @@
                                                         <span><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></span>
                                                     </button>
                                                 </form>
-                                                <form action="" method="get">
+                                                <form action="{{ route('vieweditIRS', ['idirs' => $ir->idirs]) }}" method="get">
                                                     @csrf
                                                     <button type="submit" class="edit-btn rounded-full inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                                                         <span><i class="fa-solid fa-pencil" style="color: #ffffff;"></i></span>
@@ -186,8 +194,8 @@
                                                 </form>
                                             </div>
                                         </td>
-                                    @endforeach
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -266,6 +274,10 @@
                                             </th>
                                             <th scope="col"
                                                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                Angkatan
+                                            </th>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                                 Semester Aktif
                                             </th>
                                             <th scope="col"
@@ -295,8 +307,9 @@
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white dark:bg-gray-800">
-                                        <tr>
                                         @foreach($khs as $kh)
+                                        <tr>
+                        
                                             <td
                                                 class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{$kh->nama}}
@@ -304,6 +317,10 @@
                                             <td
                                                 class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{$kh->nim}}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{$kh->angkatan}}
                                             </td>
                                             <td
                                                 class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
@@ -361,16 +378,17 @@
                                                             <span><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></span>
                                                         </button>
                                                     </form>
-                                                    <form action="" method="get">
+                                                    <form action="{{ route('vieweditKHS', ['idkhs' => $kh->idkhs]) }}" method="get">
                                                         @csrf
-                                                        <button type="submit" class="edit-btn rounded-full inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
+                                                        <button type="submit" class="edit-btn rounded-full inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:fo">
                                                             <span><i class="fa-solid fa-pencil" style="color: #ffffff;"></i></span>
                                                         </button>
                                                     </form>
                                                 </div>
                                             </td>
-                                        @endforeach
+                                        
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -450,6 +468,10 @@
                                             </th>
                                             <th scope="col"
                                                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                Angkatan
+                                            </th>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                                 Semester Aktif
                                             </th>
                                             <th scope="col"
@@ -467,8 +489,9 @@
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white dark:bg-gray-800">
-                                        <tr>
                                         @foreach($pkl as $pk)
+                                        <tr>
+                                        
                                             <td
                                                 class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{$pk->nama}}
@@ -476,6 +499,10 @@
                                             <td
                                                 class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{$pk->nim}}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{$pk->angkatan}}
                                             </td>
                                             <td
                                                 class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
@@ -521,7 +548,7 @@
                                                             <span><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></span>
                                                         </button>
                                                     </form>
-                                                    <form action="" method="get">
+                                                    <form action="{{ route('vieweditPKL', ['idpkl' => $pk->idpkl]) }}" method="get"">
                                                         @csrf
                                                         <button type="submit" class="edit-btn rounded-full inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                                                         <span><i class="fa-solid fa-pencil" style="color: #ffffff;"></i></span>
@@ -529,8 +556,9 @@
                                                     </form>
                                                 </div>
                                             </td>
-                                        @endforeach
+                                        
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -612,6 +640,10 @@
                                             </th>
                                             <th scope="col"
                                                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                Angkatan
+                                            </th>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                                 Semester Aktif
                                             </th>
                                             <th scope="col"
@@ -637,8 +669,9 @@
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white dark:bg-gray-800">
-                                        <tr>
                                         @foreach($skripsi as $skrips)
+                                        <tr>
+                                        
                                             <td
                                                 class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{$skrips->nama}}
@@ -646,6 +679,10 @@
                                             <td
                                                 class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{$skrips->nim}}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{$skrips->angkatan}}
                                             </td>
                                             <td
                                                 class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
@@ -699,7 +736,7 @@
                                                             <span><i class="fa-solid fa-xmark" style="color: #ffffff;"></i></span>
                                                         </button>
                                                     </form>
-                                                    <form action="" method="get">
+                                                    <form action="{{ route('vieweditSkripsi', ['idskripsi' => $skrips->idskripsi]) }}" method="get">
                                                         @csrf
                                                         <button type="submit" class="edit-btn rounded-full inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                                                         <span><i class="fa-solid fa-pencil" style="color: #ffffff;"></i></span>
@@ -707,8 +744,8 @@
                                                     </form>
                                                 </div>
                                             </td>
-                                        @endforeach
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

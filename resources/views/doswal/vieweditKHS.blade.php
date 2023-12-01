@@ -15,7 +15,7 @@
                         Home
                     </a>
                 </li>
-                <li class="inline-flex items-center">
+                <li class="flex items-center">
                     <a href="/showAllVerifikasi"
                         class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white">
                         <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
@@ -40,11 +40,11 @@
                 </li>
             </ol>
         </nav>
-        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Edit IRS</h1>
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Edit KHS</h1>
     </div>
     <!-- Right Content -->
     <div class="col-span-full xl:col-auto">
-            <form action="{{ route('editIRS', ['idirs' => $irs->idirs]) }}}" method="post">
+            <form action="{{ route('editKHS', ['idkhs' => $khs->idkhs]) }}}" method="post">
                 @csrf
         </div>
         <div class="col-span-4">
@@ -58,26 +58,26 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
                                 <input type="text" name="nama" id="nama"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->nama }}" wfd-id="id1" readonly disabled>
+                                    value="{{ $khs->nama }}" wfd-id="id1" readonly disabled>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="nim"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
                                 <input type="text" name="nim" id="nim"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->nim }}" wfd-id="id2" readonly disabled>
+                                    value="{{ $khs->nim }}" wfd-id="id2" readonly disabled>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="angkatan"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Angkatan</label>
                                 <input type="text" name="angkatan" id="angkatan"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->angkatan }}" wfd-id="id2" readonly disabled>
+                                    value="{{ $khs->angkatan }}" wfd-id="id2" readonly disabled>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="semester_aktif"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Semester Aktif</label>
-                                    <select id="semester_aktif" name="semester_aktif" value = "{{$irs->semester_aktif}}"
+                                    <select id="semester_aktif" name="semester_aktif" value = "{{$khs->semester_aktif}}"
                                         class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                         <option disabled>Pilih semester</option>
                                         @for ($i = 1; $i <= 14; $i++)
@@ -94,8 +94,38 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah SKS</label>
                                 <input type="text" name="jumlah_sks" id="jumlah_sks"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    value="{{ $irs->jumlah_sks }}" wfd-id="id6"  max = "24" min="18">
+                                    value="{{ $khs->jumlah_sks }}" wfd-id="id6"  max = "24" min="18">
                                 @error('jumlah_sks')
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                                @enderror
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="jumlah_sks_kumulatif"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jumlah SKS Kumulatif</label>
+                                <input type="text" name="jumlah_sks_kumulatif" id="jumlah_sks_kumulatif"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    value="{{ $khs->jumlah_sks_kumulatif }}" wfd-id="id6"  min="18">
+                                @error('jumlah_sks_kumulatif')
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                                @enderror
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="ip_semester"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IP Semester</label>
+                                <input type="text" name="ip_semester" id="ip_semester"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    value="{{ $khs->ip_semester }}" wfd-id="id6"  max="4">
+                                @error('ip_semester')
+                                    <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                                @enderror
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="ip_kumulatif"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">IP Kumulatif</label>
+                                <input type="text" name="ip_kumulatif" id="ip_kumulatif"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    value="{{ $khs->ip_kumulatif }}" wfd-id="id6"  max="4">
+                                @error('ip_semester')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                                 @enderror
                             </div>

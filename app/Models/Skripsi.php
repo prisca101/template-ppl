@@ -10,7 +10,7 @@ use Illuminate\Validation\Rules\Exists;
 class Skripsi extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'idskripsi';
     protected $table = 'skripsi';
 
     protected $fillable = ['semester_aktif', 'nilai','lama_studi','tanggal_sidang','statusSkripsi','scanSkripsi', 'status'];
