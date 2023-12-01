@@ -132,6 +132,7 @@ Route::controller(VerifikasiController::class)->middleware(['auth','only_dosen']
     Route::get('/showAllVerifikasi','showAll')->name('showAll');
     Route::post('/verifikasi/{nim}/{semester_aktif}','verifikasi')->name('verifikasi');
     Route::post('/rejected/{nim}/{semester_aktif}','rejected')->name('rejected');
+    Route::get('/vieweditIRS/{nim}/{semester_aktif}','vieweditIRS')->name('vieweditIRS');
     Route::post('/verifikasiKHS/{nim}/{semester_aktif}','verifikasiKHS')->name('verifikasiKHS');
     Route::post('/rejectedKHS/{nim}/{semester_aktif}','rejectedKHS')->name('rejectedKHS');
     Route::post('/verifikasiPKL/{nim}/{semester_aktif}','verifikasiPKL')->name('verifikasiPKL');
@@ -253,9 +254,9 @@ Route::get('/editprofilDoswal', function () {
     return view('doswal.profil-edit');
 });
 
-Route::get('/verification', function () {
-    return view('doswal.verification');
-});
+// Route::get('/verification', function () {
+//     return view('doswal.verification');
+// });
 
 Route::get('/listpkl', function () {
     return view('doswal.listpkl');
