@@ -40,324 +40,423 @@
             </li>
         </ol>
     </nav>
-    <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Mahasiswa Details</h1>
+    <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Progress Perkembangan Studi Mahasiswa Informatika</h1>
+    <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Fakultas Sains dan Matematika</h1>
 </div>
 
-
+@foreach ($mahasiswa as $mhs)
 <div class="col-span-full xl:col-auto">
     <div
         class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
-            <img class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0"
-                src="https://flowbite-admin-dashboard.vercel.app/images/users/bonnie-green-2x.png" alt="Jese picture">
+            <img class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0" src="{{ $mhs->getImageURL() }}" alt="{{ $mhs->nama }}">
             <div>
-                <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Michael Jackson</h3>
+                <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{$mhs->nama}}</h3>
                 <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                    <p>24060121100037</p>
-                    <p>2021</p>
-                    <p>Semester 2</p>
+                    <p>{{$mhs->nim}}</p>
+                    <p>{{$mhs->angkatan}}</p>
+                    <p>{{$mhs->dosen_nama}}</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endforeach
 @endsection
 
 @section('content2')
-<!--Tabs widget -->
-<div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-  <ul class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
-      <li class="w-full">
-          <button id="irs-tab" data-tabs-target="#irs" type="button" role="tab" aria-controls="irs" aria-selected="true" class="inline-block w-full p-4 rounded-tl-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">IRS</button>
-      </li>
-        <li class="w-full">
-            <button id="khs-tab" data-tabs-target="#khs" type="button" role="tab" aria-controls="khs" aria-selected="false" class="inline-block w-full p-4 rounded-tr-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">KHS</button>
-        </li>
-        <li class="w-full">
-            <button id="pkl-tab" data-tabs-target="#pkl" type="button" role="tab" aria-controls="pkl" aria-selected="false" class="inline-block w-full p-4 rounded-tr-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">PKL</button>
-        </li>
-        <li class="w-full">
-            <button id="skripsi-tab" data-tabs-target="#skripsi" type="button" role="tab" aria-controls="skripsi" aria-selected="false" class="inline-block w-full p-4 rounded-tr-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">Skripsi</button>
-        </li>
-    </ul>
-
-    <!--IRS -->
-    <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
-        <div class="hidden pt-4" id="irs" role="tabpanel" aria-labelledby="irs-tab">
-            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                <div class="flex flex-col mt-6">
-                    <div class="overflow-x-auto rounded-lg">
-                        <div class="inline-block min-w-full align-middle">
-                            <div class="overflow-hidden shadow sm:rounded-lg">
-                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
-                                    <thead class="bg-gray-50 dark:bg-gray-700">
-                                        <tr>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                              SKS Total
-                                            </th>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                              Scan IRS
-                                            </th>
-                                          </tr>
-                                    </thead>
-                                    <tbody class="bg-white dark:bg-gray-800">
-                                        <tr>
-                                            <td class="text-center p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                              24
-                                            </td>
-                                            <td class="flex justify-center items-center p-4 space-x-2 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                <div class="flex items-center p-3 mb-3.5 border border-gray-200 dark:border-gray-700 rounded-lg">
-                                                    <div class="flex items-center justify-center w-10 h-10 mr-3 rounded-lg bg-primary-100 dark:bg-primary-900">
-                                                      <svg class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z"></path>
-                                                        <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"></path>
-                                                      </svg>
-                                                    </div>
-                                                    <div class="mr-4">
-                                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">irs_dipdip</p>
-                                                        <p class="text-sm text-gray-500 dark:text-gray-400">PDF, 2.3 MB</p>
-                                                    </div>
-                                                    <div class="flex items-center ml-auto">
-                                                      <button type="button" class="p-2 rounded hover:bg-gray-100">
-                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                          <path clip-rule="evenodd" fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75zm-9 13.5a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"></path>
-                                                        </svg>
-                                                        <span class="sr-only">Download</span>
-                                                      </button>
-                                                      <button type="button" class="p-2 rounded hover:bg-gray-100">
-                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
-                                                        </svg>
-                                                        <span class="sr-only">Actions</span>
-                                                      </button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>                                
-            </ul>
-        </div>    
+    <div class="form-group">
+        <label for="semester" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Semester</label>
     </div>
+    <div class="inline-block">
+        @for ($i = 1; $i <= 14; $i++)
+            @php
+                $irs = $irsData[$i] ?? null;
+                $khs = $khsData[$i] ?? null;
+                $pkl = $pklData[$i] ?? null;
+                $skripsi = $skripsiData[$i] ?? null;
+                $lastVerifiedPKL;
 
-    <!--KHS -->
-    <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
-        <div class="hidden pt-4" id="khs" role="tabpanel" aria-labelledby="khs-tab">
-            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                <div class="flex flex-col mt-6">
-                    <div class="overflow-x-auto rounded-lg">
-                        <div class="inline-block min-w-full align-middle">
-                            <div class="overflow-hidden shadow sm:rounded-lg">
-                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
-                                    <thead class="bg-gray-50 dark:bg-gray-700">
-                                        <tr>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                              IP Semester
-                                            </th>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                              IP Kumulatif
-                                            </th>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                                SKS Total
-                                            </th>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                                SKS Kumulatif
-                                            </th>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                                Scan KHS
-                                            </th>
-                                          </tr>
-                                    </thead>
-                                    <tbody class="bg-white dark:bg-gray-800">
-                                        <tr>
-                                            <td class="text-center p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                              4.0
-                                            </td>
-                                            <td class="text-center p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                4.0
-                                            </td>
-                                            <td class="text-center p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                23
-                                            </td>
-                                            <td class="text-center p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                50
-                                            </td>
-                                            <td class="flex justify-center items-center p-4 space-x-2 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                <div class="flex items-center p-3 mb-3.5 border border-gray-200 dark:border-gray-700 rounded-lg">
-                                                    <div class="flex items-center justify-center w-10 h-10 mr-3 rounded-lg bg-primary-100 dark:bg-primary-900">
-                                                      <svg class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z"></path>
-                                                        <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"></path>
-                                                      </svg>
-                                                    </div>
-                                                    <div class="mr-4">
-                                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">khs_dip</p>
-                                                        <p class="text-sm text-gray-500 dark:text-gray-400">PDF, 2.3 MB</p>
-                                                    </div>
-                                                    <div class="flex items-center ml-auto">
-                                                      <button type="button" class="p-2 rounded hover:bg-gray-100">
-                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                          <path clip-rule="evenodd" fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75zm-9 13.5a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"></path>
-                                                        </svg>
-                                                        <span class="sr-only">Download</span>
-                                                      </button>
-                                                      <button type="button" class="p-2 rounded hover:bg-gray-100">
-                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
-                                                        </svg>
-                                                        <span class="sr-only">Actions</span>
-                                                      </button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>                                
-            </ul>
-        </div>    
-    </div>
+                $cardClass = 'bg-red-400'; // Default color is red
 
-    <!--PKL -->
-    <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
-        <div class="hidden pt-4" id="pkl" role="tabpanel" aria-labelledby="pkl-tab">
-            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                <div class="flex flex-col mt-6">
-                    <div class="overflow-x-auto rounded-lg">
-                        <div class="inline-block min-w-full align-middle">
-                            <div class="overflow-hidden shadow sm:rounded-lg">
-                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
-                                    <thead class="bg-gray-50 dark:bg-gray-700">
-                                        <tr>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                              Nilai
-                                            </th>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                              Status
-                                            </th>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                            Scan PKL
-                                            </th>
-                                          </tr>
-                                    </thead>
-                                    <tbody class="bg-white dark:bg-gray-800">
-                                        <tr>
-                                            <td class="text-center p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                              100
-                                            </td>
-                                            <td class="text-center p-4 whitespace-nowrap">
-                                                <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500">Lulus</span>
-                                            </td>
-                                            <td class="flex justify-center items-center p-4 space-x-2 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                <div class="flex items-center p-3 mb-3.5 border border-gray-200 dark:border-gray-700 rounded-lg">
-                                                    <div class="flex items-center justify-center w-10 h-10 mr-3 rounded-lg bg-primary-100 dark:bg-primary-900">
-                                                      <svg class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z"></path>
-                                                        <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"></path>
-                                                      </svg>
-                                                    </div>
-                                                    <div class="mr-4">
-                                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">pkl_dip</p>
-                                                        <p class="text-sm text-gray-500 dark:text-gray-400">PDF, 2.3 MB</p>
-                                                    </div>
-                                                    <div class="flex items-center ml-auto">
-                                                      <button type="button" class="p-2 rounded hover:bg-gray-100">
-                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                          <path clip-rule="evenodd" fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75zm-9 13.5a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"></path>
-                                                        </svg>
-                                                        <span class="sr-only">Download</span>
-                                                      </button>
-                                                      <button type="button" class="p-2 rounded hover:bg-gray-100">
-                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
-                                                        </svg>
-                                                        <span class="sr-only">Actions</span>
-                                                      </button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>                                
-            </ul>
-        </div>    
-    </div>
+                if ($irs && !$khs && !$pkl && !$skripsi) {
+                    if ($irs->status == 'verified') {
+                        $cardClass = 'bg-blue-300'; // Light blue if only IRS is 'verified'
+                    }
+                } elseif ($irs && $khs && !$pkl && !$skripsi) {
+                    if ($irs->status == 'verified' && $khs->status == 'verified') {
+                        $cardClass = 'bg-blue-800'; // Dark blue if IRS and KHS are 'verified'
+                    }
+                } elseif ($irs && $khs && $pkl && !$skripsi ) {
+                    if ($irs->status == 'verified' && $khs->status == 'verified' && $pkl->status == 'verified') {
+                        $cardClass = 'bg-yellow-400'; // Yellow if IRS, KHS, and PKL are 'verified'
+                    }
+                } elseif ($irs && $khs && !$pkl && $skripsi && $lastVerifiedPKL && $lastVerifiedPKL->semester_aktif != $irs->semester_aktif) {
+                    if ($irs->status == 'verified' && $khs->status == 'verified' && $skripsi->status == 'verified' && $lastVerifiedPKL) {
+                        $cardClass = 'bg-green-400'; // Green if all statuses are 'verified'
+                    }
+                }
 
-    <!--Skripsi -->
-    <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
-        <div class="hidden pt-4" id="skripsi" role="tabpanel" aria-labelledby="skripsi-tab">
-            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                <div class="flex flex-col mt-6">
-                    <div class="overflow-x-auto rounded-lg">
-                        <div class="inline-block min-w-full align-middle">
-                            <div class="overflow-hidden shadow sm:rounded-lg">
-                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
-                                    <thead class="bg-gray-50 dark:bg-gray-700">
-                                        <tr>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                              Nilai
-                                            </th>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                              Status
-                                            </th>
-                                            <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                            Scan Skripsi
-                                            </th>
-                                          </tr>
-                                    </thead>
-                                    <tbody class="bg-white dark:bg-gray-800">
-                                        <tr>
-                                            <td class="text-center p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                              100
-                                            </td>
-                                            <td class="text-center p-4 whitespace-nowrap">
-                                                <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 border border-green-100 dark:border-green-500">Lulus</span>
-                                            </td>
-                                            <td class="flex justify-center items-center p-4 space-x-2 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                <div class="flex items-center p-3 mb-3.5 border border-gray-200 dark:border-gray-700 rounded-lg">
-                                                    <div class="flex items-center justify-center w-10 h-10 mr-3 rounded-lg bg-primary-100 dark:bg-primary-900">
-                                                      <svg class="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625zM7.5 15a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5A.75.75 0 017.5 15zm.75 2.25a.75.75 0 000 1.5H12a.75.75 0 000-1.5H8.25z"></path>
-                                                        <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"></path>
-                                                      </svg>
-                                                    </div>
-                                                    <div class="mr-4">
-                                                        <p class="text-sm font-semibold text-gray-900 dark:text-white">skripsi_dip</p>
-                                                        <p class="text-sm text-gray-500 dark:text-gray-400">PDF, 2.3 MB</p>
-                                                    </div>
-                                                    <div class="flex items-center ml-auto">
-                                                      <button type="button" class="p-2 rounded hover:bg-gray-100">
-                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                          <path clip-rule="evenodd" fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75zm-9 13.5a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5V16.5a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V16.5a.75.75 0 01.75-.75z"></path>
-                                                        </svg>
-                                                        <span class="sr-only">Download</span>
-                                                      </button>
-                                                      <button type="button" class="p-2 rounded hover:bg-gray-100">
-                                                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                                          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
-                                                        </svg>
-                                                        <span class="sr-only">Actions</span>
-                                                      </button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                </table>
-                            </div>
+            @endphp
+
+            <!-- Tampilkan tombol dengan warna sesuai status -->
+            <a data-modal-target="modal-{{ $i }}" data-modal-toggle="modal-{{ $i }}" class="text-white {{ $cardClass }} box-border h-10 w-30 card p-2 overflow-hidden">{{ $i }}</a>
+
+            <!-- Modal for each status -->
+            <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full "
+                id="modal-{{ $i }}">
+                <div class="relative w-full h-full max-w-2xl px-4 md:h-auto">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+                        <!-- Modal header -->
+                        <div class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-700">
+                            <h3 class="text-xl font-semibold dark:text-white">
+                                Semester - {{$i}}
+                            </h3>
+                            <button type="button"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white"
+                                data-modal-toggle="modal-{{ $i }}">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
                         </div>
+                        <!-- Modal body -->
+                        @if ($cardClass == 'bg-blue-300' && $irs)
+                          <div class="my-4 border-b border-gray-200 dark:border-gray-700">
+                              <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
+                                  <li class="me-2" >
+                                      <button id="irs-tab-{{ $i }}" data-tabs-target="#irs-{{ $i }}" type="button" role="tab" aria-controls="irs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
+                                  </li>
+                              </ul>
+                          </div>
+                          <div id="fullWidthTabContent" >
+                            <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="irs-{{$i}}" role="tabpanel" aria-labelledby="irs-tab">
+                              <table class="table-auto border-collapse w-full ">
+                                <tbody>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Scan IRS</td>
+                                        <td class="border px-2 py-2 ">
+                                          <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                              </table>
+                            </div>
+                          </div>
+                        @endif
+                        @if ($cardClass == 'bg-blue-800' && $irs && $khs)
+                          <div class="my-4 border-b border-gray-200 dark:border-gray-700">
+                              <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
+                                  <li class="me-2" >
+                                      <button id="irs-tab-{{ $i }}" data-tabs-target="#irs-{{ $i }}" type="button" role="tab" aria-controls="irs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
+                                  </li>
+                                  <li class="me-2" >
+                                      <button id="khs-tab-{{ $i }}" data-tabs-target="#khs-{{ $i }}" type="button" role="tab" aria-controls="khs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">KHS</button>
+                                  </li>
+                              </ul>
+                          </div>
+                          <div id="fullWidthTabContent" >
+                            <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="irs-{{$i}}" role="tabpanel" aria-labelledby="irs-tab">
+                              <table class="table-auto border-collapse w-full ">
+                                <tbody>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Scan IRS</td>
+                                        <td class="border px-2 py-2 ">
+                                          <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                              </table>
+                            </div>
+                          </div>
+                          <div id="fullWidthTabContent" >
+                            <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="khs-{{$i}}" role="tabpanel" aria-labelledby="khs-tab">
+                              <table class="table-auto border-collapse w-full ">
+                                <tbody>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->semester_aktif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS Kumulatif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">IP Semester</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_semester }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_kumulatif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Scan KHS</td>
+                                        <td class="border px-2 py-2 ">
+                                          <a href="{{ asset('storage/' . $khs->scanKHS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat KHS</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                              </table>
+                            </div>
+                          </div>
+                        @endif
+                        @if ($cardClass == 'bg-yellow-400' && $irs && $khs && $pkl)
+                          <div class="my-4 border-b border-gray-200 dark:border-gray-700">
+                              <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
+                                  <li class="me-2" >
+                                      <button id="irs-tab-{{ $i }}" data-tabs-target="#irs-{{ $i }}" type="button" role="tab" aria-controls="irs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
+                                  </li>
+                                  <li class="me-2" >
+                                      <button id="khs-tab-{{ $i }}" data-tabs-target="#khs-{{ $i }}" type="button" role="tab" aria-controls="khs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">KHS</button>
+                                  </li>
+                                  <li class="me-2" >
+                                      <button id="pkl-tab-{{ $i }}" data-tabs-target="#pkl-{{ $i }}" type="button" role="tab" aria-controls="pkl" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">PKL</button>
+                                  </li>
+                              </ul>
+                          </div>
+                          <div id="fullWidthTabContent" >
+                            <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="irs-{{$i}}" role="tabpanel" aria-labelledby="irs-tab">
+                              <table class="table-auto border-collapse w-full ">
+                                <tbody>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Scan IRS</td>
+                                        <td class="border px-2 py-2 ">
+                                          <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                              </table>
+                            </div>
+                          </div>
+                          <div id="fullWidthTabContent" >
+                            <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="khs-{{$i}}" role="tabpanel" aria-labelledby="khs-tab">
+                              <table class="table-auto border-collapse w-full ">
+                                <tbody>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->semester_aktif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS Kumulatif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">IP Semester</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_semester }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_kumulatif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Scan KHS</td>
+                                        <td class="border px-2 py-2 ">
+                                          <a href="{{ asset('storage/' . $khs->scanKHS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat KHS</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+  
+                              </table>
+                            </div>
+                          </div>
+                          <div id="fullWidthTabContent" >
+                            <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="pkl-{{$i}}" role="tabpanel" aria-labelledby="pkl-tab">
+                              <table class="table-auto border-collapse w-full ">
+                                <tbody>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $pkl->semester_aktif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Nilai</td>
+                                        <td class="border px-2 py-2 text-white">{{ $pkl->nilai }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Scan PKL</td>
+                                        <td class="border px-2 py-2 ">
+                                          <a href="{{ asset('storage/' . $pkl->scanPKL) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat PKL</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                              </table>
+                            </div>
+                          </div>
+                        @endif
+                        @if ($cardClass == 'bg-green-400' && $irs && $khs && $skripsi && $lastVerifiedPKL && $lastVerifiedPKL->semester_aktif != $irs->semester_aktif)
+                          <div class="my-4 border-b border-gray-200 dark:border-gray-700">
+                              <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
+                                  <li class="me-2" >
+                                      <button id="irs-tab-{{ $i }}" data-tabs-target="#irs-{{ $i }}" type="button" role="tab" aria-controls="irs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
+                                  </li>
+                                  <li class="me-2" >
+                                      <button id="khs-tab-{{ $i }}" data-tabs-target="#khs-{{ $i }}" type="button" role="tab" aria-controls="khs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">KHS</button>
+                                  </li>
+                                  <li class="me-2" >
+                                      <button id="pkl-tab-{{ $i }}" data-tabs-target="#pkl-{{ $i }}" type="button" role="tab" aria-controls="pkl" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">PKL</button>
+                                  </li>
+                                  <li class="me-2" >
+                                      <button id="skripsi-tab-{{ $i }}" data-tabs-target="#skripsi-{{ $i }}" type="button" role="tab" aria-controls="skripsi" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">Skripsi</button>
+                                  </li>
+                              </ul>
+                          </div>
+                          <div id="fullWidthTabContent" >
+                            <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="irs-{{$i}}" role="tabpanel" aria-labelledby="irs-tab">
+                              <table class="table-auto border-collapse w-full ">
+                                <tbody>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Scan IRS</td>
+                                        <td class="border px-2 py-2 ">
+                                          <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                              </table>
+                            </div>
+                          </div>
+                          <div id="fullWidthTabContent" >
+                            <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="khs-{{$i}}" role="tabpanel" aria-labelledby="khs-tab">
+                              <table class="table-auto border-collapse w-full ">
+                                <tbody>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->semester_aktif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS Kumulatif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">IP Semester</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_semester }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_kumulatif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Scan KHS</td>
+                                        <td class="border px-2 py-2 ">
+                                          <a href="{{ asset('storage/' . $khs->scanKHS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat KHS</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+  
+                              </table>
+                            </div>
+                          </div>
+                          <div id="fullWidthTabContent" >
+                            <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="pkl-{{$i}}" role="tabpanel" aria-labelledby="pkl-tab">
+                              <table class="table-auto border-collapse w-full ">
+                                <tbody>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $lastVerifiedPKL->semester_aktif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Nilai</td>
+                                        <td class="border px-2 py-2 text-white">{{ $lastVerifiedPKL->nilai }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Scan PKL</td>
+                                        <td class="border px-2 py-2 ">
+                                          <a href="{{ asset('storage/' . $lastVerifiedPKL->scanPKL) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat PKL</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                              </table>
+                            </div>
+                          </div>
+                          <div id="fullWidthTabContent" >
+                            <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="skripsi-{{$i}}" role="tabpanel" aria-labelledby="skripsi-tab">
+                              <table class="table-auto border-collapse w-full ">
+                                <tbody>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-white">{{ $skripsi->semester_aktif }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Nilai</td>
+                                        <td class="border px-2 py-2 text-white">{{ $skripsi->nilai }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Lama Studi</td>
+                                        <td class="border px-2 py-2 text-white">{{ $skripsi->lama_studi }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Tanggal Sidang</td>
+                                        <td class="border px-2 py-2 text-white">{{ $skripsi->tanggal_sidang }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border px-2 py-2 text-white">Scan Skripsi</td>
+                                        <td class="border px-2 py-2 ">
+                                          <a href="{{ asset('storage/' . $skripsi->scanSkripsi) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat Skripsi</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                
+                              </table>
+                            </div>
+                          </div>
+                        @endif
+
                     </div>
-                </div>                                
-            </ul>
-        </div>    
+                </div>
+            </div>
+
+        @endfor
     </div>
-</div>
 @endsection
-

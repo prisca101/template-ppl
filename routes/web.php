@@ -65,7 +65,8 @@ Route::middleware(['auth', 'only_operator'])->group(function () {
 });
 
 Route::middleware(['auth', 'only_dosen'])->group(function () {
-    Route::get('/detail/{mahasiswa}', [DosenController::class, 'detail'])->name('detail');
+    Route::get('/perwalian', [DosenController::class, 'detail'])->name('perwalian');
+    Route::get('/details/{nim}', [DosenController::class, 'dataMahasiswa'])->name('details');
     Route::get('/profilDosen', [DosenController::class, 'edit'])->name('dosen.edit');
     Route::get('/profilDosen-edit', [DosenController::class, 'showEdit'])->name('dosen.showEdit');
     Route::post('/profilDosen-edit', [DosenController::class, 'update'])->name('dosen.update');
@@ -247,13 +248,10 @@ Route::post('signin', [AuthController::class, 'authenticate']);
 //     return view('doswal.dashboard');
 // });
 
-Route::get('/perwalian', function () {
-    return view('doswal.perwalian');
-});
 
-Route::get('/details', function () {
-    return view('doswal.details');
-});
+// Route::get('/details', function () {
+//     return view('doswal.details');
+// });
 
 Route::get('/profilDoswal', function () {
     return view('doswal.profil');

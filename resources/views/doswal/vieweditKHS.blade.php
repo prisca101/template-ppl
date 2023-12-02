@@ -77,14 +77,13 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="semester_aktif"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Semester Aktif</label>
-                                    <select id="semester_aktif" name="semester_aktif" value = "{{$khs->semester_aktif}}"
-                                        class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option disabled>Pilih semester</option>
-                                        @for ($i = 1; $i <= 14; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
-                                        @endfor
-
-                                    </select>
+                                <select id="semester_aktif" name="semester_aktif"
+                                    class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <option disabled>Pilih semester</option>
+                                    @for ($i = 1; $i <= 14; $i++)
+                                        <option value="{{ $i }}" {{ $i == $khs->semester_aktif ? 'selected' : '' }}>{{ $i }}</option>
+                                    @endfor
+                                </select>
                                 @error('semester_aktif')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                                 @enderror

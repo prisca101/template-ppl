@@ -47,6 +47,12 @@ class Mahasiswa extends Model
         return $this->hasOne(Skripsi::class, 'nim', 'nim');
     }
     
+    public function getImageURL(){
+        if($this->foto){
+            return url("storage/" . $this->foto);
+        }
+        return "https://api.dicebear.com/6.x/fun-emoji/svg?seed=($this=>name)";
+    }
 
 }
 

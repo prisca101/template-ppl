@@ -77,14 +77,13 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="semester_aktif"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Semester Aktif</label>
-                                    <select id="semester_aktif" name="semester_aktif" value = "{{$skripsi->semester_aktif}}"
-                                        class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option disabled>Pilih semester</option>
-                                        @for ($i = 1; $i <= 14; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
-                                        @endfor
-
-                                    </select>
+                                <select id="semester_aktif" name="semester_aktif"
+                                    class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <option disabled>Pilih semester</option>
+                                    @for ($i = 1; $i <= 14; $i++)
+                                        <option value="{{ $i }}" {{ $i == $skripsi->semester_aktif ? 'selected' : '' }}>{{ $i }}</option>
+                                    @endfor
+                                </select>
                                 @error('semester_aktif')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                                 @enderror
@@ -92,14 +91,14 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="nilai"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nilai</label>
-                                    <select id="nilai" name="nilai" value="{{$skripsi->nilai}}"
-                                        class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <select id="nilai" name="nilai" class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                     >
                                         <option disabled>Pilih nilai</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
-                                        <option value="C">C</option>
-                                        <option value="D">D</option>
-                                        <option value="E">E</option>
+                                        <option value="A" {{ $skripsi->nilai == 'A' ? 'selected' : '' }}>A</option>
+                                        <option value="B" {{ $skripsi->nilai == 'B' ? 'selected' : '' }}>B</option>
+                                        <option value="C" {{ $skripsi->nilai == 'C' ? 'selected' : '' }}>C</option>
+                                        <option value="D" {{ $skripsi->nilai == 'D' ? 'selected' : '' }}>D</option>
+                                        <option value="E" {{ $skripsi->nilai == 'E' ? 'selected' : '' }}>E</option>
                                     </select>
                                 @error('nilai')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
@@ -128,14 +127,14 @@
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="lama_studi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Lama
                                     studi</label>
-                                <select id="lama_studi" name="lama_studi" value="{{$skripsi->lama_studi}}"
-                                    class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <select id="lama_studi" name="lama_studi" class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                >
                                     <option disabled>Pilih lama studi</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
+                                    <option value="3" {{ $skripsi->lama_studi == 3 ? 'selected' : '' }}>3</option>
+                                    <option value="4" {{ $skripsi->lama_studi == 4 ? 'selected' : '' }}>4</option>
+                                    <option value="5" {{ $skripsi->lama_studi == 5 ? 'selected' : '' }}>5</option>
+                                    <option value="6" {{ $skripsi->lama_studi == 6 ? 'selected' : '' }}>6</option>
+                                    <option value="7" {{ $skripsi->lama_studi == 7 ? 'selected' : '' }}>7</option>
                                 </select>
                                 @error('lama_studi')
                                     <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>

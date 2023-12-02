@@ -21,5 +21,9 @@ class Dosen extends Model
     // {
     //     return $this->belongsTo(User::class, 'username', 'username');
     // }
+    public function mahasiswaPerwalian()
+    {
+        return $this->hasMany(Mahasiswa::class, 'nip', 'nip');
+    }
 }
 

@@ -65,33 +65,14 @@
     <!--IRS -->
     <div id="fullWidthTabContent" class="">
         <div class="hidden pt-4" id="irs" role="tabpanel" aria-labelledby="irs-tab">
-            <div class="sm:flex mb-4">
-                <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
-                    <form class="lg:pr-3" action="" method="GET">
-                        <label for="users-search" class="sr-only">Search</label>
-                        <div class="relative mt-1 lg:w-64 xl:w-96">
-                            <input type="text" name="email" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search for users">
-                        </div>
-                    </form>
-                    <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-circle-check fa-lg"></i></span>                         
-                        </a>
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-circle-xmark fa-lg"></i></span>
-                        </a>
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-trash-can fa-lg"></i></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+           
 
             <!-- Table -->
             <div class="flex flex-col">
                 <div class="overflow-x-auto rounded-t-lg">
                     <div class="inline-block min-w-full align-middle">
-                        <div class="overflow-hidden shadow">
+                        <div class="overflow-
+                         shadow">
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                                 <thead class="bg-gray-50 dark:bg-gray-700">
                                     <tr>
@@ -234,27 +215,6 @@
     <!--KHS -->
     <div id="fullWidthTabContent">
         <div class="hidden pt-4" id="khs" role="tabpanel" aria-labelledby="khs-tab">
-            <div class="sm:flex mb-4">
-                <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
-                    <form class="lg:pr-3" action="" method="GET">
-                    <label for="users-search" class="sr-only">Search</label>
-                    <div class="relative mt-1 lg:w-64 xl:w-96">
-                        <input type="text" name="email" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search for users">
-                    </div>
-                    </form>
-                    <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-circle-check fa-lg"></i></span>                         
-                        </a>
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-circle-xmark fa-lg"></i></span>
-                        </a>
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-trash-can fa-lg"></i></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
             <!-- Table -->
             <div class="w-full mb-1">
                 <div class="flex flex-col">
@@ -427,27 +387,7 @@
     <!--PKL -->
     <div id="fullWidthTabContent">
         <div class="hidden pt-4" id="pkl" role="tabpanel" aria-labelledby="pkl-tab">
-            <div class="sm:flex mb-4">
-                <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
-                    <form class="lg:pr-3" action="" method="GET">
-                    <label for="users-search" class="sr-only">Search</label>
-                    <div class="relative mt-1 lg:w-64 xl:w-96">
-                        <input type="text" name="email" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search for users">
-                    </div>
-                    </form>
-                    <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-circle-check fa-lg"></i></span>                         
-                        </a>
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-circle-xmark fa-lg"></i></span>
-                        </a>
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-trash-can fa-lg"></i></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            
             <!-- Table -->
             <div class="w-full mb-1">
                 <div class="flex flex-col">
@@ -599,27 +539,7 @@
     <!--Skripsi -->
     <div id="fullWidthTabContent">
         <div class="hidden pt-4" id="skripsi" role="tabpanel" aria-labelledby="skripsi-tab">
-            <div class="sm:flex mb-4">
-                <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
-                    <form class="lg:pr-3" action="" method="GET">
-                    <label for="users-search" class="sr-only">Search</label>
-                    <div class="relative mt-1 lg:w-64 xl:w-96">
-                        <input type="text" name="email" id="users-search" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search for users">
-                    </div>
-                    </form>
-                    <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-circle-check fa-lg"></i></span>                         
-                        </a>
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-circle-xmark fa-lg"></i></span>
-                        </a>
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span><i class="fa-solid fa-trash-can fa-lg"></i></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            
             <!-- Table -->
             <div class="w-full mb-1">
                 <div class="flex flex-col">

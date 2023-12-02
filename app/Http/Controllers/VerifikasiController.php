@@ -70,13 +70,11 @@ class VerifikasiController extends Controller
                 ->first();
     
         if ($irs) {
-            IRS::where('nim', $irs->nim)
-            ->where('semester_aktif', $semester_aktif)
-            ->update(['status' => 'rejected']);
-            return redirect()->route('showAll')->with('success', 'IRS berhasil ditolak.');
+            $irs->delete();
+            return redirect()->route('showAll')->with('success', 'IRS berhasil dihapus.');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat menolak.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus.');
         }
     }
 
@@ -148,14 +146,12 @@ class VerifikasiController extends Controller
                 ->where('semester_aktif', $semester_aktif)
                 ->first();
 
-        if($khs){
-            KHS::where('nim', $khs->nim)
-            ->where('semester_aktif', $semester_aktif)
-            ->update(['status' => 'rejected']);
-            return redirect()->route('showAll')->with('success', 'KHS berhasil ditolak.');
+        if ($khs) {
+            $khs->delete();
+            return redirect()->route('showAll')->with('success', 'KHS berhasil dihapus.');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat menolak.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus.');
         }
     }
 
@@ -230,14 +226,12 @@ class VerifikasiController extends Controller
                 ->where('semester_aktif', $semester_aktif)
                 ->first();
 
-        if($pkl){
-            PKL::where('nim', $pkl->nim)
-            ->where('semester_aktif', $semester_aktif)
-            ->update(['status' => 'rejected']);
-            return redirect()->route('showAll')->with('success', 'PKL berhasil ditolak.');
+        if ($pkl) {
+            $pkl->delete();
+            return redirect()->route('showAll')->with('success', 'PKL berhasil dihapus.');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat menolak.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus.');
         }
     }
 
@@ -305,14 +299,12 @@ class VerifikasiController extends Controller
                 ->where('semester_aktif', $semester_aktif)
                 ->first();
 
-        if($skripsi){
-            Skripsi::where('nim', $skripsi->nim)
-            ->where('semester_aktif', $semester_aktif)
-            ->update(['status' => 'rejected']);
-            return redirect()->route('showAll')->with('success', 'Skripsi berhasil ditolak.');
+        if ($skripsi) {
+            $skripsi->delete();
+            return redirect()->route('showAll')->with('success', 'Skripsi berhasil dihapus.');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat menolak.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus.');
         }
     }
 
@@ -326,7 +318,8 @@ class VerifikasiController extends Controller
         $skripsi = Skripsi::join('mahasiswa','skripsi.nim','=','mahasiswa.nim')
                 ->where('skripsi.idskripsi', $idskripsi)
                 ->where('skripsi.status','pending')
-                ->select('skripsi.idskripsi','mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.semester_aktif', 'skripsi.nilai', 'skripsi.scanSkripsi', 'skripsi.tanggal_sidang', 'skripsi.lama_studi');
+                ->select('skripsi.idskripsi','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','skripsi.semester_aktif','skripsi.nilai','skripsi.scanSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang')
+                ->first();
                 
         return view('doswal.vieweditSkripsi', ['skripsi' => $skripsi]);
     }
@@ -335,7 +328,7 @@ class VerifikasiController extends Controller
     public function editSkripsi(Request $request, $idskripsi)
     {
         // Mendapatkan IRS berdasarkan nim dan semester aktif
-        $skripsi = Skripsi::where('idskripsi', $idskripsi);
+        $skripsi = Skripsi::where('idskripsi', $idskripsi)->first();
 
         $validated = $request->validate([
             'nilai' => [Rule::in(['A', 'B', 'C', 'D', 'E'])],

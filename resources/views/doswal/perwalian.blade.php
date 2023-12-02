@@ -121,7 +121,7 @@
                             <thead class="bg-gray-100 dark:bg-gray-700">
                                 <tr>
                                     <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                                        Name
+                                        Nama
                                     </th>
                                     <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                                         NIM
@@ -138,131 +138,32 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                                
+                            @foreach ($mahasiswaPerwalian as $mahasiswa)
                                 <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                                     <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                        <img class="w-10 h-10 rounded-full" src="https://flowbite-admin-dashboard.vercel.app/images/users/neil-sims.png" alt="Neil Sims avatar">
+                                    <img class="w-10 h-10 rounded-full" src="{{ $mahasiswa->getImageURL() }}" alt="{{ $mahasiswa->nama }}">
                                         <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                            <div class="text-base font-semibold text-gray-900 dark:text-white">Neil Sims</div>
-                                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">neil.sims@flowbite.com</div>
+                                            <div class="text-base font-semibold text-gray-900 dark:text-white">{{$mahasiswa->nama}}</div>
                                         </div>
                                     </td>
-                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">20252525252</td>
-                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">2022</td>
+                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$mahasiswa->nim}}</td>
+                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$mahasiswa->angkatan}}</td>
                                     <td class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                         <div class="flex items-center">
-                                            <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>  Active
+                                            <div class="h-2.5 w-2.5 rounded-full {{ $mahasiswa->status == 'active' ? 'bg-green-400' : 'bg-red-400' }} mr-2"></div>  
+                                            {{$mahasiswa->status}}
                                         </div>
                                     </td>
                                     <td class="p-4 space-x-2 whitespace-nowrap">
                                         <div class="flex-shrink-0">
-                                            <a href="/details" class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
-                                              Details
-                                              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                            <a href="{{ route('details', ['nim' => $mahasiswa->nim]) }}" class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
+                                            Details
+                                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                             </a>
                                         </div>
                                     </td>
                                 </tr>
-                                
-                                <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                    <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                        <img class="w-10 h-10 rounded-full" src="https://flowbite-admin-dashboard.vercel.app/images/users/roberta-casas.png" alt="Roberta Casas avatar">
-                                        <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                            <div class="text-base font-semibold text-gray-900 dark:text-white">Roberta Casas</div>
-                                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">roberta.casas@flowbite.com</div>
-                                        </div>
-                                    </td>
-                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">20252525252</td>
-                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">2022</td>
-                                    <td class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center">
-                                            <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>  Active
-                                        </div>
-                                    </td>
-                                    <td class="p-4 space-x-2 whitespace-nowrap">
-                                        <div class="flex-shrink-0">
-                                            <a href="/details" class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
-                                              Details
-                                              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                    <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                        <img class="w-10 h-10 rounded-full" src="https://flowbite-admin-dashboard.vercel.app/images/users/michael-gough.png" alt="Michael Gough avatar">
-                                        <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                            <div class="text-base font-semibold text-gray-900 dark:text-white">Michael Gough</div>
-                                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">michael.gough@flowbite.com</div>
-                                        </div>
-                                    </td>
-                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">20252525252</td>
-                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">2022</td>
-                                    <td class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center">
-                                            <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>  Active
-                                        </div>
-                                    </td>
-                                    <td class="p-4 space-x-2 whitespace-nowrap">
-                                        <div class="flex-shrink-0">
-                                            <a href="/details" class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
-                                              Details
-                                              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                    <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                        <img class="w-10 h-10 rounded-full" src="https://flowbite-admin-dashboard.vercel.app/images/users/jese-leos.png" alt="Jese Leos avatar">
-                                        <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                            <div class="text-base font-semibold text-gray-900 dark:text-white">Jese Leos</div>
-                                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">jese.leos@flowbite.com</div>
-                                        </div>
-                                    </td>
-                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">20252525252</td>
-                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">2022</td>
-                                    <td class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center">
-                                            <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>  Active
-                                        </div>
-                                    </td>
-                                    <td class="p-4 space-x-2 whitespace-nowrap">
-                                        <div class="flex-shrink-0">
-                                            <a href="/details" class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
-                                              Details
-                                              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                    <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                        <img class="w-10 h-10 rounded-full" src="https://flowbite-admin-dashboard.vercel.app/images/users/bonnie-green.png" alt="Bonnie Green avatar">
-                                        <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                            <div class="text-base font-semibold text-gray-900 dark:text-white">Bonnie Green</div>
-                                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">bonnie.green@flowbite.com</div>
-                                        </div>
-                                    </td>
-                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">20252525252</td>
-                                    <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">2022</td>
-                                    <td class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        <div class="flex items-center">
-                                            <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>  Active
-                                        </div>
-                                    </td>
-                                    <td class="p-4 space-x-2 whitespace-nowrap">
-                                        <div class="flex-shrink-0">
-                                            <a href="/details" class="inline-flex items-center p-2 text-xs font-medium uppercase rounded-lg text-primary-700 sm:text-sm hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700">
-                                              Details
-                                              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
