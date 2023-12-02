@@ -72,6 +72,28 @@ class DosenController extends Controller
         ]);
     }
 
+    public function searchMhs(Request $request)
+    {
+        $search = $request->input('users-search');
+        //dd($search);
+        $mahasiswa = Mahasiswa::join('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+            ->join('users', 'mahasiswa.iduser', '=', 'users.id')
+            ->where('dosen_wali.iduser', Auth::user()->id)
+            ->where(function ($query) use ($search) {
+                $query->where('mahasiswa.nama', 'like', '%' . $search . '%')
+                    ->orWhere('mahasiswa.nim', 'like', '%' . $search . '%');
+            })
+            ->select('mahasiswa.nim', 'mahasiswa.nama')
+            ->first();
+        
+        if ($mahasiswa) {
+            return redirect()->route('details', ['nim' => $mahasiswa->nim]);
+        } else {
+            // Handle the case where no matching student was found
+        }
+    }
+
+
     public function listPKL(Request $request){
         $nip = $request->user()->dosen->nip;
         $pkl = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')

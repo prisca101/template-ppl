@@ -67,6 +67,7 @@ Route::middleware(['auth', 'only_operator'])->group(function () {
 Route::middleware(['auth', 'only_dosen'])->group(function () {
     Route::get('/perwalian', [DosenController::class, 'detail'])->name('perwalian');
     Route::get('/details/{nim}', [DosenController::class, 'dataMahasiswa'])->name('details');
+    Route::get('/search', [DosenController::class, 'searchMhs'])->name('searchmhs');
     Route::get('/profilDosen', [DosenController::class, 'edit'])->name('dosen.edit');
     Route::get('/profilDosen-edit', [DosenController::class, 'showEdit'])->name('dosen.showEdit');
     Route::post('/profilDosen-edit', [DosenController::class, 'update'])->name('dosen.update');
