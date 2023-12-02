@@ -89,7 +89,7 @@ class DosenController extends Controller
         if ($mahasiswa) {
             return redirect()->route('details', ['nim' => $mahasiswa->nim]);
         } else {
-            // Handle the case where no matching student was found
+            return redirect()->route('dosen.showEdit')->with('error', 'Tidak ada mahasiswa yang dicari di database');
         }
     }
 
