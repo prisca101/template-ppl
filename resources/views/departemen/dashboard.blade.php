@@ -219,12 +219,12 @@
                     <tbody class="bg-white dark:bg-gray-800">
                         <tr>
 
-                            @foreach($mahasiswas as $mahasiswa)
+                            @foreach($result as $angkatan =>$data)
                                 <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                    <a href="{{ route('list.index', ['angkatan' => $tahun, 'status' => 'verified']) }}" class="hover:underline">{{ $mahasiswa->pkl_lulus_count }}</a> 
+                                    <a href="{{ route('list.index', ['angkatan' => $angkatan, 'status' => 'verified']) }}" class="hover:underline">{{ $data['pkl_lulus_count'] }}</a> 
                                 </td>
                                 <td  class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                    <a href="{{ route('list.index2', ['angkatan' => $tahun, 'status' => 'pending']) }}" class="hover:underline">{{ $mahasiswa->pkl_tidak_lulus_count }}</a>
+                                    <a href="{{ route('list.index2', ['angkatan' => $angkatan, 'status' => 'pending']) }}" class="hover:underline">{{ $data['pkl_tidak_lulus_count'] }}</a>
                                 </td>
                             @endforeach
                         </tr>
@@ -268,7 +268,7 @@
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                         <thead class="bg-gray-50 dark:bg-gray-700 border-b">
                         <tr>
-                            @foreach($angkatan as $tahun)
+                            @foreach($angkatan2 as $tahun)
                                 <th scope="col" class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                     {{ $tahun }}
                                 </th>
@@ -280,7 +280,7 @@
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                         <thead class="bg-gray-50 dark:bg-gray-700">
                         <tr>
-                            @foreach($angkatan as $tahun)
+                            @foreach($angkatan2 as $tahun)
                                 <th scope="col" class="border-r text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                     Sudah
                                 </th>
@@ -291,15 +291,15 @@
                         </tr>
                         </thead>
                     <tbody class="bg-white dark:bg-gray-800">
-                
+
                     <tr>
-                        @foreach($mahasiswasSkripsi as $dataAngkatan)
-                            <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                <a href="{{ route('list.skripsi', ['angkatan' => $dataAngkatan->angkatan, 'status' => 'verified']) }}" class="hover:underline">{{ $dataAngkatan->lulus_count ?? 'Data tidak tersedia' }}</a>
-                            </td>
-                            <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                <a href="{{ route('list.skripsi2', ['angkatan' => $dataAngkatan->angkatan, 'status' => 'pending']) }}" class="hover:underline">{{ $dataAngkatan->tidak_lulus_count ?? 'Data tidak tersedia' }}</a>
-                            </td>
+                        @foreach ($result as $angkatan => $data)
+                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                            <a href="{{ route('list.skripsi', ['angkatan' => $angkatan, 'status' => 'verified']) }}" class="hover:underline">{{ $data['lulus_count'] }}</a>
+                        </td>
+                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                            <a href="{{ route('list.skripsi2', ['angkatan' => $angkatan, 'status' => 'pending']) }}" class="hover:underline">{{ $data['tidak_lulus_count'] }}</a>
+                        </td>
                         @endforeach
                     </tr>
                   </tbody>

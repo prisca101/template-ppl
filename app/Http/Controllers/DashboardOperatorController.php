@@ -132,7 +132,7 @@ class DashboardOperatorController extends Controller
         return view('operator.mahasiswa', ['mahasiswas' => $mahasiswas, 'dosens' => $dosens, 'success' => 'Data Mahasiswa berhasil ditambahkan.']);
     }
 
-    public function search(Request $request)
+    public function searchOperator(Request $request)
     {
         $search = $request->input('search');
 

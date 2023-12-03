@@ -32,7 +32,7 @@
 </div>
 @endsection
 
-@section('content2')
+@section('content2') 
 <div class="sm:flex my-4">
     <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
         <form class="lg:pr-3" action="{{route('searchmhs')}}" method="GET">

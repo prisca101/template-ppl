@@ -118,6 +118,21 @@ class DosenController extends Controller
 
     public function RekapPKL(Request $request){
         $nip = $request->user()->dosen->nip;
+        $lulus = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+        ->join('mahasiswa', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+        ->join('pkl', 'pkl.nim', '=', 'mahasiswa.nim')
+        ->where('dosen_wali.nip', $nip)
+        ->where('pkl.nip', $nip) 
+        ->where('pkl.status', 'verified')
+        ->count();
+
+        $tidakLulus = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+        ->join('mahasiswa', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+        ->join('pkl', 'pkl.nim', '=', 'mahasiswa.nim')
+        ->where('dosen_wali.nip', $nip)
+        ->where('pkl.nip', $nip) 
+        ->where('pkl.status', 'tidak lulus')
+        ->count();
     
         $result = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->join('mahasiswa', 'mahasiswa.nip', '=', 'dosen_wali.nip')
@@ -125,12 +140,11 @@ class DosenController extends Controller
                 ->where('dosen_wali.nip', $nip)
                 ->where('pkl.nip', $nip) 
                 ->select('mahasiswa.angkatan')
-                ->selectRaw('SUM(CASE WHEN pkl.statusPKL = "lulus" THEN 1 ELSE 0 END) as luluspkl')
-                ->selectRaw('SUM(CASE WHEN pkl.statusPKL = "tidak lulus" THEN 1 ELSE 0 END) as tdkluluspkl')
+                ->selectRaw('SUM(CASE WHEN pkl.status = "verified" THEN 1 ELSE 0 END) as luluspkl')
                 ->groupBy('mahasiswa.angkatan')
                 ->get();
     
-        return view('RekapPKL', ['data' => $result]);
+        return view('RekapPKL', ['data' => $result,'lulus'=>$lulus,'tidakLulus'=>$tidakLulus]);
     }
 
     public function DownloadRekapPKL(Request $request) {

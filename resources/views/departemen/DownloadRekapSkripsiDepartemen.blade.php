@@ -57,9 +57,9 @@
         <tbody class="bg-white dark:bg-gray-800">
             
                 <tr>
-                    @foreach($mahasiswasSkripsi as $mahasiswa)
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->lulus_count }}</td>
-                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->tidak_lulus_count}}</td>
+                    @foreach($result as $angkatan => $data)
+                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">{{ $data['lulus_count'] }}</td>
+                        <td class="border-r text-center p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">{{ $data['tidak_lulus_count'] }}</td>
                     @endforeach
                 </tr>
             

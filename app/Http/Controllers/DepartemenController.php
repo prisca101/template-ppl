@@ -120,13 +120,21 @@ class DepartemenController extends Controller
     }
     
     public function RekapSkripsi(){
-    
+        $angkatan = Mahasiswa::select('angkatan')->get();
+        if (!DB::table('mahasiswa')->where('angkatan', $angkatan)->exists()) {
+            return 0;
+        }
         $mahasiswasSkripsi = DB::table('mahasiswa as m')
                 ->leftJoin('skripsi as s', 'm.nim', '=', 's.nim')
+                ->when(!DB::table('mahasiswa')->where('angkatan', $angkatan)->exists(), function ($query) {
+                    return $query->whereRaw('1=0');
+                })
                 ->select('m.angkatan', DB::raw('COALESCE(SUM(CASE WHEN s.status = "verified" THEN 1 ELSE 0 END), 0) as lulus_count'), 
                                         DB::raw('COALESCE(SUM(CASE WHEN s.nim IS NULL OR s.status != "verified" THEN 1 ELSE 0 END), 0) as tidak_lulus_count'))
                 ->groupBy('m.angkatan')
                 ->get();
+
+
     
         return view('RekapSkripsiDepartemen', ['mahasiswasSkripsi' => $mahasiswasSkripsi]);
     }
