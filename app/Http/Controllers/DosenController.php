@@ -118,33 +118,36 @@ class DosenController extends Controller
 
     public function RekapPKL(Request $request){
         $nip = $request->user()->dosen->nip;
-        $lulus = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
-        ->join('mahasiswa', 'mahasiswa.nip', '=', 'dosen_wali.nip')
-        ->join('pkl', 'pkl.nim', '=', 'mahasiswa.nim')
-        ->where('dosen_wali.nip', $nip)
-        ->where('pkl.nip', $nip) 
-        ->where('pkl.status', 'verified')
-        ->count();
-
-        $tidakLulus = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
-        ->join('mahasiswa', 'mahasiswa.nip', '=', 'dosen_wali.nip')
-        ->join('pkl', 'pkl.nim', '=', 'mahasiswa.nim')
-        ->where('dosen_wali.nip', $nip)
-        ->where('pkl.nip', $nip) 
-        ->where('pkl.status', 'tidak lulus')
-        ->count();
+        $angkatan = [];
+        $tahunSekarang = date('Y');
+        
+        // Inisialisasi array untuk menyimpan hasil akhir
+        
+        // Mengisi array $angkatan dengan rentang tahun dari tahun saat ini sampai 6 tahun ke belakang
+        for ($i = 0; $i <= 6; $i++) {
+            $angkatan[] = $tahunSekarang - $i;
+        }
+        $result = array_fill_keys($angkatan, ['pkl_lulus_count'=>0, 'pkl_tidak_lulus_count'=>0]);
+        //dd($angkatan);
+        $mahasiswas = DB::table('mahasiswa as m')
+                ->leftJoin('dosen_wali' , 'dosen_wali.nip','=','m.nip')
+                ->leftJoin('pkl as p', 'm.nim', '=', 'p.nim')
+                ->whereIn('m.angkatan', $angkatan)
+                ->where('dosen_wali.nip',$nip)
+                ->select('m.angkatan', DB::raw('COALESCE(SUM(CASE WHEN p.status = "verified" THEN 1 ELSE 0 END), 0) as pkl_lulus_count'), 
+                                        DB::raw('COALESCE(SUM(CASE WHEN p.nim IS NULL OR p.status != "verified" THEN 1 ELSE 0 END), 0) as pkl_tidak_lulus_count'))
+                ->groupBy('m.angkatan')
+                ->get()
+                ->each(function ($item, $key) use (&$result) {
+                    // Mengisi array $result dengan hasil query
+                    $result[$item->angkatan]['pkl_lulus_count'] = $item->pkl_lulus_count;
+                    $result[$item->angkatan]['pkl_tidak_lulus_count'] = $item->pkl_tidak_lulus_count;
+                });
+                
+            //untuk rekap skripsi
+        $result = collect($result);
     
-        $result = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
-                ->join('mahasiswa', 'mahasiswa.nip', '=', 'dosen_wali.nip')
-                ->join('pkl', 'pkl.nim', '=', 'mahasiswa.nim')
-                ->where('dosen_wali.nip', $nip)
-                ->where('pkl.nip', $nip) 
-                ->select('mahasiswa.angkatan')
-                ->selectRaw('SUM(CASE WHEN pkl.status = "verified" THEN 1 ELSE 0 END) as luluspkl')
-                ->groupBy('mahasiswa.angkatan')
-                ->get();
-    
-        return view('RekapPKL', ['data' => $result,'lulus'=>$lulus,'tidakLulus'=>$tidakLulus]);
+        return view('doswal.rekappkl', ['result' => $result,'angkatan'=>$angkatan,'mahasiswas'=>$mahasiswas]);
     }
 
     public function DownloadRekapPKL(Request $request) {
@@ -183,19 +186,36 @@ class DosenController extends Controller
 
     public function RekapSkripsi(Request $request){
         $nip = $request->user()->dosen->nip;
+        $angkatan = [];
+        $tahunSekarang = date('Y');
+        
+        // Inisialisasi array untuk menyimpan hasil akhir
+        
+        // Mengisi array $angkatan dengan rentang tahun dari tahun saat ini sampai 6 tahun ke belakang
+        for ($i = 0; $i <= 6; $i++) {
+            $angkatan[] = $tahunSekarang - $i;
+        }
+        $result = array_fill_keys($angkatan, ['lulus_count'=>0, 'tidak_lulus_count'=>0]);
+        //dd($angkatan);
+        $mahasiswasSkripsi = DB::table('mahasiswa as m')
+                ->leftJoin('skripsi as s', 'm.nim', '=', 's.nim')
+                ->leftJoin('dosen_wali', 'm.nip','=','dosen_wali.nip')
+                ->whereIn('m.angkatan', $angkatan)
+                ->where('dosen_wali.nip',$nip)
+                ->select('m.angkatan', DB::raw('COALESCE(SUM(CASE WHEN s.status = "verified" THEN 1 ELSE 0 END), 0) as lulus_count'), 
+                                        DB::raw('COALESCE(SUM(CASE WHEN s.nim IS NULL OR s.status != "verified" THEN 1 ELSE 0 END), 0) as tidak_lulus_count'))
+                ->groupBy('m.angkatan')
+                ->get()
+                ->each(function ($item, $key) use (&$result) {
+                    // Mengisi array $result dengan hasil query
+                    $result[$item->angkatan]['lulus_count'] = $item->lulus_count;
+                    $result[$item->angkatan]['tidak_lulus_count'] = $item->tidak_lulus_count;
+                });
+                
+            //untuk rekap skripsi
+        $result = collect($result);
     
-        $result = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
-                ->join('mahasiswa', 'mahasiswa.nip', '=', 'dosen_wali.nip')
-                ->join('skripsi', 'skripsi.nim', '=', 'mahasiswa.nim')
-                ->where('dosen_wali.nip', $nip)
-                ->where('skripsi.nip', $nip)
-                ->select('mahasiswa.angkatan')
-                ->selectRaw('SUM(CASE WHEN skripsi.statusSkripsi = "lulus" THEN 1 ELSE 0 END) as lulusskripsi')
-                ->selectRaw('SUM(CASE WHEN skripsi.statusSkripsi = "tidak lulus" THEN 1 ELSE 0 END) as tdklulusskripsi')
-                ->groupBy('mahasiswa.angkatan')
-                ->get();
-    
-        return view('RekapSkripsi', ['data' => $result]);
+        return view('doswal.rekapskripsi', ['result' => $result,'angkatan'=>$angkatan,'mahasiswasSkripsi'=>$mahasiswasSkripsi]);
     }
     
     public function DownloadRekapSkripsi(Request $request) {
