@@ -153,35 +153,37 @@ class DosenController extends Controller
     public function DownloadRekapPKL(Request $request) {
         $nip = $request->user()->dosen->nip;
     
-        $result = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
-            ->join('mahasiswa', 'mahasiswa.nip', '=', 'dosen_wali.nip')
-            ->join('pkl', 'pkl.nim', '=', 'mahasiswa.nim')
-            ->where('dosen_wali.nip', $nip)
-            ->where('pkl.nip', $nip)
-            ->select('mahasiswa.angkatan')
-            ->selectRaw('SUM(CASE WHEN pkl.statusPKL = "lulus" THEN 1 ELSE 0 END) as luluspkl')
-            ->selectRaw('SUM(CASE WHEN pkl.statusPKL = "tidak lulus" THEN 1 ELSE 0 END) as tdkluluspkl')
-            ->groupBy('mahasiswa.angkatan')
-            ->get();
-    
-        // Generate HTML view
-        $html = view('DownloadRekapPKL', ['data' => $result])->render();
+        $angkatan = [];
+        $tahunSekarang = date('Y');
+        // Inisialisasi array untuk menyimpan hasil akhir
+        
+        // Mengisi array $angkatan dengan rentang tahun dari tahun saat ini sampai 6 tahun ke belakang
+        for ($i = 0; $i <= 6; $i++) {
+            $angkatan[] = $tahunSekarang - $i;
+        }
 
-        // Generate PDF
-        $pdf = new Dompdf();
-        $pdf->loadHtml($html);
+        $result = array_fill_keys($angkatan, ['pkl_lulus_count'=>0, 'pkl_tidak_lulus_count'=>0]);
+            //dd($angkatan);
+        $mahasiswas = DB::table('mahasiswa as m')
+            ->leftJoin('dosen_wali' , 'dosen_wali.nip','=','m.nip')
+            ->leftJoin('pkl as p', 'm.nim', '=', 'p.nim')
+            ->whereIn('m.angkatan', $angkatan)
+            ->where('dosen_wali.nip',$nip)
+            ->select('m.angkatan', DB::raw('COALESCE(SUM(CASE WHEN p.status = "verified" THEN 1 ELSE 0 END), 0) as pkl_lulus_count'), 
+                                    DB::raw('COALESCE(SUM(CASE WHEN p.nim IS NULL OR p.status != "verified" THEN 1 ELSE 0 END), 0) as pkl_tidak_lulus_count'))
+            ->groupBy('m.angkatan')
+            ->get()
+            ->each(function ($item, $key) use (&$result) {
+                // Mengisi array $result dengan hasil query
+                $result[$item->angkatan]['pkl_lulus_count'] = $item->pkl_lulus_count;
+                $result[$item->angkatan]['pkl_tidak_lulus_count'] = $item->pkl_tidak_lulus_count;
+            });
+        $result = collect($result);
 
-        // (Opsional) Set konfigurasi PDF
-        $pdf->setPaper('A4', 'portrait');
 
-        // Render PDF (generate)
-        $pdf->render();
-
-        // Save PDF file
-        $pdfFileName = 'rekap_pkl_' . time() . '.pdf'; // Generate unique filename
-        $pdf->stream(storage_path('app/public/pdfs/' . $pdfFileName)); // Simpan PDF di storage
-
-        return view('DownloadRekapPKL', ['data' => $result, 'pdfFileName' => $pdfFileName]);
+        $pdf = app('dompdf.wrapper');
+        $pdf ->loadView('doswal.DownloadRekapPKLDoswal',['mahasiswas'=>$mahasiswas, 'angkatan'=>$angkatan,'result'=>$result]);
+        return $pdf->stream('rekap-pkl.pdf');
     }
 
     public function RekapSkripsi(Request $request){
@@ -221,35 +223,46 @@ class DosenController extends Controller
     public function DownloadRekapSkripsi(Request $request) {
         $nip = $request->user()->dosen->nip;
     
-        $result = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
-            ->join('mahasiswa', 'mahasiswa.nip', '=', 'dosen_wali.nip')
-            ->join('skripsi', 'skripsi.nim', '=', 'mahasiswa.nim')
-            ->where('dosen_wali.nip', $nip)
-            ->where('skripsi.nip', $nip)
-            ->select('mahasiswa.angkatan')
-            ->selectRaw('SUM(CASE WHEN skripsi.statusSkripsi = "lulus" THEN 1 ELSE 0 END) as lulusskripsi')
-            ->selectRaw('SUM(CASE WHEN skripsi.statusSkripsi = "tidak lulus" THEN 1 ELSE 0 END) as tdklulusskripsi')
-            ->groupBy('mahasiswa.angkatan')
-            ->get();
-    
-        // Generate HTML view
-        $html = view('DownloadRekapSkripsi', ['data' => $result])->render();
+        $angkatan = [];
+        
+        $tahunSekarang = date('Y');
+        // Inisialisasi array untuk menyimpan hasil akhir
+        
+        // Mengisi array $angkatan dengan rentang tahun dari tahun saat ini sampai 6 tahun ke belakang
+        for ($i = 0; $i <= 6; $i++) {
+            $angkatan[] = $tahunSekarang - $i;
+        }
+        $result = array_fill_keys($angkatan, ['lulus_count' => 0, 'tidak_lulus_count' => 0]);
+            //dd($angkatan);
+            //untuk rekap skripsi
 
-        // Generate PDF
-        $pdf = new Dompdf();
-        $pdf->loadHtml($html);
+        $mahasiswasSkripsi = DB::table('mahasiswa as m')
+            ->leftJoin('skripsi as s', 'm.nim', '=', 's.nim')
+            ->leftJoin('dosen_wali', 'm.nip','=','dosen_wali.nip')
+            ->whereIn('m.angkatan', $angkatan)
+            ->where('dosen_wali.nip',$nip)
+            ->select('m.angkatan', 
+                     DB::raw('COALESCE(SUM(CASE WHEN s.status = "verified" THEN 1 ELSE 0 END), 0) as lulus_count'), 
+                     DB::raw('COALESCE(SUM(CASE WHEN s.nim IS NULL OR s.status != "verified" THEN 1 ELSE 0 END), 0) as tidak_lulus_count'),
+                     's.tanggal_sidang', // menambahkan tanggal_sidang
+                     's.lama_studi' // menambahkan lama_studi
+                    )
+            ->groupBy('m.angkatan')
+            ->get()
+            ->each(function ($item, $key) use (&$result) {
+                // Mengisi array $result dengan hasil query
+                $result[$item->angkatan]['lulus_count'] = $item->lulus_count;
+                $result[$item->angkatan]['tidak_lulus_count'] = $item->tidak_lulus_count;
+                $result[$item->angkatan]['tanggal_sidang'] = $item->tanggal_sidang; // menambahkan tanggal_sidang
+                $result[$item->angkatan]['lama_studi'] = $item->lama_studi; // menambahkan lama_studi
+            });
 
-        // (Opsional) Set konfigurasi PDF
-        $pdf->setPaper('A4', 'portrait');
-
-        // Render PDF (generate)
-        $pdf->render();
-
-        // Save PDF file
-        $pdfFileName = 'rekap_skripsi_' . time() . '.pdf'; // Generate unique filename
-        $pdf->stream(storage_path('app/public/pdfs/' . $pdfFileName)); // Simpan PDF di storage
-
-        return view('DownloadRekapSkripsi', ['data' => $result, 'pdfFileName' => $pdfFileName]);
+            // Mengubah $result menjadi koleksi Laravel
+        $result = collect($result);
+        
+        $pdf = app('dompdf.wrapper');
+        $pdf ->loadView('doswal.DownloadRekapSkripsiDoswal',['mahasiswasSkripsi'=>$mahasiswasSkripsi, 'angkatan'=>$angkatan,'result'=>$result]);
+        return $pdf->stream('rekap-skripsi.pdf');
     }
     
     public function edit(Request $request)
