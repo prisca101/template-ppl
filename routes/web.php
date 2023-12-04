@@ -82,13 +82,20 @@ Route::controller(ListController::class)->middleware(['auth', 'only_departemen']
     Route::get('/listMahasiswaSkripsi/{angkatan}/{status}', 'skripsi')->name('list.skripsi');
     Route::get('/listMahasiswa2/{angkatan}/{status}', 'index2')->name('list.index2'); //tidak lulus
     Route::get('/listMahasiswaSkripsi2/{angkatan}/{status}', 'skripsi2')->name('list.skripsi2'); //tidak lulus
-    Route::get('/DownloadListPKLDepartemenLulus/{angkatan}/{status}', 'ListPDFPKLLulus')->name('generateListPKLLulus');
     Route::get('/DownloadListPKLDepartLulus/{angkatan}/{status}','PreviewListPKLLulus')->name('PreviewListPKLLulus');
-    Route::get('/DownloadListPKLDepartemeBelum/{angkatan}/{status}', 'ListPDFPKLBelum')->name('generateListPKLBelum');
     Route::get('/DownloadListPKLDepartBelum/{angkatan}/{status}','PreviewListPKLBelum')->name('PreviewListPKLBelum');
-    Route::get('/DownloadListSkripsiDepartemenLulus/{angkatan}/{status}', 'ListPDFSkripsiLulus')->name('generateListSkripsiLulus');
     Route::get('/DownloadListSkripsiDepartLulus/{angkatan}/{status}','PreviewListSkripsiLulus')->name('PreviewListSkripsiLulus');
-    Route::get('/DownloadListSkripsiDepartemeBelum/{angkatan}/{status}', 'ListPDFSkripsiBelum')->name('generateListSkripsiBelum');
+    Route::get('/DownloadListSkripsiDepartBelum/{angkatan}/{status}','PreviewListSkripsiBelum')->name('PreviewListSkripsiBelum');
+});
+
+Route::controller(ListController::class)->middleware(['auth', 'only_dosen'])->group(function () {
+    Route::get('/listPKLLulus/{angkatan}/{status}', 'lulusPKL')->name('lulusPKL');
+    Route::get('/listSkripsiLulus/{angkatan}/{status}', 'lulusSkripsi')->name('lulusSkripsi');
+    Route::get('/listPKLBelum/{angkatan}/{status}', 'tidaklulusPKL')->name('tidaklulusPKL'); //tidak lulus
+    Route::get('/listSkripsiBelum/{angkatan}/{status}', 'tidaklulusSkripsi')->name('tidaklulusSkripsi'); //tidak lulus
+    Route::get('/DownloadListPKLDoswalLulus/{angkatan}/{status}','PreviewListPKLLulus')->name('PreviewListPKLLulus');
+    Route::get('/DownloadListPKLDoswalBelum/{angkatan}/{status}','PreviewListPKLBelum')->name('PreviewListPKLBelum');
+    Route::get('/DownloadListSkripsiDoswalulus/{angkatan}/{status}','PreviewListSkripsiLulus')->name('PreviewListSkripsiLulus');
     Route::get('/DownloadListSkripsiDepartBelum/{angkatan}/{status}','PreviewListSkripsiBelum')->name('PreviewListSkripsiBelum');
 });
 

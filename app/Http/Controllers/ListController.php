@@ -178,7 +178,7 @@ class ListController extends Controller
         return $pdf->stream('daftar-list-skripsi-tidak-lulus.pdf');
     }
 
-    public function listlulusPKL(Request $request, $angkatan, $status) {
+    public function lulusPKL(Request $request, $angkatan, $status) {
         $nip = $request->user()->dosen->nip;
         $doswal = Dosen::leftJoin('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->where('dosen_wali.iduser', Auth::user()->id)
@@ -200,7 +200,7 @@ class ListController extends Controller
         return view('doswal.luluspkl', ['mahasiswas' => $mahasiswas->isEmpty() ? [] : $mahasiswas, 'doswal'=>$doswal]);
     }    
 
-    public function listidaklulusPKL(Request $request, $angkatan, $status) {
+    public function tidaklulusPKL(Request $request, $angkatan, $status) {
         $nip = $request->user()->dosen->nip;
         $doswal = Dosen::leftJoin('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->where('dosen_wali.iduser', Auth::user()->id)
@@ -244,7 +244,7 @@ class ListController extends Controller
         ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.nilai', 'skripsi.status','skripsi.tanggal_sidang','skripsi.lama_studi')
         ->get();
     
-        return view('doswal.lulusSkripsi', ['mahasiswas' => $mahasiswas, 'doswal'=>$doswal]);
+        return view('doswal.lulusskripsi', ['mahasiswas' => $mahasiswas, 'doswal'=>$doswal]);
     }   
 
     public function tidaklulusSkripsi(Request $request, $angkatan, $status){
@@ -269,6 +269,6 @@ class ListController extends Controller
                     ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.nilai', 'skripsi.status')
                     ->get();
     
-        return view('doswal.tidaklulusSkripsi', ['mahasiswas' => $mahasiswas, 'doswal'=>$doswal]);
+        return view('doswal.tidaklulusskripsi', ['mahasiswas' => $mahasiswas, 'doswal'=>$doswal]);
     }   
 }
