@@ -54,6 +54,7 @@ Route::middleware(['auth', 'only_operator'])->group(function () {
     Route::get('/mahasiswa-add', [DashboardOperatorController::class, 'mahasiswa'])->name('create');
     Route::post('/mahasiswa', [DashboardOperatorController::class, 'store'])->name('store');
     Route::get('/searchOperator', [DashboardOperatorController::class, 'searchOperator'])->name('search');
+    Route::get('/rekap', [DashboardOperatorController::class, 'rekap'])->name('rekap');
     Route::get('/profilOperator', [OperatorController::class, 'edit'])->name('edit');
     Route::get('/profilOperator-edit', [OperatorController::class, 'showEdit'])->name('showEdit');
     Route::post('/profilOperator-edit', [OperatorController::class, 'update'])->name('update');
