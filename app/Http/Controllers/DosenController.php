@@ -269,12 +269,11 @@ class DosenController extends Controller
     {
         $user = $request->user();
         $nip = $request->user()->dosen->nip;
-        
         $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
-            ->where('nip',$nip)
-            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
             ->first();
-        return view('profilDosen', ['user' => $user, 'dosens' => $dosens]);
+        return view('doswal.profil', ['user' => $user, 'dosens' => $dosens]);
     }
 
     public function showEdit(Request $request)
@@ -282,10 +281,10 @@ class DosenController extends Controller
         $user = $request->user();
         $nip = $request->user()->dosen->nip;
         $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
-            ->where('nip',$nip)
-            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.password')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.password', 'users.foto')
             ->first();
-        return view('profilDosen-edit', ['user' => $user, 'dosens' => $dosens]);
+        return view('doswal.profil-edit', ['user' => $user, 'dosens' => $dosens]);
     }
 
     public function update(Request $request)
@@ -296,6 +295,8 @@ class DosenController extends Controller
             'username' => 'nullable|string',
             'current_password' => 'nullable|string',
             'new_password' => 'nullable|string|min:8',
+            'new_confirm_password' => 'nullable|same:new_password',
+            'foto' => 'max:10240|image|mimes:jpeg,png,jpg',
         ]);
 
         if ($request->has('foto')) {
@@ -307,38 +308,43 @@ class DosenController extends Controller
             ]);
         }
 
-        if ($validated['new_password'] !== null) {
+        // Check if 'new_password' key exists and not null in $validated
+        if (array_key_exists('new_password', $validated) && $validated['new_password'] !== null) {
             if (!Hash::check($validated['current_password'], $user->password)) {
-                return redirect()->route('dosen.showEdit')->with('error', 'Password lama tidak cocok.');
+                return redirect()
+                    ->route('showEdit')
+                    ->with('error', 'Password lama tidak cocok.');
             }
         }
 
         DB::beginTransaction();
 
         try {
-            $user->update([
-                'username' => $validated['username'],
-            ]);
+            $userData = ['username' => $validated['username'] ?? null];
 
-            Dosen::where('iduser', $user->id)->update([
-                'username' => $validated['username'],
-            ]);
+            if (!is_null($userData['username'])) {
+                $user->update($userData);
 
-            if ($validated['new_password'] !== null) {
+                Dosen::where('iduser', $user->id)->update($userData);
+            }
+
+            if (array_key_exists('new_password', $validated) && $validated['new_password'] !== null) {
                 $user->update([
-                    'password' => Hash::make($validated['new_password'])
+                    'password' => Hash::make($validated['new_password']),
                 ]);
             }
 
             DB::commit();
 
-            return redirect()->route('dosen.edit')->with('success', 'Profil berhasil diperbarui');
+            return redirect()
+                ->route('edit')
+                ->with('success', 'Profil berhasil diperbarui');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('dosen.showEdit')->with('error', 'Gagal memperbarui profil.');
+            return redirect()
+                ->route('showEdit')
+                ->with('error', 'Gagal memperbarui profil.');
         }
-
-        
     }
 
     public function lulusPKL(Request $request, $angkatan, $status) {

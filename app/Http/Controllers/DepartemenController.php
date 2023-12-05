@@ -16,8 +16,89 @@ class DepartemenController extends Controller
         return view('mahasiswa.luluspkl');
     }
 
+    public function edit(Request $request)
+    {
+        $user = $request->user();
+        $kode = $request->user()->departemen->kode;
+        $departemen = Departemen::join('users', 'departemen.iduser', '=', 'users.id')
+            ->where('kode', $kode)
+            ->select('departemen.nama', 'departemen.kode', 'users.id', 'users.username', 'users.foto')
+            ->first();
+        return view('departemen.profil', ['user' => $user, 'departemen' => $departemen]);
+    }
+
+    public function showEdit(Request $request)
+    {
+        $user = $request->user();
+        $kode = $request->user()->departemen->kode;
+        $departemen = departemen::join('users', 'departemen.iduser', '=', 'users.id')
+            ->where('kode', $kode)
+            ->select('departemen.nama', 'departemen.kode', 'users.id', 'users.username', 'users.password', 'users.foto')
+            ->first();
+        return view('departemen.profil-edit', ['user' => $user, 'departemen' => $departemen]);
+    }
+
+    public function update(Request $request)
+    {
+        $user = $request->user();
+
+        $validated = $request->validate([
+            'username' => 'nullable|string',
+            'current_password' => 'nullable|string',
+            'new_password' => 'nullable|string|min:8',
+            'new_confirm_password' => 'nullable|same:new_password',
+            'foto' => 'max:10240|image|mimes:jpeg,png,jpg',
+        ]);
+
+        if ($request->has('foto')) {
+            $fotoPath = $request->file('foto')->store('profile', 'public');
+            $validated['foto'] = $fotoPath;
+
+            $user->update([
+                'foto' => $validated['foto'],
+            ]);
+        }
+
+        // Check if 'new_password' key exists and not null in $validated
+        if (array_key_exists('new_password', $validated) && $validated['new_password'] !== null) {
+            if (!Hash::check($validated['current_password'], $user->password)) {
+                return redirect()
+                    ->route('departemen.showEdit')
+                    ->with('error', 'Password lama tidak cocok.');
+            }
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $userData = ['username' => $validated['username'] ?? null];
+
+            if (!is_null($userData['username'])) {
+                $user->update($userData);
+
+                Departemen::where('iduser', $user->id)->update($userData);
+            }
+
+            if (array_key_exists('new_password', $validated) && $validated['new_password'] !== null) {
+                $user->update([
+                    'password' => Hash::make($validated['new_password']),
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()
+                ->route('edit')
+                ->with('success', 'Profil berhasil diperbarui');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('showEdit')
+                ->with('error', 'Gagal memperbarui profil.');
+        }
+    }    
+
     public function listPKL(){
-        
         $pkl = Mahasiswa::join('pkl','pkl.nim','=','mahasiswa.nim')
                 ->join('dosen_wali','dosen_wali.nip','=','mahasiswa.nip')
                 ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','pkl.semester_aktif','pkl.scanPKL','pkl.nilai','pkl.status','pkl.statusPKL','dosen_wali.nama as dosen_nama')

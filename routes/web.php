@@ -71,9 +71,9 @@ Route::middleware(['auth', 'only_dosen'])->group(function () {
     Route::get('/perwalian', [DosenController::class, 'detail'])->name('perwalian');
     Route::get('/details/{nim}', [DosenController::class, 'dataMahasiswa'])->name('details');
     Route::get('/search', [DosenController::class, 'searchMhs'])->name('searchmhs');
-    Route::get('/profilDosen', [DosenController::class, 'edit'])->name('dosen.edit');
-    Route::get('/profilDosen-edit', [DosenController::class, 'showEdit'])->name('dosen.showEdit');
-    Route::post('/profilDosen-edit', [DosenController::class, 'update'])->name('dosen.update');
+    Route::get('/profilDosen', [DosenController::class, 'edit'])->name('edit');
+    Route::get('/profilDosen-edit', [DosenController::class, 'showEdit'])->name('showEdit2');
+    Route::post('/profilDosen-edit', [DosenController::class, 'update'])->name('update');
     Route::get('/RekapPKL',[DosenController::class,'RekapPKL'])->name('RekapPKL');
     Route::get('/RekapSkripsi',[DosenController::class,'RekapSkripsi'])->name('RekapSkripsi');
 });
@@ -170,6 +170,9 @@ Route::controller(DashboardDepartemenController::class)->middleware(['auth','onl
 Route::controller(DepartemenController::class)->middleware(['auth','only_departemen'])->group(function (){
     Route::get('/DownloadRekapPKLDepart','PreviewPKL')->name('PreviewPKL');
     Route::get('/DownloadRekapSkripsiDepart','PreviewSkripsi')->name('PreviewSkripsi');
+    Route::get('/profilDepartemen', [DepartemenController::class, 'edit'])->name('edit');
+    Route::get('/profilDepartemen-edit', [DepartemenController::class, 'showEdit'])->name('showEdit');
+    Route::post('/profilDepartemen-edit', [DepartemenController::class, 'update'])->name('update');
 });
 
 
@@ -262,14 +265,6 @@ Route::post('signin', [AuthController::class, 'authenticate']);
 //     return view('doswal.details');
 // });
 
-Route::get('/profilDoswal', function () {
-    return view('doswal.profil');
-});
-
-Route::get('/editprofilDoswal', function () {
-    return view('doswal.profil-edit');
-});
-
 // Route::get('/verification', function () {
 //     return view('doswal.verification');
 // });
@@ -292,9 +287,6 @@ Route::get('/listskripsi', function () {
 
 
 // Departemen
-Route::get('/Departemen/dashboard', function () {
-    return view('departemen.dashboard');
-});
 
 // Route::get('/Departemen/pkl', function () {
 //     return view('departemen.pkl');
@@ -304,11 +296,4 @@ Route::get('/Departemen/dashboard', function () {
 //     return view('departemen.skripsi');
 // });
 
-Route::get('/profilDepartemen', function () {
-    return view('departemen.profil');
-});
-
-Route::get('/editprofilDepartemen', function () {
-    return view('departemen.profil-edit');
-});
 
