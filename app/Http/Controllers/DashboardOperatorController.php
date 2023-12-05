@@ -86,7 +86,7 @@ class DashboardOperatorController extends Controller
                     ->each(function ($item, $key) use (&$result) {
                         // Mengisi array $result dengan hasil query
                         $result[$item->angkatan][$item->status] = $item->count;
-                    });
+                });
 
                 // Mengubah $result menjadi koleksi Laravel
                 $result = collect($result);

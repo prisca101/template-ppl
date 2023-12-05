@@ -571,22 +571,34 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800">
-                                @foreach ($result as $angkatan => $data)
-                                {{ dd($data); }}
-                                    <tr>
-                                            <td
-                                                class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                                {{ $data->status }}
-                                            </td>
-                                            <td
-                                                class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                                <a href="{{ route('list.skripsi', ['angkatan' => $angkatan, 'status' => $status]) }}"
-                                                    class="hover:underline">{{ $count }}</a>
-                                            </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+
+                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                                    <tbody class="bg-white dark:bg-gray-800">
+                                        {{-- @foreach ($result as $angkatan => $data) --}}
+                                            <tr>
+                                                <td class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                    Aktif
+                                                </td>
+                                                @foreach ($result as $angkatan => $data)
+                                                <td
+                                                    class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
+                                                    <a href="{{ route('list.skripsi', ['angkatan' => $angkatan, 'status' => 'active']) }}"
+                                                        class="hover:underline">{{ $data['active'] }} aktif </a>
+                                                </td>
+                                                @endforeach
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">Lulus</td>
+                                                <td
+                                                    class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
+                                                    {{-- <a href="{{ route('list.skripsi', ['angkatan' => $angkatan, 'status' => 'verified']) }}"
+                                                        class="hover:underline">{{ $data['lulus'] }} lulus </a> --}}
+                                                        HA
+                                                </td>
+                                            </tr>
+                                        {{-- @endforeach --}}
+                                    </tbody>
+                                </table>
                     </div>
                 </div>
             </div>
