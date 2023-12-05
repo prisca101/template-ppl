@@ -57,7 +57,7 @@
 
             <div class="items-center sm:flex">
                 <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
-                    <a href="{{ route('rekapPKL') }}"
+                    <a href="{{ route('downloadRekapPKL') }}"
                         class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -109,12 +109,12 @@
                                             @foreach ($result as $angkatan => $data)
                                                 <td
                                                     class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                                    <a href="{{ route('list.index', ['angkatan' => $angkatan, 'status' => 'verified']) }}"
+                                                    <a href="{{ route('pkllulus', ['angkatan' => $angkatan, 'status' => 'verified']) }}"
                                                         class="hover:underline">{{ $data['pkl_lulus_count'] }}</a>
                                                 </td>
                                                 <td
                                                     class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                                    <a href="{{ route('list.index2', ['angkatan' => $angkatan, 'status' => 'pending']) }}"
+                                                    <a href="{{ route('pkltidaklulus', ['angkatan' => $angkatan, 'status' => 'pending']) }}"
                                                         class="hover:underline">{{ $data['pkl_tidak_lulus_count'] }}</a>
                                                 </td>
                                             @endforeach
@@ -141,7 +141,7 @@
 
             <div class="items-center sm:flex">
                 <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
-                    <a href="{{ route('rekapSkripsi') }}"
+                    <a href="{{ route('downloadRekapSkripsi') }}"
                         class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -193,12 +193,12 @@
                                             @foreach ($result as $angkatan => $data)
                                                 <td
                                                     class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                                    <a href="{{ route('list.skripsi', ['angkatan' => $angkatan, 'status' => 'verified']) }}"
+                                                    <a href="{{ route('skripsilulus', ['angkatan' => $angkatan, 'status' => 'verified']) }}"
                                                         class="hover:underline">{{ $data['lulus_count'] }}</a>
                                                 </td>
                                                 <td
                                                     class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                                    <a href="{{ route('list.skripsi2', ['angkatan' => $angkatan, 'status' => 'pending']) }}"
+                                                    <a href="{{ route('skripsitidaklulus', ['angkatan' => $angkatan, 'status' => 'pending']) }}"
                                                         class="hover:underline">{{ $data['tidak_lulus_count'] }}</a>
                                                 </td>
                                             @endforeach
@@ -223,7 +223,7 @@
 
             <div class="items-center sm:flex">
                 <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
-                    <a href="{{ route('rekapSkripsi') }}"
+                    <a href="{{ route('downloadRekapStatus') }}"
                         class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
                         <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -264,7 +264,7 @@
                                     @foreach ($result as $angkatan => $data)
                                     <td
                                         class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                        <a href=""
+                                        <a href="{{route('daftarstatus',['angkatan'=>$angkatan,'status'=>'active'])}}"
                                             class="hover:underline">{{ $data['active'] }} </a>
                                     </td>
                                     @endforeach
@@ -274,7 +274,7 @@
                                     @foreach ($result as $angkatan => $data)
                                     <td
                                         class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                        <a href=""
+                                        <a href="{{route('daftarstatus',['angkatan'=>$angkatan,'status'=>'lulus'])}}"
                                             class="hover:underline">{{ $data['lulus'] }}  </a> 
                                     </td>
                                     @endforeach
@@ -284,7 +284,7 @@
                                     @foreach ($result as $angkatan => $data)
                                     <td
                                         class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                        <a href=""
+                                        <a href="{{route('daftarstatus',['angkatan'=>$angkatan,'status'=>'do'])}}"
                                             class="hover:underline">{{ $data['do'] }} </a> 
                                     </td>
                                     @endforeach
@@ -294,7 +294,7 @@
                                     @foreach ($result as $angkatan => $data)
                                     <td
                                         class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                        <a href=""
+                                        <a href="{{route('daftarstatus',['angkatan'=>$angkatan,'status'=>'meninggal_dunia'])}}"
                                             class="hover:underline">{{ $data['meninggal_dunia'] }} </a> 
                                     </td>
                                     @endforeach
@@ -304,7 +304,7 @@
                                     @foreach ($result as $angkatan => $data)
                                     <td
                                         class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                        <a href=""
+                                        <a href="{{route('daftarstatus',['angkatan'=>$angkatan,'status'=>'cuti'])}}"
                                             class="hover:underline">{{ $data['cuti'] }} </a> 
                                     </td>
                                     @endforeach
@@ -314,7 +314,7 @@
                                     @foreach ($result as $angkatan => $data)
                                     <td
                                         class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                        <a href=""
+                                        <a href="{{route('daftarstatus',['angkatan'=>$angkatan,'status'=>'undur_diri'])}}"
                                             class="hover:underline">{{ $data['undur_diri'] }} </a> 
                                     </td>
                                     @endforeach
@@ -324,7 +324,7 @@
                                     @foreach ($result as $angkatan => $data)
                                     <td
                                         class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                        <a href=""
+                                        <a href="{{route('daftarstatus',['angkatan'=>$angkatan,'status'=>'mangkir'])}}"
                                             class="hover:underline">{{ $data['mangkir'] }} </a> 
                                     </td>
                                     @endforeach

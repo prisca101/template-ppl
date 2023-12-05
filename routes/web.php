@@ -62,7 +62,20 @@ Route::middleware(['auth', 'only_operator'])->group(function () {
     Route::post('/importMahasiswa-import',[OperatorController::class,'import'])->name('mahasiswa.import');
     Route::get('/mahasiswa/preview', [OperatorController::class, 'preview'])->name('mahasiswa.preview');
     Route::post('/generateAkun',[OperatorController::class,'generateAkun'])->name('generateAkun');
-    Route::post('/dashboardOperator', [OperatorController::class,'export'])->name('export');
+    Route::get('/export', [OperatorController::class,'export'])->name('export');
+    Route::get('/downloadRekapPKL', [DashboardOperatorController::class,'downloadRekapPKL'])->name('downloadRekapPKL');
+    Route::get('/downloadRekapSkripsi', [DashboardOperatorController::class,'downloadRekapSkripsi'])->name('downloadRekapSkripsi');
+    Route::get('/downloadRekapStatus', [DashboardOperatorController::class,'downloadRekapStatus'])->name('downloadRekapStatus');
+    Route::get('/pkllulus/{angkatan}/{status}', [OperatorController::class, 'pkllulus'])->name('pkllulus');
+    Route::get('/pkltidaklulus/{angkatan}/{status}', [OperatorController::class, 'pkltidaklulus'])->name('pkltidaklulus');
+    Route::get('/skripsilulus/{angkatan}/{status}', [OperatorController::class, 'skripsilulus'])->name('skripsilulus');
+    Route::get('/skripsitidaklulus/{angkatan}/{status}', [OperatorController::class, 'skripsitidaklulus'])->name('skripsitidaklulus');
+    Route::get('/daftarstatus/{angkatan}/{status}', [OperatorController::class, 'daftarstatus'])->name('daftarstatus');
+    Route::get('/PreviewListPKLLulusOperator/{angkatan}/{status}', [OperatorController::class, 'PreviewListPKLLulus'])->name('OperatorListPKLLulus');
+    Route::get('/PreviewListPKLTidakLulusOperator/{angkatan}/{status}', [OperatorController::class, 'PreviewListPKLBelum'])->name('OperatorListPKLTidakLulus');
+    Route::get('/PreviewListSkripsiLulusOperator/{angkatan}/{status}', [OperatorController::class, 'PreviewListSkripsiLulus'])->name('OperatorListSkripsiLulus');
+    Route::get('/PreviewListSkripsiTidakLulusOperator/{angkatan}/{status}', [OperatorController::class, 'PreviewListSkripsiBelum'])->name('OperatorListSkripsiTidakLLulus');
+    Route::get('/PreviewListStatusOperator/{angkatan}/{status}', [OperatorController::class, 'PreviewListStatus'])->name('OperatorListStatus');
 });
 
 Route::middleware(['auth', 'only_dosen'])->group(function () {

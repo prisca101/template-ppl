@@ -129,24 +129,16 @@ class DashboardDepartemenController extends Controller
         //untuk rekap skripsi
 
         $mahasiswasSkripsi = DB::table('mahasiswa as m')
-            ->leftJoin('skripsi as s', 'm.nim', '=', 's.nim')
-            ->whereIn('m.angkatan', $angkatan)
-            ->select(
-                'm.angkatan',
-                DB::raw('COALESCE(SUM(CASE WHEN s.status = "verified" THEN 1 ELSE 0 END), 0) as lulus_count'),
-                DB::raw('COALESCE(SUM(CASE WHEN s.nim IS NULL OR s.status != "verified" THEN 1 ELSE 0 END), 0) as tidak_lulus_count'),
-                's.tanggal_sidang', // menambahkan tanggal_sidang
-                's.lama_studi', // menambahkan lama_studi
-            )
-            ->groupBy('m.angkatan')
-            ->get()
-            ->each(function ($item, $key) use (&$result) {
-                // Mengisi array $result dengan hasil query
-                $result[$item->angkatan]['lulus_count'] = $item->lulus_count;
-                $result[$item->angkatan]['tidak_lulus_count'] = $item->tidak_lulus_count;
-                $result[$item->angkatan]['tanggal_sidang'] = $item->tanggal_sidang; // menambahkan tanggal_sidang
-                $result[$item->angkatan]['lama_studi'] = $item->lama_studi; // menambahkan lama_studi
-            });
+                    ->leftJoin('skripsi as s', 'm.nim', '=', 's.nim')
+                    ->whereIn('m.angkatan', $angkatan)
+                    ->select('m.angkatan', DB::raw('COALESCE(SUM(CASE WHEN s.status = "verified" THEN 1 ELSE 0 END), 0) as lulus_count'), DB::raw('COALESCE(SUM(CASE WHEN s.nim IS NULL OR s.status != "verified" THEN 1 ELSE 0 END), 0) as tidak_lulus_count'))
+                    ->groupBy('m.angkatan')
+                    ->get()
+                    ->each(function ($item, $key) use (&$result) {
+                        // Mengisi array $result dengan hasil query
+                        $result[$item->angkatan]['lulus_count'] = $item->lulus_count;
+                        $result[$item->angkatan]['tidak_lulus_count'] = $item->tidak_lulus_count;
+                    });
 
         // Mengubah $result menjadi koleksi Laravel
         $result = collect($result);
