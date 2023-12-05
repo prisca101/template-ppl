@@ -59,7 +59,7 @@
                         <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Profile picture</h3>
                         <input type="file"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            id="foto" name="foto" accept=".jpg, .jpeg, .png" required>
+                            id="foto" name="foto" accept=".jpg, .jpeg, .png">
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JPG, JPEG, or PNG
                         </p>
                         @error('foto')

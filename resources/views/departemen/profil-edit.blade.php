@@ -5,7 +5,7 @@
         <nav class="flex mb-5" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
                 <li class="inline-flex items-center">
-                    <a href="#"
+                    <a href="/dashboardDepartemen"
                         class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white">
                         <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -15,6 +15,20 @@
                         Home
                     </a>
                 </li>
+                <li class="inline-flex items-center">
+                    <div class="flex items-center">
+                    <a href="/profilDepartemen"
+                        class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-white">
+                        <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Settings
+                    </a>
+                    </div>
+                </li>
                 <li>
                     <div class="flex items-center">
                         <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
@@ -23,7 +37,7 @@
                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        <span class="ml-1 text-gray-400 md:ml-2 dark:text-gray-500" aria-current="page">Settings</span>
+                        <span class="ml-1 text-gray-400 md:ml-2 dark:text-gray-500" aria-current="page">Edit Profile</span>
                     </div>
                 </li>
             </ol>
@@ -35,7 +49,7 @@
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
 
-            <form action="#">
+            <form action="{{ route('update', [Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
@@ -45,7 +59,7 @@
                         <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Profile picture</h3>
                         <input type="file"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            id="foto" name="foto" accept=".jpg, .jpeg, .png" required>
+                            id="foto" name="foto" accept=".jpg, .jpeg, .png">
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JPG, JPEG, or PNG
                         </p>
                         @error('foto')
@@ -55,6 +69,9 @@
                 </div>
         </div>
     </div>
+
+
+
     <div class="col-span-2">
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
@@ -65,20 +82,20 @@
                     <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
                     <input type="text" name="nama" id="nama"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Bonnie" required="" wfd-id="id1" readonly disabled>
+                        value="{{ $departemen->nama }}" wfd-id="id1" readonly disabled>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
-                    <label for="nip" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIP</label>
-                    <input type="text" name="nip" id="nip"
+                    <label for="kode" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kode</label>
+                    <input type="text" name="kode" id="kode"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="2406XXXXXXXXXX" required="" wfd-id="id2" readonly disabled>
+                        value="{{ $departemen->kode }}" wfd-id="id2" readonly disabled>
                 </div>
                 <div class="col-span-6 sm:col-span-3">
                     <label for="username"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
                     <input type="text" name="username" id="username"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="2406XXXXXXXXXX" required="" wfd-id="id6">
+                        value="{{ $departemen->username }}" wfd-id="id6">
                     @error('username')
                         <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                     @enderror
@@ -93,9 +110,9 @@
                 <div class="col-span-6 sm:col-span-3">
                     <label for="current_password"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Current password</label>
-                    <input type="text" name="current_password" id="current_password"
+                    <input type="password" name="current_password" id="current_password"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="••••••••" required="">
+                        placeholder="••••••••">
                     @error('current_password')
                         <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                     @enderror
@@ -106,7 +123,7 @@
                     <input data-popover-target="popover-password" data-popover-placement="bottom" type="password"
                         id="new_password"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="••••••••" required="">
+                        placeholder="••••••••">
                     @error('new_password')
                         <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                     @enderror
@@ -163,7 +180,7 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
                     <input type="text" name="new_confirm_password" id="new_confirm_password"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="••••••••" required="">
+                        placeholder="••••••••">
                     @error('new_confirm_password')
                         <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
                     @enderror

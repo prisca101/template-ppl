@@ -35,17 +35,17 @@
 @section('content2')
     <div class="sm:flex mb-4">
         <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
-        <form class="lg:pr-3" action="{{ route('search') }}" method="GET">
-            <label for="search" class="sr-only">Search</label>
-            <div class="relative mt-1 lg:w-64 xl:w-96">
-                <input type="text" name="search" id="search"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    placeholder="Search for mahasiswa">
-                <button type="submit" class="absolute inset-y-0 right-0 px-3 py-1 bg-gray-200 rounded-r-lg">
-                    Search
-                </button>
-            </div>
-        </form>
+            <form class="lg:pr-3" action="{{ route('search') }}" method="GET">
+                <label for="search" class="sr-only">Search</label>
+                <div class="relative mt-1 lg:w-64 xl:w-96">
+                    <input type="text" name="search" id="search"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Search for mahasiswa">
+                    <button type="submit" class="absolute inset-y-0 right-0 px-3 py-1 bg-gray-200 rounded-r-lg">
+                        Search
+                    </button>
+                </div>
+            </form>
 
             <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
                 <a href="#"
@@ -80,12 +80,12 @@
             </a>
         </div>
     </div>
-    @if(isset($status))
+    @if (isset($status))
         <div class="alert alert-success">
             {{ $status }}
         </div>
     @endif
-    @if(isset($error))
+    @if (isset($error))
         <div class="alert alert-danger">
             {{ $error }}
         </div>
@@ -143,48 +143,65 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                                    @foreach($mahasiswas as $mahasiswa)
-                                    <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                        <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
-                                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                                <div class="text-base font-semibold text-gray-900 dark:text-white">
-                                                    {{ $mahasiswa->nama }}</div>
-                                            </div>
-                                        </td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ $mahasiswa->nim }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white" >{{ $mahasiswa->angkatan }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->status }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->jalur_masuk }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->nip }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->dosen_nama }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->username }}</td>
-                                        <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $mahasiswa->password }}</td>
-                                        <td class="p-4 space-x-2 whitespace-nowrap">
-                                            <button type="button" data-modal-toggle="edit-user-modal"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
-                                                    </path>
-                                                    <path fill-rule="evenodd"
-                                                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Edit user
-                                            </button>
-                                            <button type="button" data-modal-toggle="delete-user-modal"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
-                                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Delete user
-                                            </button>
-                                        </td>
-                                    </tr>  
+                                    @foreach ($mahasiswas as $mahasiswa)
+                                        <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                                            <td class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap">
+                                                <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                                                    <div class="text-base font-semibold text-gray-900 dark:text-white">
+                                                        {{ $mahasiswa->nama }}</div>
+                                                </div>
+                                            </td>
+                                            <td
+                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $mahasiswa->nim }}</td>
+                                            <td
+                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $mahasiswa->angkatan }}</td>
+                                            <td
+                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $mahasiswa->status }}</td>
+                                            <td
+                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $mahasiswa->jalur_masuk }}</td>
+                                            <td
+                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $mahasiswa->nip }}</td>
+                                            <td
+                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $mahasiswa->dosen_nama }}</td>
+                                            <td
+                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $mahasiswa->username }}</td>
+                                            <td
+                                                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $mahasiswa->password }}</td>
+                                            <td class="p-4 space-x-2 whitespace-nowrap">
+                                                <button type="button" data-modal-toggle="edit-user-modal"
+                                                    class="open-modal-button inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                                    data-nim="{{ $mahasiswa->nim }}">
+                                                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z">
+                                                        </path>
+                                                        <path fill-rule="evenodd"
+                                                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    Edit user
+                                                </button>
+                                                <button type="button" data-modal-toggle="delete-user-modal"
+                                                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+                                                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    Delete user
+                                                </button>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -195,29 +212,10 @@
         </div>
     </div>
 
-    <div
-        class="sticky bottom-0 right-0 items-center w-full p-4 bg-white border-t border-gray-200 sm:flex sm:justify-between dark:bg-gray-800 dark:border-gray-700">
-        <div class="flex items-center mb-4 sm:mb-0">
-            <a href="#"
-                class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                        clip-rule="evenodd"></path>
-                </svg>
-            </a>
-            <a href="#"
-                class="inline-flex justify-center p-1 mr-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd"></path>
-                </svg>
-            </a>
-            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
-                    class="font-semibold text-gray-900 dark:text-white">1-20</span> </span>
-        </div>
-    </div>
+
+
+
+
 
     <!-- Edit User Modal -->
     <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"
@@ -242,21 +240,21 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-6 space-y-6">
-                    <form action="#">
+                    <form method="POST" id="send-form"
+                        enctype="multipart/form-data">
+                        @csrf
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="nama"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
-                                <input type="text" name="nama" value="nama" id="nama"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    required>
+                                <input type="text" name="nama" placeholder="nama" id="nama"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="nim"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
-                                <input type="text" name="nim" value="nim" id="nim"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    required>
+                                <input type="text" name="nim" placeholder="nim" id="nim"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="angkatan"
@@ -264,62 +262,66 @@
                                 <select id="angkatan"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                     <option selected="">Select angkatan</option>
-                                    <option value="FL">2023</option>
-                                    <option value="FL">2022</option>
-                                    <option value="RE">2021</option>
-                                    <option value="AN">2020</option>
-                                    <option value="VU">2019</option>
+                                    @php
+                                        $years = range(2023, 2017);
+                                    @endphp
+
+                                    @foreach ($years as $year)
+                                        <option value="{{ $year }}">{{ $year }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="doswal"
+                                <label for="jalur_masuk"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jalur
+                                    Masuk</label>
+                                <select name="jalur_masuk" id="jalur_masuk"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <option selected disabled>Pilih Jalur Masuk</option>
+                                    <option value="SNMPTN">SNMPTN</option>
+                                    <option value="SBMPTN">SBMPTN</option>
+                                    <option value="MANDIRI">MANDIRI</option>
+                                </select>
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="status"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-                                <div class="flex items-center mb-4">
-                                    <input id="default-radio-1" type="radio" value="" name="default-radio"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="default-radio-1"
-                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Active</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input checked id="default-radio-2" type="radio" value=""
-                                        name="default-radio"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="default-radio-2"
-                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Inactive</label>
-                                </div>
+                                <select id="status" name="status"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                    <option selected="" value="">Select status</option>
+                                    @php
+                                        $statuses = ['active', 'lulus', 'cuti', 'mangkir', 'do', 'undur diri', 'meninggal'];
+                                    @endphp
+
+                                    @foreach ($statuses as $status)
+                                        <option value="{{ $status }}">{{ $status }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="nip"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIP Doswal</label>
-                                <input type="text" name="nip" value="nip doswal" id="nip"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    required>
-                            </div>
-                            <div class="col-span-6 sm:col-span-3">
-                                <label for="doswal"
+                                <label for="nip2"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
                                     Doswal</label>
-                                <select id="doswal"
+                                <select id="nip2" name="nip2"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option selected="">Select doswal</option>
-                                    <option value="FL">Pak APW</option>
-                                    <option value="FL">Bu Retno</option>
-                                    <option value="RE">Pak Sandy</option>
+                                    <option selected="" value="">Select doswal</option>
+                                    @foreach ($dosens as $dosen)
+                                        <option value="{{ $dosen->nip }}">{{ $dosen->nama }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="username"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                <input type="text" name="username" value="username" id="username"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="username" required>
+                                <input type="text" name="username" placeholder="username" id="username"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="current-password"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                <input type="password" name="current-password" value="••••••••" id="current-password"
-                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="******" required>
+                                <input type="password" name="current-password" placeholder="••••••••"
+                                    id="current-password"
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             </div>
                         </div>
                 </div>
@@ -333,6 +335,11 @@
             </div>
         </div>
     </div>
+
+
+
+
+
 
     <!-- Add User Modal -->
     <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"
@@ -361,7 +368,8 @@
                         @csrf
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="namamhs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
+                                <label for="namamhs"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
                                 <input type="text" name="namamhs" placeholder="Nama" id="namamhs"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     required>
@@ -372,7 +380,8 @@
                                 @enderror
                             </div>
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="nimmhs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
+                                <label for="nimmhs"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIM</label>
                                 <input type="text" name="nimmhs" placeholder="NIM" id="nimmhs"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     required>
@@ -384,8 +393,11 @@
                             </div>
                             <!-- Bagian Angkatan -->
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="angkatanmhs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Angkatan</label>
-                                <select name="angkatanmhs" id="angkatanmhs" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                <label for="angkatanmhs"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Angkatan</label>
+                                <select name="angkatanmhs" id="angkatanmhs"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required>
                                     <option selected disabled>Pilih Angkatan</option>
                                     @php
                                         $startYear = 2016; // Tahun awal
@@ -403,8 +415,11 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="nipdsn" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dosen Wali</label>
-                                <select name="nipdsn" id="nipdsn" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                <label for="nipdsn"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dosen Wali</label>
+                                <select name="nipdsn" id="nipdsn"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required>
                                     <option selected disabled>Pilih Dosen Wali</option>
                                     @foreach ($dosens as $dosen)
                                         <option value="{{ $dosen->nip }}">{{ $dosen->nama }}</option>
@@ -418,8 +433,12 @@
                             </div>
 
                             <div class="col-span-6 sm:col-span-3">
-                                <label for="jalur_masukmhs" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jalur Masuk</label>
-                                <select name="jalur_masukmhs" id="jalur_masukmhs" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                <label for="jalur_masukmhs"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jalur
+                                    Masuk</label>
+                                <select name="jalur_masukmhs" id="jalur_masukmhs"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required>
                                     <option selected disabled>Pilih Jalur Masuk</option>
                                     <option value="SNMPTN">SNMPTN</option>
                                     <option value="SBMPTN">SBMPTN</option>
@@ -557,4 +576,17 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('script')
+<script>
+    document.querySelectorAll('.open-modal-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const nim = button.getAttribute('data-nim');
+            const form = document.querySelector('#send-form');
+            form.action = `/editMahasiswa/${nim}`;
+        });
+    });
+</script>
 @endsection
