@@ -58,6 +58,8 @@ Route::middleware(['auth', 'only_operator'])->group(function () {
     Route::get('/profilOperator-edit', [OperatorController::class, 'showEdit'])->name('showEdit');
     Route::post('/profilOperator-edit', [OperatorController::class, 'update'])->name('update');
     Route::get('/importMahasiswa',[OperatorController::class,'tambah']);
+    Route::get('/editMahasiswa/{nim}', [OperatorController::class, 'editMahasiswa'])->name('mahasiswa.edit.get');
+    Route::post('/editMahasiswa/{nim}',[OperatorController::class,'editMahasiswa'])->name('mahasiswa.edit');
     Route::post('/importMahasiswa-import',[OperatorController::class,'import'])->name('mahasiswa.import');
     Route::get('/mahasiswa/preview', [OperatorController::class, 'preview'])->name('mahasiswa.preview');
     Route::post('/generateAkun',[OperatorController::class,'generateAkun'])->name('generateAkun');

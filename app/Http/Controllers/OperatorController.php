@@ -19,14 +19,13 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 
-
 class OperatorController extends Controller
 {
     public function index()
     {
         $mahasiswas = Mahasiswa::join('users', 'mahasiswa.username', '=', 'users.username')
             ->join('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
-            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'users.password','dosen_wali.nip', 'dosen_wali.nama as dosen_nama','mahasiswa.jalur_masuk')
+            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'users.password', 'dosen_wali.nip', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk')
             ->get();
 
         $users = User::join('roles', 'users.role_id', '=', 'roles.id')
@@ -45,10 +44,10 @@ class OperatorController extends Controller
         $user = $request->user();
         $nip = $request->user()->operator->nip;
         $operators = Operator::join('users', 'operator.iduser', '=', 'users.id')
-                ->where('nip',$nip)
-                ->select('operator.nama', 'operator.nip', 'users.id', 'users.username','users.foto')
-                ->first();
-        return view('operator.profil', ['user' => $user,'operators'=>$operators]);
+            ->where('nip', $nip)
+            ->select('operator.nama', 'operator.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
+        return view('operator.profil', ['user' => $user, 'operators' => $operators]);
     }
 
     public function showEdit(Request $request): View
@@ -56,10 +55,10 @@ class OperatorController extends Controller
         $user = $request->user();
         $nip = $request->user()->operator->nip;
         $operators = Operator::join('users', 'operator.iduser', '=', 'users.id')
-                ->where('nip',$nip)
-                ->select('operator.nama', 'operator.nip', 'users.id', 'users.username','users.password', 'users.foto')
-                ->first();
-        return view('operator.profil-edit', ['user' => $user,'operators'=>$operators]);
+            ->where('nip', $nip)
+            ->select('operator.nama', 'operator.nip', 'users.id', 'users.username', 'users.password', 'users.foto')
+            ->first();
+        return view('operator.profil-edit', ['user' => $user, 'operators' => $operators]);
     }
 
     public function update(Request $request)
@@ -77,7 +76,7 @@ class OperatorController extends Controller
         if ($request->has('foto')) {
             $fotoPath = $request->file('foto')->store('profile', 'public');
             $validated['foto'] = $fotoPath;
-            
+
             $user->update([
                 'foto' => $validated['foto'],
             ]);
@@ -86,10 +85,12 @@ class OperatorController extends Controller
         // Check if 'new_password' key exists and not null in $validated
         if (array_key_exists('new_password', $validated) && $validated['new_password'] !== null) {
             if (!Hash::check($validated['current_password'], $user->password)) {
-                return redirect()->route('operator.showEdit')->with('error', 'Password lama tidak cocok.');
+                return redirect()
+                    ->route('operator.showEdit')
+                    ->with('error', 'Password lama tidak cocok.');
             }
         }
-        
+
         DB::beginTransaction();
 
         try {
@@ -97,32 +98,35 @@ class OperatorController extends Controller
 
             if (!is_null($userData['username'])) {
                 $user->update($userData);
-                
+
                 Operator::where('iduser', $user->id)->update($userData);
             }
 
             if (array_key_exists('new_password', $validated) && $validated['new_password'] !== null) {
                 $user->update([
-                    'password' => Hash::make($validated['new_password'])
+                    'password' => Hash::make($validated['new_password']),
                 ]);
             }
 
             DB::commit();
 
-            return redirect()->route('edit')->with('success', 'Profil berhasil diperbarui');
+            return redirect()
+                ->route('edit')
+                ->with('success', 'Profil berhasil diperbarui');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('showEdit')->with('error', 'Gagal memperbarui profil.');
+            return redirect()
+                ->route('showEdit')
+                ->with('error', 'Gagal memperbarui profil.');
         }
     }
 
-
     public function tambah()
     {
-        $mahasiswas = Mahasiswa::join('dosen_wali','dosen_wali.nip','=','mahasiswa.nip')
-                                ->select('mahasiswa.nama as nama', 'mahasiswa.nim','mahasiswa.nip','mahasiswa.angkatan', 'dosen_wali.nama as dosen_nama','mahasiswa.username','mahasiswa.jalur_masuk')
-                                ->whereNull('mahasiswa.iduser')->get();
-        
+        $mahasiswas = Mahasiswa::join('dosen_wali', 'dosen_wali.nip', '=', 'mahasiswa.nip')
+            ->select('mahasiswa.nama as nama', 'mahasiswa.nim', 'mahasiswa.nip', 'mahasiswa.angkatan', 'dosen_wali.nama as dosen_nama', 'mahasiswa.username', 'mahasiswa.jalur_masuk')
+            ->whereNull('mahasiswa.iduser')
+            ->get();
 
         return view('operator.importMahasiswa', compact('mahasiswas'));
     }
@@ -143,10 +147,9 @@ class OperatorController extends Controller
     //         }
 
     //         $data = Excel::toArray(new MahasiswaImport, $file)[0];
-            
 
     //         foreach ($data as $row) {
-                
+
     //             $validator = Validator::make($row, [
     //                 'nama' => 'required|regex:/^[a-zA-Z\s]+$/u', // Nama harus string tanpa angka dan simbol
     //                 'nim' => [
@@ -163,12 +166,11 @@ class OperatorController extends Controller
     //                 'nip' => 'required|exists:dosen_wali,nip',
     //             ]);
 
-
     //             // if ($validator->fails()) {
     //             //     return redirect('importMahasiswa')->withErrors($validator)->withInput();
     //             //     // Mengembalikan dengan error dan input sebelumnya jika validasi gagal
     //             // }
-                
+
     //         }
 
     //         Excel::import(new MahasiswaImport, $file);
@@ -179,35 +181,35 @@ class OperatorController extends Controller
     // }
 
     public function import(Request $request)
-{
-
-    $request->validate([
-        'file' => 'required|mimes:xlsx',
-    ]);
-
-    $data = Excel::toArray(new MahasiswaImport, $request->file('file'));
-
-    foreach ($data[0] as $row) {
-        $validator = Validator::make($row, [
-            'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
-            'nim' => 'required|numeric|digits_between:1,20',
-            'angkatan' => 'required|integer',
-            'jalur_masuk' => 'required|in:SNMPTN,SBMPTN,MANDIRI',
-            'nip' => 'required|numeric'
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx',
         ]);
 
-        if ($validator->fails()) {
-            // Handle validation failure
-            // For example, you can redirect back with errors
-            return redirect()->back()->withErrors($validator)->withInput();
+        $data = Excel::toArray(new MahasiswaImport(), $request->file('file'));
+
+        foreach ($data[0] as $row) {
+            $validator = Validator::make($row, [
+                'nama' => 'required|regex:/^[a-zA-Z\s]*$/',
+                'nim' => 'required|numeric|digits_between:1,20',
+                'angkatan' => 'required|integer',
+                'jalur_masuk' => 'required|in:SNMPTN,SBMPTN,MANDIRI',
+                'nip' => 'required|numeric',
+            ]);
+
+            if ($validator->fails()) {
+                // Handle validation failure
+                // For example, you can redirect back with errors
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
         }
+
+        session(['mahasiswa_data' => $data[0]]);
+        return redirect()->route('mahasiswa.preview');
     }
-
-    session(['mahasiswa_data' => $data[0]]);
-    return redirect()->route('mahasiswa.preview');
-}
-
-
 
     public function preview()
     {
@@ -218,18 +220,20 @@ class OperatorController extends Controller
     public function generateAkun()
     {
         $data = session('mahasiswa_data');
-    
+
         foreach ($data as $row) {
-            if(Mahasiswa::where('nim', $row['nim'])->exists()){
-                return redirect()->route('mahasiswa.preview')->with('error', 'NIM / Mahasiswa sudah terdaftar');
+            if (Mahasiswa::where('nim', $row['nim'])->exists()) {
+                return redirect()
+                    ->route('mahasiswa.preview')
+                    ->with('error', 'NIM / Mahasiswa sudah terdaftar');
             }
 
             $username = strtolower(str_replace(' ', '', $row['nama']));
-    
+
             while (User::where('username', $username)->exists()) {
                 $username = strtolower(str_replace(' ', '', $row['nama'])) . rand(1, 100);
             }
-    
+
             $password = Str::random(8);
 
             $user = User::create([
@@ -237,89 +241,106 @@ class OperatorController extends Controller
                 'password' => Hash::make($password), // Hash the password
                 'role_id' => 1,
             ]);
-    
+
             $row['iduser'] = $user->id;
             $row['username'] = $username;
             $row['status'] = 'active';
 
-    
             Mahasiswa::create($row);
-            
+
             GenerateAkun::create([
                 'nim' => $row['nim'],
                 'username' => $username,
                 'password' => $password, // Password belum di-hash
             ]);
         }
-        return redirect()->route('mahasiswa')->with('success', 'Data Mahasiswa berhasil ditambahkan');
+        return redirect()
+            ->route('mahasiswa')
+            ->with('success', 'Data Mahasiswa berhasil ditambahkan');
     }
-    
-
-
 
     public function export()
     {
-        return Excel::download(new MahasiswaExport, 'mahasiswa.xlsx');
+        return Excel::download(new MahasiswaExport(), 'mahasiswa.xlsx');
     }
+    
 
-    // public function generateAkun(Request $request) {
-    //     // Get the array of NIMs in the Mahasiswa table with a null "iduser"
-    //     $nimsWithNullIduser = Mahasiswa::whereNull('iduser')->pluck('nim');
-    
-    //     // Memulai transaksi database
-    //     DB::beginTransaction();
-    
-    //     try {
-    //         foreach ($nimsWithNullIduser as $generate_akun_nim) {
-    //             // Get the Mahasiswa record related to this NIM
-    //             $mahasiswa = Mahasiswa::where('nim', $generate_akun_nim)->first();
-    
-    //             if ($mahasiswa) {
-    //                 // Generate a username by removing spaces and making it lowercase
-    //                 $username = strtolower(str_replace(' ', '', $mahasiswa->nama));
-    
-    //                 // Check if the username already exists, and append a random number until it's unique
-    //                 while (User::where('username', $username)->exists()) {
-    //                     $username = strtolower(str_replace(' ', '', $mahasiswa->nama)) . rand(1, 100);
-    //                 }
-    
-    //                 $password = Str::random(8);
-                    
-    //                 GenerateAkun::create([
-    //                     'nim' => $generate_akun_nim,
-    //                     'username' => $username,
-    //                     'password' => $password, // Password belum di-hash
-    //                 ]);
-    
-    //                 // Create a new User in the "user" table
-    //                 $user = User::create([
-    //                     'username' => $username,
-    //                     'password' => Hash::make($password), // Hash the password
-    //                     'role_id' => 1,
-    //                 ]);
-    
-    //                 // Update the Mahasiswa with the generated username and "iduser"
-    //                 $mahasiswa->username = $username;
-    //                 $mahasiswa->iduser = $user->id;
-    //                 $mahasiswa->save();
-    //             } else {
-    //                 // Handle the case where Mahasiswa record doesn't exist
-    //                 DB::rollBack();
-    //                 return redirect('importMahasiswa')->with('error', 'Mahasiswa record not found for NIM: ' . $generate_akun_nim);
-    //             }
-    //         }
-    
-    //         // Commit the transaction
-    //         DB::commit();
-    
-    //         return redirect('dashboardOperator')->with('status', 'Data Mahasiswa berhasil digenerate.');
-    //     } catch (\Exception $e) {
-    //         // Rollback the transaction in case of any errors
-    //         DB::rollBack();
-    //         return redirect('importMahasiswa')->with('error', 'Gagal menggenerate akun Mahasiswa.');
-    //     }
-    // }    
+    public function editMahasiswa(Request $request, $nim)
+    {
+        $user = Mahasiswa::where('nim', $nim)->first();
 
+        $validated = $request->validate([
+            'username' => 'nullable|string',
+            'current_password' => 'nullable|string',
+            'nama' => 'nullable|string',
+            'nim' => 'nullable|string',
+            'angkatan' => 'nullable|string',
+            'status' => 'nullable|string',
+            'jalur_masuk' => 'nullable|string',
+            'nip2' => 'nullable|string',
+        ]);
 
+        DB::beginTransaction();
 
+        try {
+            if (!empty($validated['username'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'username' => $validated['username'],
+                ]);
+            }
+
+            if (!empty($validated['nama'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'nama' => $validated['nama'],
+                ]);
+            }
+
+            if (!empty($validated['nim'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'nim' => $validated['nim'],
+                ]);
+            }
+
+            if (!empty($validated['angkatan'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'angkatan' => $validated['angkatan'],
+                ]);
+            }
+
+            if (!empty($validated['status'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'status' => $validated['status'],
+                ]);
+            }
+
+            if (!empty($validated['jalur_masuk'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'jalur_masuk' => $validated['jalur_masuk'],
+                ]);
+            }
+
+            if (!empty($validated['nip2'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'nip' => $validated['nip2'],
+                ]);
+            }
+
+            if (!empty($validated['current_password'])) {
+                Mahasiswa::where('nim', $nim)->join('users', 'mahasiswa.iduser', '=', 'users.id')->update([
+                    'password' => Hash::make($validated['current_password']),
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()
+                ->route('mahasiswa')
+                ->with('success', 'Data mahasiswa berhasil diperbarui');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('mahasiswa')
+                ->with('error', 'Gagal memperbarui data mahasiswa.');
+        }
+    }
 }
