@@ -58,8 +58,6 @@
         }
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800">
@@ -342,6 +340,10 @@
                     @yield('content')
                 </div>
 
+                <div class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-2 xl:gap-4 dark:bg-gray-900">
+                    @yield('content5')
+                </div>
+
                 <div class="px-4 pb-6">
                     @yield('content2')
                 </div>
@@ -363,6 +365,9 @@
     <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1"
         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev"
