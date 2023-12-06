@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\IRS;
+use App\Models\KHS;
+use App\Models\PKL;
+use App\Models\Skripsi;
 use App\Models\Dosen;
 use App\Models\Mahasiswa;
 use App\Models\Departemen;
@@ -319,8 +323,85 @@ class DashboardDepartemenController extends Controller
             ->join('generate_akun', 'generate_akun.nim', '=', 'mahasiswa.nim')
             ->select('mahasiswa.nama', 'mahasiswa.nim as nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'generate_akun.password', 'dosen_wali.nip', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk', 'users.foto')
             ->get();
-        $dosens = Dosen::all();
-       //dd($mahasiswas[0]);
-        return view('departemen.mahasiswa', ['mahasiswas' => $mahasiswas, 'dosens' => $dosens]);
+        $departemen = Departemen::leftJoin('users', 'departemen.iduser', '=', 'users.id')
+            ->where('departemen.iduser', Auth::user()->id)
+            ->select('departemen.nama', 'departemen.kode', 'users.username')
+            ->first();
+        return view('departemen.mahasiswa', ['mahasiswas' => $mahasiswas, 'departemen' => $departemen]);
+    }
+
+    public function searchDepartemen(Request $request)
+    {
+        $search = $request->input('search');
+
+        $mahasiswas = Mahasiswa::join('users', 'mahasiswa.iduser', '=', 'users.id')
+            ->join('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+            ->join('generate_akun', 'generate_akun.nim', '=', 'mahasiswa.nim')
+            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'generate_akun.password', 'dosen_wali.nip', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk', 'users.foto')
+            ->where(function ($query) use ($search) {
+                $query
+                    ->where('mahasiswa.nama', 'like', '%' . $search . '%')
+                    ->orWhere('mahasiswa.nim', 'like', '%' . $search . '%')
+                    ->orWhere('mahasiswa.angkatan', 'like', '%' . $search . '%')
+                    ->orWhere('mahasiswa.jalur_masuk', 'like', '%' . $search . '%')
+                    ->orWhere('mahasiswa.status', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        $departemen = Departemen::leftJoin('users', 'departemen.iduser', '=', 'users.id')
+            ->where('departemen.iduser', Auth::user()->id)
+            ->select('departemen.nama', 'departemen.kode', 'users.username')
+            ->first();
+
+        return view('departemen.mahasiswa', ['mahasiswas' => $mahasiswas, 'departemen' => $departemen, 'search' => $search]);
+    }
+
+    public function dataMahasiswa($nim){
+
+        $departemen = Departemen::leftJoin('users', 'departemen.iduser', '=', 'users.id')
+            ->where('departemen.iduser', Auth::user()->id)
+            ->select('departemen.nama', 'departemen.kode', 'users.username')
+            ->first();
+
+        $mahasiswa =  Mahasiswa::join('dosen_wali','mahasiswa.nip','=','dosen_wali.nip')
+            ->join('users', 'mahasiswa.iduser', '=', 'users.id')
+            ->where('nim', $nim)
+            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'dosen_wali.nip as dosen_wali_nip', 'dosen_wali.nama as dosen_nama','users.foto')
+            ->get();
+
+        $irsData = IRS::join('mahasiswa','mahasiswa.nim','=','irs.nim')
+            ->where('irs.nim', $nim)
+            ->select('mahasiswa.status as mhsstatus','irs.status as status', 'irs.semester_aktif','irs.jumlah_sks','irs.scanIRS')
+            ->get()
+            ->keyBy('semester_aktif'); // Gunakan semester_aktif sebagai kunci array
+
+        $khsData = KHS::join('mahasiswa','mahasiswa.nim','=','khs.nim')
+            ->where('khs.nim', $nim)
+            ->select('mahasiswa.status as mhsstatus','khs.status as status', 'khs.semester_aktif','khs.jumlah_sks','khs.jumlah_sks_kumulatif','khs.ip_semester','khs.ip_kumulatif')
+            ->get()
+            ->keyBy('semester_aktif');
+
+        $pklData = PKL::join('mahasiswa','mahasiswa.nim','=','pkl.nim')
+            ->where('pkl.nim', $nim)
+            ->select('mahasiswa.status as mhsstatus','pkl.status as status', 'pkl.semester_aktif', 'pkl.nilai','pkl.scanPKL')
+            ->get()
+            ->keyBy('semester_aktif');
+    
+        $skripsiData = Skripsi::join('mahasiswa','mahasiswa.nim','=','skripsi.nim')
+            ->where('skripsi.nim', $nim)
+            ->select('mahasiswa.status as mhsstatus','skripsi.status as status', 'skripsi.semester_aktif', 'skripsi.nilai','skripsi.scanSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang')
+            ->get()
+            ->keyBy('semester_aktif');
+
+        $lastVerifiedPKL = PKL::join('mahasiswa','mahasiswa.nim','=','pkl.nim')
+            ->where('pkl.nim', $nim)
+            ->where('pkl.status', 'verified')
+            ->select('mahasiswa.status as mhsstatus','pkl.status as status', 'pkl.semester_aktif', 'pkl.nilai','pkl.scanPKL')
+            ->orderBy('semester_aktif')
+            ->first();
+
+        return view('departemen.details', [
+            'mahasiswa' => $mahasiswa,'irsData'=>$irsData, 'khsData'=>$khsData, 'pklData'=>$pklData,'skripsiData'=>$skripsiData,'lastVerifiedPKL'=>$lastVerifiedPKL,'departemen'=>$departemen
+        ]);
     }
 }

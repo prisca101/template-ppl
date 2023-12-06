@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class DashboardDosenController extends Controller
 {
     public function dashboardDosen(Request $request){  
-    if (Auth::user()->role_id === 2) {
+        if (Auth::user()->role_id === 2) {
             // Ambil data dosen yang sedang login
             $dosens = Dosen::leftJoin('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->where('dosen_wali.iduser', Auth::user()->id)

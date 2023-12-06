@@ -165,10 +165,10 @@
                                                 {{ $mahasiswa->jalur_masuk }}</td>
                                             <td
                                                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $mahasiswa->nip }}</td>
+                                                {{ $mahasiswa->dosen_nama }}</td>
                                             <td
                                                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $mahasiswa->dosen_nama }}</td>
+                                                {{ $mahasiswa->nip }}</td>
                                             <td
                                                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ $mahasiswa->username }}</td>

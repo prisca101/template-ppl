@@ -189,6 +189,9 @@ Route::controller(DashboardDepartemenController::class)->middleware(['auth','onl
     Route::get('/RekapSkripsiDepartemen','PreviewSkripsi')->name('rekapSkripsi');
     Route::get('/RekapDepartemen','rekap')->name('rekap');
     Route::get('/RekapStatusDepartemen','downloadRekapStatus')->name('rekapstatusdepart');
+    Route::get('/DaftarDetailMahasiswa','mahasiswa')->name('mahasiswadepart');
+    Route::get('/SearchDepartemen','searchDepartemen')->name('searchDepartemen');
+    Route::get('/DetailsMahasiswa/{nim}','dataMahasiswa')->name('detailMhs');
 });
 
 Route::controller(DepartemenController::class)->middleware(['auth','only_departemen'])->group(function (){
