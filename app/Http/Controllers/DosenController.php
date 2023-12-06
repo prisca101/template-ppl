@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Dompdf;
 use App\Models\IRS;
 use App\Models\KHS;
 use App\Models\PKL;
-use App\Models\Skripsi;
+use Dompdf\Options;
 use App\Models\Dosen;
+use App\Models\Skripsi;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 
 class DosenController extends Controller
 {
@@ -312,7 +313,7 @@ class DosenController extends Controller
         if (array_key_exists('new_password', $validated) && $validated['new_password'] !== null) {
             if (!Hash::check($validated['current_password'], $user->password)) {
                 return redirect()
-                    ->route('showEdit')
+                    ->route('doswal.showEdit4')
                     ->with('error', 'Password lama tidak cocok.');
             }
         }
@@ -337,14 +338,16 @@ class DosenController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('edit')
+                ->route('edit4')
                 ->with('success', 'Profil berhasil diperbarui');
         } catch (\Exception $e) {
             DB::rollBack();
+            Log::error($e->getMessage());  // Add this line
             return redirect()
-                ->route('showEdit')
+                ->route('showEdit4')
                 ->with('error', 'Gagal memperbarui profil.');
         }
+        
     }
 
     public function lulusPKL(Request $request, $angkatan, $status) {

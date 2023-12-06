@@ -7,9 +7,10 @@ use App\Models\User;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class IRSController extends Controller
 {
@@ -22,8 +23,12 @@ class IRSController extends Controller
             ->first();
 
         $nim = $request->user()->mahasiswa->nim;
-        $user = User::where('id', Auth::user()->id)->select('foto')->first();
-        $latestIRS = IRS::where('nim', $nim)->orderBy('created_at', 'desc')->first();
+        $user = User::where('id', Auth::user()->id)
+            ->select('foto')
+            ->first();
+        $latestIRS = IRS::where('nim', $nim)
+            ->orderBy('created_at', 'desc')
+            ->first();
         $SemesterAktif = $latestIRS ? $latestIRS->semester_aktif : null;
 
         $irsData = IRS::where('nim', $nim);
@@ -38,7 +43,7 @@ class IRSController extends Controller
         return view('mahasiswa.irs', [
             'mahasiswa' => $mahasiswa,
             'irsData' => $irsData,
-            'SemesterAktif' => $SemesterAktif
+            'SemesterAktif' => $SemesterAktif,
         ]);
     }
 
@@ -46,22 +51,28 @@ class IRSController extends Controller
     {
         $nim = $request->user()->mahasiswa->nim; // Use the logged-in user to get the nim
         $mahasiswa = Mahasiswa::leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
-                            ->where('mahasiswa.nim', $nim)
-                            ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','dosen_wali.nama as dosen_nama', 'dosen_wali.nip')
-                            ->first();
+            ->where('mahasiswa.nim', $nim)
+            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'dosen_wali.nama as dosen_nama', 'dosen_wali.nip')
+            ->first();
 
         if ($mahasiswa) {
             // Get the active semesters for the given student
-            $latestIRS = IRS::where('nim', $nim)->orderBy('semester_aktif', 'desc')->first();
-            $semesterAktifIRS = IRS::where('nim', $nim)->pluck('semester_aktif')->toArray();
+            $latestIRS = IRS::where('nim', $nim)
+                ->orderBy('semester_aktif', 'desc')
+                ->first();
+            $semesterAktifIRS = IRS::where('nim', $nim)
+                ->pluck('semester_aktif')
+                ->toArray();
             //dd($latestIRS, $semesterAktifIRS);
             // Create an array of available semesters by diffing the full range and active semesters
             $availableSemesters = array_diff(range(1, 14), $semesterAktifIRS);
         } else {
             // Handle the case where the Mahasiswa is not found
-            return redirect()->route('irs.index')->with('error', 'Mahasiswa not found with the provided nim');
+            return redirect()
+                ->route('irs.index')
+                ->with('error', 'Mahasiswa not found with the provided nim');
         }
-        
+
         return view('mahasiswa.irs-create', compact('availableSemesters', 'mahasiswa'));
     }
 
@@ -69,18 +80,24 @@ class IRSController extends Controller
     {
         //dd($request);
         $nim = $request->user()->mahasiswa->nim;
-        $latestIRS = IRS::where('nim', $nim)->orderBy('semester_aktif', 'desc')->first();
-        
+        $latestIRS = IRS::where('nim', $nim)
+            ->orderBy('semester_aktif', 'desc')
+            ->first();
+
         if ($latestIRS) {
             $latestSemester = $latestIRS->semester_aktif;
             $inputSemester = $request->input('semester_aktif');
 
             if ($inputSemester > $latestSemester + 1) {
                 // IRS diisi tidak sesuai urutan, berikan pesan kesalahan
-                return redirect()->route('irs.create')->with('error', 'Anda harus mengisi semester sebelumnya terlebih dahulu');
+                return redirect()
+                    ->route('irs.create')
+                    ->with('error', 'Anda harus mengisi semester sebelumnya terlebih dahulu');
             }
-        }elseif($request->input('semester_aktif') != 1){
-            return redirect()->route('irs.create')->with('error', 'Anda harus memulai dengan IRS semester 1');
+        } elseif ($request->input('semester_aktif') != 1) {
+            return redirect()
+                ->route('irs.create')
+                ->with('error', 'Anda harus memulai dengan IRS semester 1');
         }
 
         // Lanjutkan dengan validasi input
@@ -89,7 +106,7 @@ class IRSController extends Controller
             'jumlah_sks' => ['required', 'numeric', 'between:1,24'], // Correct the validation rule syntax
             'scanIRS' => ['required', 'file', 'mimes:pdf', 'max:10240'], // Correct the validation rule syntax
         ]);
-        
+
         // Lanjutkan dengan penyimpanan IRS
         $PDFPath = null;
 
@@ -104,19 +121,90 @@ class IRSController extends Controller
         $irs->scanIRS = $PDFPath; // Assign the PDF path here
         $irs->nim = $request->user()->mahasiswa->nim;
         $irs->nip = $request->user()->mahasiswa->nip;
-        
+
         $saved = $irs->save();
 
         if ($saved) {
-            return redirect()->route('irs.index')->with('success', 'IRS added successfully');
+            return redirect()
+                ->route('irs.index')
+                ->with('success', 'IRS added successfully');
         } else {
-            return redirect()->route('irs.create')->with('error', 'Failed to add IRS');
+            return redirect()
+                ->route('irs.create')
+                ->with('error', 'Failed to add IRS');
         }
     }
 
+    public function getUpdateIrs(Request $request, $semester_aktif)
+    {
+        $user = $request->user();
+        $nim = $request->user()->mahasiswa->nim;
 
-    public function status (Request $request){
-        return view('login');
+        $mahasiswa = Mahasiswa::join('irs', 'mahasiswa.nim', 'irs.nim')
+            ->where('semester_aktif', $semester_aktif)
+            ->join('dosen_wali', 'mahasiswa.nip', 'dosen_wali.nip')
+            ->select('irs.scanIRS', 'irs.jumlah_sks', 'irs.semester_aktif', 'mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'dosen_wali.nama as dosen_nama')
+            ->first();
+
+        return view('mahasiswa.irs-update', ['user' => $user, 'mahasiswa' => $mahasiswa]);
     }
 
+    public function postUpdateIrs(Request $request, $semester_aktif)
+    {
+        $user = $request->user();
+        $nim = $request->user()->mahasiswa->nim;
+
+        $validated = $request->validate([
+            'jumlah_sks' => 'nullable|numeric',
+            'scanIRS' => 'max:10240|file|mimes:pdf',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->hasFile('scanIRS')) {
+                $PDFPath = $request->file('scanIRS')->store('file', 'public');
+                $validated['scanIRS'] = $PDFPath;
+
+                IRS::where([
+                    'nim' => $nim,
+                    'semester_aktif' => $semester_aktif,
+                ])->update([
+                    'scanIRS' => $validated['scanIRS'],
+                ]);
+            }
+
+            if (!empty($validated['jumlah_sks'])) {
+                IRS::where([
+                    'nim' => $nim,
+                    'semester_aktif' => $semester_aktif,
+                ])->update([
+                    'jumlah_sks' => $validated['jumlah_sks'],
+                ]);
+            }
+
+            IRS::where([
+                'nim' => $nim,
+                'semester_aktif' => $semester_aktif,
+            ])->update([
+                'status' => 'pending',
+            ]);
+
+            DB::commit();
+
+            return redirect()
+                ->route('irs.index')
+                ->with('success', 'Data IRS berhasil diperbarui');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('irs.getIrs', ['semester_aktif' => $semester_aktif])
+                ->with('error', 'Gagal memperbarui IRS');
+        }
+    }
+
+    public function status(Request $request)
+    {
+        return view('login');
+    }
 }

@@ -6,10 +6,11 @@ use App\Models\Skripsi;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Auth;
 
 class SkripsiController extends Controller
 {
@@ -137,4 +138,93 @@ class SkripsiController extends Controller
             return redirect()->route('skripsi.create')->with('error', 'An error occurred while updating Skripsi: ' . $e->getMessage());
         }
     }
+
+    public function getUpdateSkripsi(Request $request, $semester_aktif)
+    {
+        $user = $request->user();
+        $nim = $request->user()->mahasiswa->nim;
+
+        $mahasiswa = Mahasiswa::join('skripsi', 'mahasiswa.nim', 'skripsi.nim')
+            ->where('semester_aktif', $semester_aktif)
+            ->join('dosen_wali', 'mahasiswa.nip', 'dosen_wali.nip')
+            ->select('skripsi.scanSkripsi', 'skripsi.statusSkripsi', 'skripsi.semester_aktif', 'skripsi.nilai', 'skripsi.tanggal_sidang', 'skripsi.lama_studi', 'mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'dosen_wali.nama as dosen_nama')
+            ->first();
+
+        return view('mahasiswa.skripsi-update', ['user' => $user, 'mahasiswa' => $mahasiswa]);
+    }
+
+public function postUpdateSkripsi(Request $request, $semester_aktif)
+{
+    $user = $request->user();
+    $nim = $request->user()->mahasiswa->nim;
+
+    $validated = $request->validate([
+        'scanSkripsi' => 'max:10240|file|mimes:pdf',
+        'nilai' => 'nullable|string',
+        'tanggal_sidang' => 'nullable|date',
+        'lama_studi' => 'nullable|numeric',
+    ]);
+
+    DB::beginTransaction();
+
+    try {
+        if ($request->hasFile('scanSkripsi')) {
+            $PDFPath = $request->file('scanSkripsi')->store('file', 'public');
+            $validated['scanSkripsi'] = $PDFPath;
+
+            Skripsi::where([
+                'nim' => $nim,
+                'semester_aktif' => $semester_aktif,
+            ])->update([
+                'scanSkripsi' => $validated['scanSkripsi'],
+            ]);
+        }
+
+        if (!empty($validated['nilai'])) {
+            Skripsi::where([
+                'nim' => $nim,
+                'semester_aktif' => $semester_aktif,
+            ])->update([
+                'nilai' => $validated['nilai'],
+            ]);
+        }
+        
+        if (!empty($validated['tanggal_sidang'])) {
+            Skripsi::where([
+                'nim' => $nim,
+                'semester_aktif' => $semester_aktif,
+            ])->update([
+                'tanggal_sidang' => $validated['tanggal_sidang'],
+            ]);
+        }
+        
+        if (!empty($validated['lama_studi'])) {
+            Skripsi::where([
+                'nim' => $nim,
+                'semester_aktif' => $semester_aktif,
+            ])->update([
+                'lama_studi' => $validated['lama_studi'],
+            ]);
+        }
+
+        Skripsi::where([
+            'nim' => $nim,
+            'semester_aktif' => $semester_aktif,
+        ])->update([
+            'status' => 'pending',
+        ]);
+
+        DB::commit();
+
+        return redirect()
+            ->route('skripsi.index') // Assuming you have a route for Skripsi
+            ->with('success', 'Data Skripsi berhasil diperbarui');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()
+            ->route('skripsi.getSkripsi', ['semester_aktif' => $semester_aktif]) // Adjust this route as needed
+            ->with('error', 'Gagal memperbarui Skripsi');
+    }
+}
+
 }

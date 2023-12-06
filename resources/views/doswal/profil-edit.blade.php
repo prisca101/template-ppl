@@ -49,7 +49,7 @@
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
 
-            <form action="{{ route('update', [Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('update4', [Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
                 <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
@@ -59,7 +59,7 @@
                         <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Profile picture</h3>
                         <input type="file"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                            id="foto" name="foto" accept=".jpg, .jpeg, .png" required>
+                            id="foto" name="foto" accept=".jpg, .jpeg, .png">
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JPG, JPEG, or PNG
                         </p>
                         @error('foto')
@@ -177,11 +177,11 @@
                 <div class="col-span-6 sm:col-span-3">
                     <label for="new_confirm_password"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                    <input type="text" name="new_confirm_password" id="new_confirm_password"
+                        <input type="password" name="new_confirm_password" id="new_confirm_password"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="••••••••">
                     @error('new_confirm_password')
-                        <p class="mt-1 text-sm text-red-600 dark:text-red-500">Some error message.</p>
+                        <p class="mt-1 text-sm text-red-600 dark:text-red-500">Password tidak cocok.</p>
                     @enderror
                 </div>
             </div>

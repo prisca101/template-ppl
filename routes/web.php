@@ -55,9 +55,9 @@ Route::middleware(['auth', 'only_operator'])->group(function () {
     Route::post('/mahasiswa', [DashboardOperatorController::class, 'store'])->name('store');
     Route::get('/searchOperator', [DashboardOperatorController::class, 'searchOperator'])->name('search');
     Route::get('/rekap', [DashboardOperatorController::class, 'rekap'])->name('rekap');
-    Route::get('/profilOperator', [OperatorController::class, 'edit'])->name('edit');
-    Route::get('/profilOperator-edit', [OperatorController::class, 'showEdit'])->name('showEdit');
-    Route::post('/profilOperator-edit', [OperatorController::class, 'update'])->name('update');
+    Route::get('/profilOperator', [OperatorController::class, 'edit'])->name('edit3');
+    Route::get('/profilOperator-edit', [OperatorController::class, 'showEdit'])->name('showEdit3');
+    Route::post('/profilOperator-edit', [OperatorController::class, 'update'])->name('update3');
     Route::get('/importMahasiswa',[OperatorController::class,'tambah']);
     Route::get('/editMahasiswa/{nim}', [OperatorController::class, 'editMahasiswa'])->name('mahasiswa.edit.get');
     Route::post('/editMahasiswa/{nim}',[OperatorController::class,'editMahasiswa'])->name('mahasiswa.edit');
@@ -71,9 +71,9 @@ Route::middleware(['auth', 'only_dosen'])->group(function () {
     Route::get('/perwalian', [DosenController::class, 'detail'])->name('perwalian');
     Route::get('/details/{nim}', [DosenController::class, 'dataMahasiswa'])->name('details');
     Route::get('/search', [DosenController::class, 'searchMhs'])->name('searchmhs');
-    Route::get('/profilDosen', [DosenController::class, 'edit'])->name('edit');
-    Route::get('/profilDosen-edit', [DosenController::class, 'showEdit'])->name('showEdit2');
-    Route::post('/profilDosen-edit', [DosenController::class, 'update'])->name('update');
+    Route::get('/profilDosen', [DosenController::class, 'edit'])->name('edit4');
+    Route::get('/profilDosen-edit', [DosenController::class, 'showEdit'])->name('showEdit4');
+    Route::post('/profilDosen-edit', [DosenController::class, 'update'])->name('update4');
     Route::get('/RekapPKL',[DosenController::class,'RekapPKL'])->name('RekapPKL');
     Route::get('/RekapSkripsi',[DosenController::class,'RekapSkripsi'])->name('RekapSkripsi');
 });
@@ -107,24 +107,32 @@ Route::controller(IRSController::class)->middleware(['auth', 'only_mahasiswa','v
     Route::get('/tambahIrs', 'create')->name('irs.create');
     Route::post('/irs-store', 'store')->name('irs.store');
     Route::post('/irs-updateStatus', 'status')->name('irs.updateStatus');
+    Route::get('/irs/{semester_aktif}', 'getUpdateIrs')->name('irs.getIrs');
+    Route::post('irs-update/{semester_aktif}', 'postUpdateIrs')->name('irs.updateIrs');
 });
 
 Route::controller(KHSController::class)->middleware(['auth', 'only_mahasiswa','verified'])->group(function () {
     Route::get('/khs', 'index')->name('khs.index');
     Route::get('/tambahKhs', 'create')->name('khs.create');
     Route::post('/khs-store', 'store')->name('khs.store');
+    Route::get('/khs/{semester_aktif}', 'getUpdateKhs')->name('khs.getKhs');
+    Route::post('khs-update/{semester_aktif}', 'postUpdateKhs')->name('khs.updateKhs');
 });
 
 Route::controller(PKLController::class)->middleware(['auth', 'only_mahasiswa','verified'])->group(function () {
     Route::get('/pkl', 'index')->name('pkl.index');
     Route::get('/tambahPkl', 'create')->name('pkl.create');
     Route::post('/pkl-store', 'store')->name('pkl.store');
+    Route::get('/pkl/{semester_aktif}', 'getUpdatePkl')->name('pkl.getPkl');
+    Route::post('pkl-update/{semester_aktif}', 'postUpdatePkl')->name('pkl.updatePkl');
 });
 
 Route::controller(SkripsiController::class)->middleware(['auth', 'only_mahasiswa','verified'])->group(function () {
     Route::get('/skripsi', 'index')->name('skripsi.index');
     Route::get('/tambahSkripsi', 'create')->name('skripsi.create');
     Route::post('/skripsi-store', 'store')->name('skripsi.store');
+    Route::get('/skripsi/{semester_aktif}', 'getUpdateSkripsi')->name('skripsi.getSkripsi');
+    Route::post('skripsi-update/{semester_aktif}', 'postUpdateSkripsi')->name('skripsi.updateSkripsi');
 });
 
 Route::controller(MahasiswaController::class)->middleware(['auth', 'only_mahasiswa'])->group(function () {

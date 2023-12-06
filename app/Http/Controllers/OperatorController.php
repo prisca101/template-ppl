@@ -39,7 +39,7 @@ class OperatorController extends Controller
         return view('dashboardOperator', ['operators' => $operators, 'mahasiswas' => $mahasiswas, 'users' => $users]);
     }
 
-    public function edit(Request $request): View
+    public function edit(Request $request)
     {
         $user = $request->user();
         $nip = $request->user()->operator->nip;
@@ -50,7 +50,7 @@ class OperatorController extends Controller
         return view('operator.profil', ['user' => $user, 'operators' => $operators]);
     }
 
-    public function showEdit(Request $request): View
+    public function showEdit(Request $request)
     {
         $user = $request->user();
         $nip = $request->user()->operator->nip;
@@ -86,7 +86,7 @@ class OperatorController extends Controller
         if (array_key_exists('new_password', $validated) && $validated['new_password'] !== null) {
             if (!Hash::check($validated['current_password'], $user->password)) {
                 return redirect()
-                    ->route('operator.showEdit')
+                    ->route('operator.showEdit3')
                     ->with('error', 'Password lama tidak cocok.');
             }
         }
@@ -111,12 +111,12 @@ class OperatorController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('edit')
+                ->route('edit3')
                 ->with('success', 'Profil berhasil diperbarui');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()
-                ->route('showEdit')
+                ->route('showEdit3')
                 ->with('error', 'Gagal memperbarui profil.');
         }
     }

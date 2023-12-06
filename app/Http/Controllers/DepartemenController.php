@@ -94,7 +94,7 @@ class DepartemenController extends Controller
             DB::rollBack();
             return redirect()
                 ->route('showEdit')
-                ->with('error', 'Gagal memperbarui profil.');
+                ->with('error', 'Gagal memperbarui profil');
         }
     }    
 
