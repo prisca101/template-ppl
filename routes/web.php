@@ -92,6 +92,10 @@ Route::middleware(['auth', 'only_dosen'])->group(function () {
     Route::post('/profilDosen-edit', [DosenController::class, 'update'])->name('update');
     Route::get('/RekapPKL',[DosenController::class,'RekapPKL'])->name('RekapPKL');
     Route::get('/RekapSkripsi',[DosenController::class,'RekapSkripsi'])->name('RekapSkripsi');
+    Route::get('/RekapStatus',[DosenController::class,'RekapStatus'])->name('RekapStatus');
+    Route::get('/DoswalPreviewStatus',[DosenController::class,'DoswalPreviewStatus'])->name('DoswalPreviewStatus');
+    Route::get('/daftarstatusdoswal/{angkatan}/{status}',[DosenController::class,'daftarstatus'])->name('daftarstatusdoswal');
+    Route::get('/PreviewListStatus/{angkatan}/{status}',[DosenController::class,'PreviewListStatus'])->name('PreviewListStatusDoswal');
 });
 
 Route::controller(ListController::class)->middleware(['auth', 'only_departemen'])->group(function () {

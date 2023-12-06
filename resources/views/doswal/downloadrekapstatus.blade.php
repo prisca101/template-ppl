@@ -6,7 +6,7 @@
     <title>Rekap Progress Skripsi Mahasiswa Informatika</title>
     <!-- CSS styling -->
     <style>
-        /* CSS sdtyle untuk membuat tampilan tabel */
+        /* CSS style untuk membuat tampilan tabel */
         @page {
             size: landscape;
         }

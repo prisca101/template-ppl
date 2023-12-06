@@ -687,4 +687,141 @@ class DosenController extends Controller
         return $pdf->stream('rekap-skripsi.pdf');
     
     }
+
+    public function RekapStatus(Request $request){
+        $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
+        $angkatan = [];
+        $tahunSekarang = date('Y');
+        
+        // Inisialisasi array untuk menyimpan hasil akhir
+        
+        // Mengisi array $angkatan dengan rentang tahun dari tahun saat ini sampai 6 tahun ke belakang
+        for ($i = 0; $i <= 6; $i++) {
+            $angkatan[] = $tahunSekarang - $i;
+        }
+        $result = array_fill_keys($angkatan, ['lulus_count' => 0, 'tidak_lulus_count' => 0, 'pkl_lulus_count' => 0, 'pkl_tidak_lulus_count' => 0, 
+        'active' => 0,
+        'cuti' => 0,
+        'mangkir' => 0,
+        'do' => 0,
+        'lulus' => 0,
+        'undur_diri' => 0,
+        'meninggal_dunia'=> 0]);
+        //dd($angkatan);
+        $statusMahasiswa = Mahasiswa::leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+                    ->whereIn('mahasiswa.angkatan', $angkatan)
+                    ->where('mahasiswa.nip',$nip)
+                    ->select('angkatan', 'status', DB::raw('COALESCE(COUNT(*), 0) as count'))
+                    ->groupBy('angkatan', 'status')
+                    ->get()
+                    ->each(function ($item, $key) use (&$result) {
+                        // Mengisi array $result dengan hasil query
+                        $result[$item->angkatan][$item->status] = $item->count;
+                });
+            //untuk rekap skripsi
+        $result = collect($result);
+    
+        return view('doswal.rekapstatus', ['result' => $result,'angkatan'=>$angkatan,'dosens'=>$dosens]);
+    }
+
+    public function DoswalPreviewStatus(Request $request){
+        $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
+        $angkatan = [];
+        $tahunSekarang = date('Y');
+        for ($i = 0; $i <= 6; $i++) {
+            $angkatan[] = $tahunSekarang - $i;
+        }
+        $result = array_fill_keys($angkatan, ['lulus_count' => 0, 'tidak_lulus_count' => 0, 'pkl_lulus_count' => 0, 'pkl_tidak_lulus_count' => 0, 
+                'active' => 0,
+                'cuti' => 0,
+                'mangkir' => 0,
+                'do' => 0,
+                'lulus' => 0,
+                'undur_diri' => 0,
+                'meninggal_dunia'=> 0]);
+        $statusMahasiswa = Mahasiswa::leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
+                ->where('mahasiswa.nip',$nip)
+                ->whereIn('angkatan', $angkatan)
+                ->select('angkatan', 'status', DB::raw('COALESCE(COUNT(*), 0) as count'))
+                ->groupBy('angkatan', 'status')
+                ->get()
+                ->each(function ($item, $key) use (&$result) {
+                    // Mengisi array $result dengan hasil query
+                    $result[$item->angkatan][$item->status] = $item->count;
+                });
+        $result = collect($result);
+
+        $pdf = app('dompdf.wrapper');
+        $pdf ->loadView('doswal.downloadrekapstatus',['angkatan'=>$angkatan,'result'=>$result,'dosens'=>$dosens]);
+        return $pdf->stream('rekap-status.pdf');
+    }
+
+    public function daftarstatus(Request $request, $angkatan, $status){
+        $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
+        $daftar = Mahasiswa::join('dosen_wali','dosen_wali.nip','=','mahasiswa.nip')
+                            ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','mahasiswa.status','dosen_wali.nama as dosen_nama')
+                            ->where('mahasiswa.nip',$nip)
+                            ->where('mahasiswa.angkatan',$angkatan)
+                            ->where('mahasiswa.status',$status)
+                            ->get();
+    
+        $namastatus = [
+            'active' => 'Aktif',
+            'lulus' => 'Lulus',
+            'meninggal_dunia' => 'Meninggal Dunia',
+            'do' => 'Drop Out',
+            'cuti' => 'Cuti',
+            'undur_diri' => 'Undur Diri',
+            'mangkir' => 'Mangkir'
+        ];
+    
+        $status_label = isset($namastatus[$status]) ? $namastatus[$status] : $status;
+    
+        return view('doswal.daftarstatus',['daftar'=>$daftar,'namastatus'=>$status_label,'angkatan'=>$angkatan,'status'=>$status,'dosens'=>$dosens]);
+    }
+
+    public function PreviewListStatus(Request $request, $angkatan, $status){
+    
+        $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
+        $daftar = Mahasiswa::join('dosen_wali','dosen_wali.nip','=','mahasiswa.nip')
+                            ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','mahasiswa.status','dosen_wali.nama as dosen_nama')
+                            ->where('mahasiswa.nip',$nip)
+                            ->where('mahasiswa.angkatan',$angkatan)
+                            ->where('mahasiswa.status',$status)
+                            ->get();
+
+        $namastatus = [
+            'active' => 'Aktif',
+            'lulus' => 'Lulus',
+            'meninggal_dunia' => 'Meninggal Dunia',
+            'do' => 'Drop Out',
+            'cuti' => 'Cuti',
+            'undur_diri' => 'Undur Diri',
+            'mangkir' => 'Mangkir'
+        ];
+
+        $status_label = isset($namastatus[$status]) ? $namastatus[$status] : $status;
+        $pdf = app('dompdf.wrapper');
+        $pdf ->loadView('doswal.downloadliststatus',['daftar'=>$daftar, 'namastatus'=>$status_label,'dosens'=>$dosens,'angkatan'=>$angkatan,'status'=>$status]);
+        return $pdf->stream('daftar-list-status.pdf');
+    }
+
+
+
 }
