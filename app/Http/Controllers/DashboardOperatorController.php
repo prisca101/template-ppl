@@ -78,12 +78,11 @@ class DashboardOperatorController extends Controller
                         $result[$item->angkatan]['tidak_lulus_count'] = $item->tidak_lulus_count;
                     });
 
-
-
                 // untuk rekap status
                 $statusMahasiswa = Mahasiswa::whereIn('angkatan', $angkatan)
                     ->select('angkatan', 'status', DB::raw('COALESCE(COUNT(*), 0) as count'))
                     ->groupBy('angkatan', 'status')
+                    ->whereIn('status', ['mangkir', 'undur_diri','active','do','meninggal_dunia','lulus','cuti'])
                     ->get()
                     ->each(function ($item, $key) use (&$result) {
                         // Mengisi array $result dengan hasil query
@@ -93,7 +92,7 @@ class DashboardOperatorController extends Controller
                 // Mengubah $result menjadi koleksi Laravel
                 $result = collect($result);
                 //dd($result);
-                // dd($result);
+                //dd($result);
 
                 $users = User::join('roles', 'users.role_id', '=', 'roles.id')
                     ->select('users.role_id', 'roles.name')
@@ -130,7 +129,7 @@ class DashboardOperatorController extends Controller
             ->select('mahasiswa.nama', 'mahasiswa.nim as nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'generate_akun.password', 'dosen_wali.nip', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk', 'users.foto')
             ->get();
         $dosens = Dosen::all();
-       
+       //dd($mahasiswas[0]);
         return view('operator.mahasiswa', ['mahasiswas' => $mahasiswas, 'dosens' => $dosens]);
     }
 

@@ -185,6 +185,7 @@ Route::controller(VerifikasiController::class)->middleware(['auth','only_dosen']
 Route::controller(DashboardDepartemenController::class)->middleware(['auth','only_departemen'])->group(function(){
     Route::get('/RekapPKLDepartemen','PreviewPKL')->name('rekapPKL');
     Route::get('/RekapSkripsiDepartemen','PreviewSkripsi')->name('rekapSkripsi');
+    Route::get('/RekapDepartemen','rekap')->name('rekap');
 });
 
 Route::controller(DepartemenController::class)->middleware(['auth','only_departemen'])->group(function (){

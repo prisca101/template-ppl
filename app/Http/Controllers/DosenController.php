@@ -715,6 +715,7 @@ class DosenController extends Controller
         $statusMahasiswa = Mahasiswa::leftJoin('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
                     ->whereIn('mahasiswa.angkatan', $angkatan)
                     ->where('mahasiswa.nip',$nip)
+                    ->whereIn('status', ['mangkir', 'undur_diri','active','do','meninggal_dunia','lulus','cuti'])
                     ->select('angkatan', 'status', DB::raw('COALESCE(COUNT(*), 0) as count'))
                     ->groupBy('angkatan', 'status')
                     ->get()

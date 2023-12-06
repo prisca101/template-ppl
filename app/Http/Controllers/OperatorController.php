@@ -449,7 +449,6 @@ class OperatorController extends Controller
         $mahasiswa =  Mahasiswa::join('dosen_wali','mahasiswa.nip','=','dosen_wali.nip')
             ->join('users', 'mahasiswa.iduser', '=', 'users.id')
             ->where('nim', $nim)
-            ->where('dosen_wali.iduser', Auth::user()->id)
             ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'dosen_wali.nip as dosen_wali_nip', 'dosen_wali.nama as dosen_nama','users.foto')
             ->get();
 
@@ -488,4 +487,84 @@ class OperatorController extends Controller
             'mahasiswa' => $mahasiswa,'irsData'=>$irsData, 'khsData'=>$khsData, 'pklData'=>$pklData,'skripsiData'=>$skripsiData,'lastVerifiedPKL'=>$lastVerifiedPKL,
         ]);
     }
+
+    public function editMahasiswa(Request $request, $nim)
+    {
+        $user = Mahasiswa::where('nim', $nim)->first();
+
+        $validated = $request->validate([
+            'username' => 'nullable|string',
+            'current_password' => 'nullable|string',
+            'nama' => 'nullable|string',
+            'nim' => 'nullable|string',
+            'angkatan' => 'nullable|string',
+            'status' => 'nullable|string',
+            'jalur_masuk' => 'nullable|string',
+            'nip2' => 'nullable|string',
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            if (!empty($validated['username'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'username' => $validated['username'],
+                ]);
+            }
+
+            if (!empty($validated['nama'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'nama' => $validated['nama'],
+                ]);
+            }
+
+            if (!empty($validated['nim'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'nim' => $validated['nim'],
+                ]);
+            }
+
+            if (!empty($validated['angkatan'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'angkatan' => $validated['angkatan'],
+                ]);
+            }
+
+            if (!empty($validated['status'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'status' => $validated['status'],
+                ]);
+            }
+
+            if (!empty($validated['jalur_masuk'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'jalur_masuk' => $validated['jalur_masuk'],
+                ]);
+            }
+
+            if (!empty($validated['nip2'])) {
+                Mahasiswa::where('nim', $nim)->update([
+                    'nip' => $validated['nip2'],
+                ]);
+            }
+
+            if (!empty($validated['current_password'])) {
+                Mahasiswa::where('nim', $nim)->join('users', 'mahasiswa.iduser', '=', 'users.id')->update([
+                    'password' => Hash::make($validated['current_password']),
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()
+                ->route('mahasiswa')
+                ->with('success', 'Data mahasiswa berhasil diperbarui');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('mahasiswa')
+                ->with('error', 'Gagal memperbarui data mahasiswa.');
+        }
+    }
+
 }
