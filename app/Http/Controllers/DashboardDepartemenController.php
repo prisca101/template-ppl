@@ -129,7 +129,7 @@ class DashboardDepartemenController extends Controller
         //untuk rekap skripsi
 
         $mahasiswasSkripsi = DB::table('mahasiswa as m')
-                    ->leftJoin('skripsi as s', 'm.nim', '=', 's.nim')
+                    ->leftJodin('skripsi as s', 'm.nim', '=', 's.nim')
                     ->whereIn('m.angkatan', $angkatan)
                     ->select('m.angkatan', DB::raw('COALESCE(SUM(CASE WHEN s.status = "verified" THEN 1 ELSE 0 END), 0) as lulus_count'), DB::raw('COALESCE(SUM(CASE WHEN s.nim IS NULL OR s.status != "verified" THEN 1 ELSE 0 END), 0) as tidak_lulus_count'))
                     ->groupBy('m.angkatan')

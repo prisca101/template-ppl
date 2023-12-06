@@ -329,10 +329,14 @@
                         </div>
                     @endif
                 </div>
-
+                
 
                 <div class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-3 xl:gap-4 dark:bg-gray-900">
                     @yield('content')
+                </div>
+
+                <div class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-2 xl:gap-4 dark:bg-gray-900">
+                    @yield('content6')
                 </div>
 
                 <div class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-2 xl:gap-4 dark:bg-gray-900">
@@ -342,6 +346,8 @@
                 <div class="px-4 pb-6">
                     @yield('content2')
                 </div>
+
+                
             </main>
         </div>
 

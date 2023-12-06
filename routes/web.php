@@ -58,6 +58,8 @@ Route::middleware(['auth', 'only_operator'])->group(function () {
     Route::get('/profilOperator', [OperatorController::class, 'edit'])->name('edit');
     Route::get('/profilOperator-edit', [OperatorController::class, 'showEdit'])->name('showEdit');
     Route::post('/profilOperator-edit', [OperatorController::class, 'update'])->name('update');
+    Route::get('/mhs/{nim}', [DashboardOperatorController::class,'mhs'])->name('mhs');
+    Route::delete('/mahasiswa/{nim}', [DashboardOperatorController::class,'delete'])->name('delete');
     Route::get('/importMahasiswa',[OperatorController::class,'tambah']);
     Route::get('/editMahasiswa/{nim}', [OperatorController::class, 'editMahasiswa'])->name('mahasiswa.edit.get');
     Route::post('/editMahasiswa/{nim}',[OperatorController::class,'editMahasiswa'])->name('mahasiswa.edit');
@@ -65,6 +67,7 @@ Route::middleware(['auth', 'only_operator'])->group(function () {
     Route::get('/mahasiswa/preview', [OperatorController::class, 'preview'])->name('mahasiswa.preview');
     Route::post('/generateAkun',[OperatorController::class,'generateAkun'])->name('generateAkun');
     Route::get('/export', [OperatorController::class,'export'])->name('export');
+    Route::get('/detailsMhs/{nim}', [OperatorController::class,'dataMahasiswa'])->name('dataMahasiswa');
     Route::get('/downloadRekapPKL', [DashboardOperatorController::class,'downloadRekapPKL'])->name('downloadRekapPKL');
     Route::get('/downloadRekapSkripsi', [DashboardOperatorController::class,'downloadRekapSkripsi'])->name('downloadRekapSkripsi');
     Route::get('/downloadRekapStatus', [DashboardOperatorController::class,'downloadRekapStatus'])->name('downloadRekapStatus');

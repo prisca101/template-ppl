@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Operator;
 use App\Models\Dosen;
+use App\Models\IRS;
+use App\Models\KHS;
+use App\Models\PKL;
+use App\Models\Skripsi;
 use App\Models\GenerateAkun;
 use App\Models\User;
 use App\Models\Mahasiswa;
@@ -439,5 +443,49 @@ class OperatorController extends Controller
         $pdf = app('dompdf.wrapper');
         $pdf ->loadView('operator.downloadStatus',['daftar'=>$daftar, 'namastatus'=>$status_label,'operator'=>$operator,'angkatan'=>$angkatan,'status'=>$status]);
         return $pdf->stream('daftar-list-status.pdf');
+    }
+
+    public function dataMahasiswa($nim){
+        $mahasiswa =  Mahasiswa::join('dosen_wali','mahasiswa.nip','=','dosen_wali.nip')
+            ->join('users', 'mahasiswa.iduser', '=', 'users.id')
+            ->where('nim', $nim)
+            ->where('dosen_wali.iduser', Auth::user()->id)
+            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'dosen_wali.nip as dosen_wali_nip', 'dosen_wali.nama as dosen_nama','users.foto')
+            ->get();
+
+        $irsData = IRS::join('mahasiswa','mahasiswa.nim','=','irs.nim')
+            ->where('irs.nim', $nim)
+            ->select('mahasiswa.status as mhsstatus','irs.status as status', 'irs.semester_aktif','irs.jumlah_sks','irs.scanIRS')
+            ->get()
+            ->keyBy('semester_aktif'); // Gunakan semester_aktif sebagai kunci array
+
+        $khsData = KHS::join('mahasiswa','mahasiswa.nim','=','khs.nim')
+            ->where('khs.nim', $nim)
+            ->select('mahasiswa.status as mhsstatus','khs.status as status', 'khs.semester_aktif','khs.jumlah_sks','khs.jumlah_sks_kumulatif','khs.ip_semester','khs.ip_kumulatif')
+            ->get()
+            ->keyBy('semester_aktif');
+
+        $pklData = PKL::join('mahasiswa','mahasiswa.nim','=','pkl.nim')
+            ->where('pkl.nim', $nim)
+            ->select('mahasiswa.status as mhsstatus','pkl.status as status', 'pkl.semester_aktif', 'pkl.nilai','pkl.scanPKL')
+            ->get()
+            ->keyBy('semester_aktif');
+    
+        $skripsiData = Skripsi::join('mahasiswa','mahasiswa.nim','=','skripsi.nim')
+            ->where('skripsi.nim', $nim)
+            ->select('mahasiswa.status as mhsstatus','skripsi.status as status', 'skripsi.semester_aktif', 'skripsi.nilai','skripsi.scanSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang')
+            ->get()
+            ->keyBy('semester_aktif');
+
+        $lastVerifiedPKL = PKL::join('mahasiswa','mahasiswa.nim','=','pkl.nim')
+            ->where('pkl.nim', $nim)
+            ->where('pkl.status', 'verified')
+            ->select('mahasiswa.status as mhsstatus','pkl.status as status', 'pkl.semester_aktif', 'pkl.nilai','pkl.scanPKL')
+            ->orderBy('semester_aktif')
+            ->first();
+
+        return view('operator.details', [
+            'mahasiswa' => $mahasiswa,'irsData'=>$irsData, 'khsData'=>$khsData, 'pklData'=>$pklData,'skripsiData'=>$skripsiData,'lastVerifiedPKL'=>$lastVerifiedPKL,
+        ]);
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\DB;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Hash;
 
 class DepartemenController extends Controller
 {
