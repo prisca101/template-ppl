@@ -14,7 +14,7 @@ class DepartemenController extends Controller
 {
     public function index_list()
     {
-        return view('mahasiswa.luluspkl');
+        return view('departemen.luluspkl');
     }
 
     public function edit(Request $request)
@@ -177,29 +177,7 @@ class DepartemenController extends Controller
         return view('DownloadRekapPKLDepartemen', ['mahasiswas' => $mahasiswas]);
     }
 
-    public function RekapPDFPKL() {
-        $mahasiswas = DB::table('mahasiswa as m')
-                ->leftJoin('pkl as p', 'm.nim', '=', 'p.nim')
-                ->select('m.angkatan', DB::raw('COALESCE(SUM(CASE WHEN p.statusPKL = "lulus" THEN 1 ELSE 0 END), 0) as lulus_count'), 
-                                        DB::raw('COALESCE(SUM(CASE WHEN m.cekPKL = "0" THEN 1 ELSE 0 END), 0) as tidak_lulus_count'))
-                ->groupBy('m.angkatan')
-                ->get();
-
-        // Mengambil HTML dari view
-        $html = View::make('DownloadRekapPKLDepartemen', ['mahasiswas' => $mahasiswas])->render();
-
-        $pdf = new Dompdf();
-        $pdf->loadHtml($html);
-
-        // (Opsional) Set konfigurasi PDF
-        $pdf->setPaper('A4', 'portrait');
-
-        // Render PDF (generate)
-        $pdf->render();
-
-        // Mengembalikan respons dengan file PDF
-        return $pdf->stream('rekap_pkl.pdf');
-    }
+    
     
     public function RekapSkripsi(){
         $angkatan = Mahasiswa::select('angkatan')->get();
@@ -256,4 +234,7 @@ class DepartemenController extends Controller
         // Mengembalikan respons dengan file PDF
         return $pdf->stream('rekap_skripsi.pdf');
     }
+
+    
+    
 }

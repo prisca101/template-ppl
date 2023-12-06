@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="mb-4 col-span-full xl:mb-2">
-        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Daftar Belum Lulus Skripsi Mahasiswa Informatika</h1>
+        <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Daftar Mahasiswa {{$namastatus}} Informatika</h1>
         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Fakultas Sains dan Matematika</h1>
     </div>
 
@@ -13,7 +13,7 @@
                 <img class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0"
                     src="{{ Auth::user()->getImageURL() }}" alt="Jese picture">
                 <div>
-                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Informatika</h3>
+                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{$departemen->nama}}</h3>
                     <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
                         <p>{{$departemen->kode}}</p>
                         <p>INFORMATIKA</p>
@@ -58,17 +58,82 @@
     <!-- Card header -->
     <div class="items-center justify-between lg:flex">
         <div class="mb-4 lg:mb-0">
-            <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Daftar Mahasiswa Skripsi</h3>
+            <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Daftar Mahasiswa PKL</h3>
         </div>
         <div class="items-center sm:flex">
             
-                <a href="{{ route('SkripsiBelumDepart', ['angkatan' => $angkatan, 'status' => 'pending']) }}" target="_blank" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700 mr-5">
+                <a href="{{route('StatusDepart',['angkatan'=>$angkatan,'status'=>$status])}}" target="_blank" class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700 mr-5">
                     <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"></path>
                     </svg>
                     Preview
                 </a>
-                
+        
+            <div class="flex items-center">
+                <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+                    class="mb-4 sm:mb-0 mr-4 inline-flex items-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                    type="button">
+                    Filter by angkatan
+                    <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <!-- Dropdown menu -->
+                <div id="dropdown" class="z-10 w-56 p-3 bg-white rounded-lg shadow dark:bg-gray-700 hidden"
+                    style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(636px, 3253.33px, 0px);"
+                    data-popper-placement="bottom">
+                    <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
+                        Angkatan
+                    </h6>
+                    <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
+                        <li class="flex items-center">
+                            <input id="apple" type="checkbox" value=""
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+
+                            <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                2019
+                            </label>
+                        </li>
+
+                        <li class="flex items-center">
+                            <input id="fitbit" type="checkbox" value="" checked=""
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+
+                            <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                2020
+                            </label>
+                        </li>
+
+                        <li class="flex items-center">
+                            <input id="dell" type="checkbox" value=""
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+
+                            <label for="dell" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                2021
+                            </label>
+                        </li>
+
+                        <li class="flex items-center">
+                            <input id="asus" type="checkbox" value="" checked=""
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+
+                            <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                2022
+                            </label>
+                        </li>
+                        
+                        <li class="flex items-center">
+                            <input id="asus" type="checkbox" value="" checked=""
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+
+                            <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                2023
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Table -->
@@ -97,6 +162,10 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    Status
+                                </th>
+                                <th scope="col"
+                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                     Dosen Wali
                                 </th>
                             </tr>
@@ -105,7 +174,7 @@
                             @php
                                 $counter = 1;
                             @endphp
-                            @foreach ($mahasiswas as $mahasiswa)
+                            @foreach ($daftar as $mahasiswa)
                             <tr>
                                 <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                     <span class="font-semibold">{{$counter++}}</span>
@@ -120,10 +189,15 @@
                                     {{$mahasiswa->angkatan}}
                                 </td>
                                 <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                    {{$mahasiswa->status}}
+                                </td>
+                                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                                     {{$mahasiswa->dosen_nama}}
                                 </td>
+                               
                             </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                 </div>

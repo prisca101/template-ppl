@@ -103,10 +103,12 @@ Route::controller(ListController::class)->middleware(['auth', 'only_departemen']
     Route::get('/listMahasiswaSkripsi/{angkatan}/{status}', 'skripsi')->name('list.skripsi');
     Route::get('/listMahasiswa2/{angkatan}/{status}', 'index2')->name('list.index2'); //tidak lulus
     Route::get('/listMahasiswaSkripsi2/{angkatan}/{status}', 'skripsi2')->name('list.skripsi2'); //tidak lulus
+    Route::get('/daftarstatusdepart/{angkatan}/{status}', 'daftarstatus')->name('daftarstatusdepart'); //tidak lulus
     Route::get('/DownloadListPKLDepartLulus/{angkatan}/{status}','PreviewListPKLLulus')->name('PreviewListPKLLulus');
     Route::get('/DownloadListPKLDepartBelum/{angkatan}/{status}','PreviewListPKLBelum')->name('PreviewListPKLBelum');
     Route::get('/DownloadListSkripsiDepartLulus/{angkatan}/{status}','PreviewListSkripsiLulus')->name('PreviewListSkripsiLulus');
-    Route::get('/DownloadListSkripsiDepartBelum/{angkatan}/{status}','PreviewListSkripsiBelum')->name('PreviewListSkripsiBelum');
+    Route::get('/DownloadListSkripsiBelumDepartemen/{angkatan}/{status}','PreviewListSkripsiBelum')->name('SkripsiBelumDepart');
+    Route::get('/DownloadListStatusDepart/{angkatan}/{status}','PreviewListStatus')->name('StatusDepart');
 });
 
 Route::controller(DosenController::class)->middleware(['auth', 'only_dosen'])->group(function () {
@@ -200,121 +202,4 @@ Route::controller(DepartemenController::class)->middleware(['auth','only_departe
 // blm diubah
 Route::get('signin', [AuthController::class,'login'])->name('signin');
 Route::post('signin', [AuthController::class, 'authenticate']);
-
-//mahasiswa
-// Route::get('/', function () {
-//     return view('mahasiswa.dashboard');
-// });
-
-// Route::get('/dashboardMahasiswa', function () {
-//     return view('mahasiswa.dashboard');
-// });
-
-// Route::get('/irs', function () {
-//     return view('mahasiswa.irs');
-// });
-
-// Route::get('/tambahIrs', function () {
-//     return view('mahasiswa.irs-create');
-// });
-
-// Route::get('/khs', function () {
-//     return view('mahasiswa.khs');
-// });
-
-// Route::get('/tambahKhs', function () {
-//     return view('mahasiswa.khs-create');
-// });
-
-// Route::get('/pkl', function () {
-//     return view('mahasiswa.pkl');
-// });
-
-// Route::get('/tambahPkl', function () {
-//     return view('mahasiswa.pkl-create');
-// });
-
-// Route::get('/skripsi', function () {
-//     return view('mahasiswa.skripsi');
-// });
-
-// Route::get('/tambahSkripsi', function () {
-//     return view('mahasiswa.skripsi-create');
-// });
-
-// Route::get('/profilMahasiswa', function () {
-//     return view('mahasiswa.profil');
-// });
-
-// Route::get('/editprofilMahasiswa', function () {
-//     return view('mahasiswa.profil-edit');
-// });
-
-
-
-
-// OPERATOR
-// Route::get('/dashboardOperator', function () {
-//     return view('operator.dashboard');
-// });
-
-// Route::get('/mahasiswa', function () {
-//     return view('operator.mahasiswa');
-// });
-
-// Route::get('/profilOperator', function () {
-//     return view('operator.profil');
-// });
-
-// Route::get('/editprofilOperator', function () {
-//     return view('operator.profil-edit');
-// });
-
-// Route::get('/importMahasiswa', function () {
-//     return view('operator.importMahasiswa');
-// });
-
-
-
-//doswal
-// Route::get('/dashboardDoswal', function () {
-//     return view('doswal.dashboard');
-// });
-
-
-// Route::get('/details', function () {
-//     return view('doswal.details');
-// });
-
-// Route::get('/verification', function () {
-//     return view('doswal.verification');
-// });
-
-Route::get('/listpkl', function () {
-    return view('doswal.listpkl');
-});
-
-Route::get('/listskripsi', function () {
-    return view('doswal.listskripsi');
-});
-
-// Route::get('/rekappkl', function () {
-//     return view('doswal.rekappkl');
-// });
-
-// Route::get('/rekapskripsi', function () {
-//     return view('doswal.rekapskripsi');
-// });
-
-
-// Departemen
-
-// Route::get('/Departemen/pkl', function () {
-//     return view('departemen.pkl');
-// });
-
-// Route::get('Departemen/skripsi', function () {
-//     return view('departemen.skripsi');
-// });
-
 

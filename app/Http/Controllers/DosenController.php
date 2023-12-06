@@ -85,25 +85,31 @@ class DosenController extends Controller
 
     public function searchMhs(Request $request)
     {
+        $nip = $request->user()->dosen->nip;
         $search = $request->input('users-search');
-        //dd($search);
-        
-        $mahasiswa = Mahasiswa::join('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
-            ->join('users', 'mahasiswa.iduser', '=', 'users.id')
-            ->where('dosen_wali.iduser', Auth::user()->id)
-            ->where(function ($query) use ($search) {
-                $query->where('mahasiswa.nama', 'like', '%' . $search . '%')
-                    ->orWhere('mahasiswa.nim', 'like', '%' . $search . '%');
-            })
-            ->select('mahasiswa.nim', 'mahasiswa.nama')
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
             ->first();
+        $mahasiswaPerwalian = Mahasiswa::join('dosen_wali','mahasiswa.nip','=','dosen_wali.nip')
+                ->join('users', 'mahasiswa.iduser', '=', 'users.id')
+                ->where('dosen_wali.iduser', Auth::user()->id)
+                ->where(function ($query) use ($search) {
+                    $query->where('mahasiswa.nama', 'like', '%' . $search . '%')
+                        ->orWhere('mahasiswa.nim', 'like', '%' . $search . '%');
+                })
+                ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'dosen_wali.nip as dosen_wali_nip', 'users.foto')
+                ->get();
         
-        if ($mahasiswa) {
-            return redirect()->route('details', ['nim' => $mahasiswa->nim]);
+        if ($mahasiswaPerwalian) {
+            // Mahasiswa ditemukan, maka redirect ke 'perwalian' dengan membawa nim mahasiswa
+            return view('doswal.perwalian', ['search' => $search,'mahasiswaPerwalian'=>$mahasiswaPerwalian,'dosens'=>$dosens]);
         } else {
-            return redirect()->route('dosen.showEdit')->with('error', 'Tidak ada mahasiswa yang dicari di database');
+            // Mahasiswa tidak ditemukan, maka redirect ke 'perwalian' dengan pesan kesalahan
+            return redirect()->route('perwalian')->with('error', 'Tidak ada mahasiswa yang dicari di database');
         }
     }
+
 
 
     public function listPKL(Request $request){
