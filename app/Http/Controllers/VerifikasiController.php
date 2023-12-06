@@ -16,6 +16,10 @@ class VerifikasiController extends Controller
     public function showAll(Request $request)
     {        
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $irs = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
                 ->where('dosen_wali.nip',$nip)
@@ -44,7 +48,7 @@ class VerifikasiController extends Controller
                 ->where('skripsi.status','pending')
                 ->select('skripsi.idskripsi','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','skripsi.semester_aktif','skripsi.scanSkripsi','skripsi.nilai','skripsi.statusSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang')
                 ->get();
-        return view('doswal.verification', ['irs'=>$irs,'khs'=>$khs,'pkl'=>$pkl,'skripsi'=>$skripsi]);
+        return view('doswal.verification', ['irs'=>$irs,'khs'=>$khs,'pkl'=>$pkl,'skripsi'=>$skripsi,'dosens'=>$dosens]);
     }
 
     public function verifikasi(Request $request,$nim, $semester_aktif)
@@ -64,7 +68,7 @@ class VerifikasiController extends Controller
         }
     }
 
-    public function rejected($nim,$semester_aktif){
+    public function rejected(Request $request, $nim,$semester_aktif){
         $irs = IRS::where('nim', $nim)
                 ->where('semester_aktif', $semester_aktif)
                 ->first();
@@ -78,30 +82,32 @@ class VerifikasiController extends Controller
         }
     }
 
-    public function vieweditIRS($idirs){
-        // $irs = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
-        //         ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
-        //         ->where('mahasiswa.nim', $nim)
-        //         ->where('irs.semester_aktif', $semester_aktif)
-        //         ->join('irs','irs.nim','=','mahasiswa.nim')
-        //         ->where('irs.status','pending')
-        //         ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','irs.semester_aktif','irs.jumlah_sks','irs.scanIRS')
-        //         ->get();
+    public function vieweditIRS(Request $request,$idirs){
+        $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
+        $irs = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+        ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
+        ->where('dosen_wali.nip',$nip)
+        ->join('irs','irs.nim','=','mahasiswa.nim')
+        ->where('irs.idirs',$idirs)
+        ->where('irs.status','pending')
+        ->select('irs.idirs','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','irs.semester_aktif','irs.jumlah_sks','irs.scanIRS')
+        ->first();
 
-        $irs = IRS::join('mahasiswa','irs.nim','=','mahasiswa.nim')
-                ->where('irs.idirs', $idirs)
-                ->where('irs.status','pending')
-                ->select('irs.idirs','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','irs.semester_aktif','irs.jumlah_sks','irs.scanIRS')
-                ->first();
-
-        return view('doswal.vieweditIRS',['irs'=>$irs]);
+        return view('doswal.vieweditIRS',['irs'=>$irs,'dosens'=>$dosens]);
     }
 
     public function editIRS(Request $request,$idirs)
     {
         // Mendapatkan IRS berdasarkan nim dan semester aktif
-        $irs = IRS::where('idirs', $idirs)
-            ->first();
+        $irs = IRS::join('mahasiswa','irs.nim','=','mahasiswa.nim')
+        ->where('irs.idirs',$idirs)
+        ->where('irs.status','pending')
+        ->select('irs.idirs','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','irs.semester_aktif','irs.jumlah_sks','irs.scanIRS')
+        ->first();
 
         // Melakukan validasi setelah menyesuaikan nilai semester_aktif
         $validated = $request->validate([
@@ -122,9 +128,7 @@ class VerifikasiController extends Controller
         }
     }
 
-
-
-    public function verifikasiKHS($nim, $semester_aktif)
+    public function verifikasiKHS(Request $request, $nim, $semester_aktif)
     {
         $khs = KHS::where('nim', $nim)
                 ->where('semester_aktif', $semester_aktif)
@@ -141,7 +145,7 @@ class VerifikasiController extends Controller
         }
     }
 
-    public function rejectedKHS($nim,$semester_aktif){
+    public function rejectedKHS(Request $request, $nim,$semester_aktif){
         $khs = KHS::where('nim', $nim)
                 ->where('semester_aktif', $semester_aktif)
                 ->first();
@@ -155,30 +159,34 @@ class VerifikasiController extends Controller
         }
     }
 
-    public function vieweditKHS($idkhs){
-        // $khs = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
-        //         ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
-        //         ->where('mahasiswa.nim', $nim)
-        //         ->where('khs.semester_aktif', $semester_aktif)
-        //         ->join('khs','khs.nim','=','mahasiswa.nim')
-        //         ->where('khs.status','pending')
-        //         ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','khs.semester_aktif','khs.jumlah_sks','khs.scanKHS','khs.jumlah_sks_kumulatif','khs.ip_semester','khs.ip_kumulatif')
-        //         ->get();
-        $khs = KHS::join('mahasiswa','khs.nim','=','mahasiswa.nim')
-                ->where('khs.idkhs', $idkhs)
-                ->where('khs.status','pending')
-                ->select('khs.idkhs','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','khs.semester_aktif','khs.jumlah_sks','khs.scanKHS','khs.jumlah_sks_kumulatif','khs.ip_semester','khs.ip_kumulatif')
-                ->first();
+    public function vieweditKHS(Request $request, $idkhs){
+        $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
+        $khs = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+        ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
+        ->where('dosen_wali.nip',$nip)
+        ->join('khs','khs.nim','=','mahasiswa.nim')
+        ->where('khs.status','pending')
+        ->where('khs.idkhs',$idkhs)
+        ->select('khs.idkhs','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','khs.semester_aktif','khs.jumlah_sks','khs.scanKHS','khs.jumlah_sks_kumulatif','khs.ip_semester','khs.ip_kumulatif')
+        ->first();
 
 
-        return view('doswal.vieweditKHS',['khs'=>$khs]);
+        return view('doswal.vieweditKHS',['khs'=>$khs,'dosens'=>$dosens]);
     }
 
     public function editKHS(Request $request, $idkhs)
     {
         // Mendapatkan IRS berdasarkan nim dan semester aktif
-        $khs = KHS::where('idkhs', $idkhs)
-            ->first();
+        
+        $khs = KHS::join('mahasiswa','khs.nim','=','mahasiswa.nim')
+        ->where('khs.idkhs',$idkhs)
+        ->where('khs.status','pending')
+        ->select('khs.idkhs','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','khs.semester_aktif','khs.jumlah_sks','khs.scanKHS','khs.jumlah_sks_kumulatif','khs.ip_semester','khs.ip_kumulatif')
+        ->first();
 
         // Melakukan validasi setelah menyesuaikan nilai semester_aktif
         $validated = $request->validate([
@@ -204,7 +212,7 @@ class VerifikasiController extends Controller
         }
     }
 
-    public function verifikasiPKL($nim, $semester_aktif)
+    public function verifikasiPKL(Request $request, $nim, $semester_aktif)
     {
         $pkl = PKL::where('nim', $nim)
                 ->where('semester_aktif', $semester_aktif)
@@ -221,7 +229,7 @@ class VerifikasiController extends Controller
         }
     }
 
-    public function rejectedPKL($nim,$semester_aktif){
+    public function rejectedPKL(Request $request, $nim,$semester_aktif){
         $pkl = PKL::where('nim', $nim)
                 ->where('semester_aktif', $semester_aktif)
                 ->first();
@@ -235,30 +243,31 @@ class VerifikasiController extends Controller
         }
     }
 
-    public function vieweditPKL($idpkl){
-        // $pkl = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
-        //         ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
-        //         ->where('mahasiswa.nim', $nim)
-        //         ->where('pkl.semester_aktif', $semester_aktif)
-        //         ->join('pkl','pkl.nim','=','mahasiswa.nim')
-        //         ->where('pkl.status','pending')
-        //         ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','pkl.semester_aktif','pkl.nilai','pkl.scanPKL')
-        //         ->get();
-
-        $pkl = PKL::join('mahasiswa','pkl.nim','=','mahasiswa.nim')
-                ->where('pkl.idpkl', $idpkl)
+    public function vieweditPKL(Request $request,$idpkl){
+        $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
+        $pkl = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+                ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
+                ->where('dosen_wali.nip',$nip)
+                ->join('pkl','pkl.nim','=','mahasiswa.nim')
                 ->where('pkl.status','pending')
-                ->select('pkl.idpkl','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','pkl.semester_aktif','pkl.nilai','pkl.scanPKL')
+                ->where('pkl.idpkl',$idpkl)
+                ->select('pkl.idpkl','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','pkl.semester_aktif','pkl.scanPKL','pkl.nilai','pkl.statusPKL')
                 ->first();
-
-        return view('doswal.vieweditPKL',['pkl'=>$pkl]);
+        return view('doswal.vieweditPKL',['pkl'=>$pkl,'dosens'=>$dosens]);
     }
 
     public function editPKL(Request $request, $idpkl)
     {
-        // Mendapatkan IRS berdasarkan nim dan semester aktif
-        $pkl = PKL::where('idpkl', $idpkl)
-            ->first();
+        
+        $pkl = PKL::join('mahasiswa','pkl.nim','=','mahasiswa.nim')
+        ->where('pkl.idpkl',$idpkl)
+        ->where('pkl.status','pending')
+        ->select('pkl.idpkl','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','pkl.semester_aktif','pkl.scanPKL','pkl.nilai','pkl.statusPKL')
+        ->first();
 
         // Melakukan validasi setelah menyesuaikan nilai semester_aktif
         $validated = $request->validate([
@@ -277,7 +286,7 @@ class VerifikasiController extends Controller
         }
     }
     
-    public function verifikasiSkripsi($nim, $semester_aktif)
+    public function verifikasiSkripsi(Request $request, $nim, $semester_aktif)
     {
         $skripsi = Skripsi::where('nim', $nim)
                 ->where('semester_aktif', $semester_aktif)
@@ -294,7 +303,7 @@ class VerifikasiController extends Controller
         }
     }
 
-    public function rejectedSkripsi($nim,$semester_aktif){
+    public function rejectedSkripsi(Request $request, $nim,$semester_aktif){
         $skripsi = Skripsi::where('nim', $nim)
                 ->where('semester_aktif', $semester_aktif)
                 ->first();
@@ -308,27 +317,32 @@ class VerifikasiController extends Controller
         }
     }
 
-    public function vieweditSkripsi($idskripsi) {
-        // $skripsi = Skripsi::join('mahasiswa', 'skripsi.nim', '=', 'mahasiswa.nim')
-        //             ->where('mahasiswa.nim', $nim)
-        //             ->where('skripsi.semester_aktif', $semester_aktif)
-        //             ->where('skripsi.status', 'pending')
-        //             ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.semester_aktif', 'skripsi.nilai', 'skripsi.scanSkripsi', 'skripsi.tanggal_sidang', 'skripsi.lama_studi')
-        //             ->first();
-        $skripsi = Skripsi::join('mahasiswa','skripsi.nim','=','mahasiswa.nim')
-                ->where('skripsi.idskripsi', $idskripsi)
-                ->where('skripsi.status','pending')
-                ->select('skripsi.idskripsi','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','skripsi.semester_aktif','skripsi.nilai','skripsi.scanSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang')
-                ->first();
+    public function vieweditSkripsi(Request $request, $idskripsi) {
+        $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
+        $skripsi = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+        ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
+        ->where('dosen_wali.nip',$nip)
+        ->join('skripsi','skripsi.nim','=','mahasiswa.nim')
+        ->where('skripsi.status','pending')
+        ->where('skripsi.idskripsi',$idskripsi)
+        ->select('skripsi.idskripsi','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','skripsi.semester_aktif','skripsi.scanSkripsi','skripsi.nilai','skripsi.statusSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang')
+        ->first();
                 
-        return view('doswal.vieweditSkripsi', ['skripsi' => $skripsi]);
+        return view('doswal.vieweditSkripsi', ['skripsi' => $skripsi,'dosens'=>$dosens]);
     }
     
 
     public function editSkripsi(Request $request, $idskripsi)
     {
-        // Mendapatkan IRS berdasarkan nim dan semester aktif
-        $skripsi = Skripsi::where('idskripsi', $idskripsi)->first();
+        $skripsi = Skripsi::join('mahasiswa','skripsi.nim','=','mahasiswa.nim')
+        ->where('skripsi.idskripsi',$idskripsi)
+        ->where('skripsi.status','pending')
+        ->select('skripsi.idskripsi','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','skripsi.semester_aktif','skripsi.scanSkripsi','skripsi.nilai','skripsi.statusSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang')
+        ->first();
 
         $validated = $request->validate([
             'nilai' => [Rule::in(['A', 'B', 'C', 'D', 'E'])],

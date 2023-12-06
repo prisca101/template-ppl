@@ -17,21 +17,32 @@ use Dompdf\Options;
 
 class DosenController extends Controller
 {
-    public function detail(){
+    public function detail(Request $request){
+        $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $mahasiswaPerwalian = Mahasiswa::join('dosen_wali','mahasiswa.nip','=','dosen_wali.nip')
                 ->join('users', 'mahasiswa.iduser', '=', 'users.id')
                 ->where('dosen_wali.iduser', Auth::user()->id)
                 ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'dosen_wali.nip as dosen_wali_nip', 'users.foto')
                 ->get();
         return view('doswal.perwalian', [
-            'mahasiswaPerwalian' => $mahasiswaPerwalian
+            'mahasiswaPerwalian' => $mahasiswaPerwalian,'dosens'=>$dosens
         ]);
     }
 
-    public function dataMahasiswa($nim){
+    public function dataMahasiswa(Request $request, $nim){
+        $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $mahasiswa =  Mahasiswa::join('dosen_wali','mahasiswa.nip','=','dosen_wali.nip')
             ->join('users', 'mahasiswa.iduser', '=', 'users.id')
             ->where('nim', $nim)
+            ->where('dosen_wali.nip', $nip)
             ->where('dosen_wali.iduser', Auth::user()->id)
             ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'dosen_wali.nip as dosen_wali_nip', 'dosen_wali.nama as dosen_nama','users.foto')
             ->get();
@@ -68,7 +79,7 @@ class DosenController extends Controller
             ->first();
 
         return view('doswal.details', [
-            'mahasiswa' => $mahasiswa,'irsData'=>$irsData, 'khsData'=>$khsData, 'pklData'=>$pklData,'skripsiData'=>$skripsiData,'lastVerifiedPKL'=>$lastVerifiedPKL,
+            'mahasiswa' => $mahasiswa,'irsData'=>$irsData, 'khsData'=>$khsData, 'pklData'=>$pklData,'skripsiData'=>$skripsiData,'lastVerifiedPKL'=>$lastVerifiedPKL, 'dosens'=>$dosens
         ]);
     }
 
@@ -76,6 +87,7 @@ class DosenController extends Controller
     {
         $search = $request->input('users-search');
         //dd($search);
+        
         $mahasiswa = Mahasiswa::join('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
             ->join('users', 'mahasiswa.iduser', '=', 'users.id')
             ->where('dosen_wali.iduser', Auth::user()->id)
@@ -96,28 +108,40 @@ class DosenController extends Controller
 
     public function listPKL(Request $request){
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $pkl = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
                 ->where('dosen_wali.nip',$nip)
                 ->join('pkl','pkl.nim','=','mahasiswa.nim')
                 ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','pkl.semester_aktif','pkl.scanPKL','pkl.nilai','pkl.status','pkl.statusPKL')
                 ->get();
-        return view('listPKL', ['pkl'=>$pkl]);
+        return view('listPKL', ['pkl'=>$pkl,'dosens'=>$dosens]);
     }
 
     public function listSkripsi(Request $request){
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $skripsi = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
                 ->where('dosen_wali.nip',$nip)
                 ->join('skripsi','skripsi.nim','=','mahasiswa.nim')
                 ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','skripsi.semester_aktif','skripsi.scanSkripsi','skripsi.nilai','skripsi.status','skripsi.statusSkripsi')
                 ->get();
-        return view('listSkripsi', ['skripsi'=>$skripsi]);
+        return view('listSkripsi', ['skripsi'=>$skripsi,'dosens'=>$dosens]);
     }
 
     public function RekapPKL(Request $request){
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $angkatan = [];
         $tahunSekarang = date('Y');
         
@@ -147,12 +171,15 @@ class DosenController extends Controller
             //untuk rekap skripsi
         $result = collect($result);
     
-        return view('doswal.rekappkl', ['result' => $result,'angkatan'=>$angkatan,'mahasiswas'=>$mahasiswas]);
+        return view('doswal.rekappkl', ['result' => $result,'angkatan'=>$angkatan,'mahasiswas'=>$mahasiswas,'dosens'=>$dosens]);
     }
 
     public function DownloadRekapPKL(Request $request) {
         $nip = $request->user()->dosen->nip;
-    
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $angkatan = [];
         $tahunSekarang = date('Y');
         // Inisialisasi array untuk menyimpan hasil akhir
@@ -182,12 +209,16 @@ class DosenController extends Controller
 
 
         $pdf = app('dompdf.wrapper');
-        $pdf ->loadView('doswal.DownloadRekapPKLDoswal',['mahasiswas'=>$mahasiswas, 'angkatan'=>$angkatan,'result'=>$result]);
+        $pdf ->loadView('doswal.DownloadRekapPKLDoswal',['mahasiswas'=>$mahasiswas, 'angkatan'=>$angkatan,'result'=>$result,'dosens'=>$dosens]);
         return $pdf->stream('rekap-pkl.pdf');
     }
 
     public function RekapSkripsi(Request $request){
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $angkatan = [];
         $tahunSekarang = date('Y');
         
@@ -217,12 +248,15 @@ class DosenController extends Controller
             //untuk rekap skripsi
         $result = collect($result);
         //dd($result);
-        return view('doswal.rekapskripsi', ['result' => $result,'angkatan'=>$angkatan,'mahasiswasSkripsi'=>$mahasiswasSkripsi]);
+        return view('doswal.rekapskripsi', ['result' => $result,'angkatan'=>$angkatan,'mahasiswasSkripsi'=>$mahasiswasSkripsi,'dosens'=>$dosens]);
     }
     
     public function DownloadRekapSkripsi(Request $request) {
         $nip = $request->user()->dosen->nip;
-    
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $angkatan = [];
         
         $tahunSekarang = date('Y');
@@ -261,7 +295,7 @@ class DosenController extends Controller
         $result = collect($result);
         
         $pdf = app('dompdf.wrapper');
-        $pdf ->loadView('doswal.DownloadRekapSkripsiDoswal',['mahasiswasSkripsi'=>$mahasiswasSkripsi, 'angkatan'=>$angkatan,'result'=>$result]);
+        $pdf ->loadView('doswal.DownloadRekapSkripsiDoswal',['mahasiswasSkripsi'=>$mahasiswasSkripsi, 'angkatan'=>$angkatan,'result'=>$result,'dosens'=>$dosens]);
         return $pdf->stream('rekap-skripsi.pdf');
     }
     
@@ -350,6 +384,10 @@ class DosenController extends Controller
     public function lulusPKL(Request $request, $angkatan, $status) {
         $nip = $request->user()->dosen->nip;
         //dd($nip);
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $doswal = Dosen::leftJoin('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->where('dosen_wali.iduser', Auth::user()->id)
                 ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.username')
@@ -369,11 +407,15 @@ class DosenController extends Controller
                                 ->get();
         //dd($mahasiswas);
     
-        return view('doswal.luluspkldoswal', ['mahasiswas' => $mahasiswas->isEmpty() ? [] : $mahasiswas, 'doswal'=>$doswal]);
+        return view('doswal.luluspkldoswal', ['mahasiswas' => $mahasiswas->isEmpty() ? [] : $mahasiswas, 'doswal'=>$doswal,'dosens'=>$dosens,'angkatan'=>$angkatan,'status'=>$status]);
     }    
 
     public function tidaklulusPKL(Request $request, $angkatan, $status) {
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $doswal = Dosen::leftJoin('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->where('dosen_wali.iduser', Auth::user()->id)
                 ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.username')
@@ -395,11 +437,15 @@ class DosenController extends Controller
                     ->get();
 
     
-        return view('doswal.tidakluluspkldoswal', ['mahasiswas' => $mahasiswas->isEmpty() ? [] : $mahasiswas, 'doswal'=>$doswal]);
+        return view('doswal.tidakluluspkldoswal', ['mahasiswas' => $mahasiswas->isEmpty() ? [] : $mahasiswas, 'doswal'=>$doswal,'dosens'=>$dosens,'angkatan'=>$angkatan,'status'=>$status]);
     }   
     
     public function lulusSkripsi(Request $request, $angkatan, $status){
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $doswal = Dosen::leftJoin('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->where('dosen_wali.iduser', Auth::user()->id)
                 ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.username')
@@ -417,11 +463,15 @@ class DosenController extends Controller
         ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.nilai', 'skripsi.status','skripsi.tanggal_sidang','skripsi.lama_studi','mahasiswa.nip')
         ->get();
     
-        return view('doswal.lulusskripsidoswal', ['mahasiswas' => $mahasiswas, 'doswal'=>$doswal]);
+        return view('doswal.lulusskripsidoswal', ['mahasiswas' => $mahasiswas, 'doswal'=>$doswal,'dosens'=>$dosens,'angkatan'=>$angkatan,'status'=>$status]);
     }   
 
     public function tidaklulusSkripsi(Request $request, $angkatan, $status){
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $doswal = Dosen::leftJoin('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->where('dosen_wali.iduser', Auth::user()->id)
                 ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.username')
@@ -442,11 +492,15 @@ class DosenController extends Controller
                     ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.nilai', 'skripsi.status','mahasiswa.nip')
                     ->get();
     
-        return view('doswal.tidaklulusskripsidoswal', ['mahasiswas' => $mahasiswas, 'doswal'=>$doswal,'angkatan'=>$angkatan,'nip'=>$nip]);
+        return view('doswal.tidaklulusskripsidoswal', ['mahasiswas' => $mahasiswas, 'doswal'=>$doswal,'angkatan'=>$angkatan,'nip'=>$nip,'dosens'=>$dosens,'angkatan'=>$angkatan,'status'=>$status]);
     }    
 
     public function DoswalListPKLLulus(Request $request, $angkatan, $status) {
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $mahasiswas = Mahasiswa::leftJoin('pkl', function ($join) use ($status) {
                                 $join->on('mahasiswa.nim', '=', 'pkl.nim')
                                     ->where('pkl.status', '=', 'verified');
@@ -460,7 +514,7 @@ class DosenController extends Controller
                             ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'pkl.nilai', 'pkl.statusPKL', 'pkl.status')
                             ->get();
         $pdf = app('dompdf.wrapper');
-        $pdf ->loadView('doswal.downloadlistlulusPKL',['mahasiswas'=>$mahasiswas, 'status'=>$status]);
+        $pdf ->loadView('doswal.downloadlistlulusPKL',['mahasiswas'=>$mahasiswas, 'dosens'=>$dosens,'angkatan'=>$angkatan,'status'=>$status]);
         return $pdf->stream('daftar-list-pkl-lulus.pdf');
     
         if ($mahasiswas->isEmpty()) {
@@ -471,6 +525,10 @@ class DosenController extends Controller
     
     public function DoswalListPKLBelum(Request $request, $angkatan, $status){
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $mahasiswas = Mahasiswa::leftJoin('pkl', function ($join) use ($status) {
                                 $join->on('mahasiswa.nim', '=', 'pkl.nim')
                                     ->where('pkl.status', '=', 'verified');
@@ -487,12 +545,16 @@ class DosenController extends Controller
                                 ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'pkl.nilai', 'pkl.status')
                                 ->get();
         $pdf = app('dompdf.wrapper');
-        $pdf ->loadView('doswal.downloadlisttidaklulusPKL',['mahasiswas'=>$mahasiswas, 'status'=>$status]);
+        $pdf ->loadView('doswal.downloadlisttidaklulusPKL',['mahasiswas'=>$mahasiswas, 'dosens'=>$dosens,'angkatan'=>$angkatan,'status'=>$status]);
         return $pdf->stream('daftar-list-pkl-tidak-lulus.pdf');
     }
 
     public function DoswalListSkripsiLulus(Request $request, $angkatan, $status) {
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $mahasiswas = Mahasiswa::leftJoin('skripsi', function ($join) use ($status) {
                                 $join->on('mahasiswa.nim', '=', 'skripsi.nim')
                                     ->where('skripsi.status', '=', 'verified');
@@ -512,12 +574,16 @@ class DosenController extends Controller
         }
 
         $pdf = app('dompdf.wrapper');
-        $pdf ->loadView('doswal.downloadlistlulusSkripsi',['mahasiswas'=>$mahasiswas, 'status'=>$status]);
+        $pdf ->loadView('doswal.downloadlistlulusSkripsi',['mahasiswas'=>$mahasiswas, 'dosens'=>$dosens,'angkatan'=>$angkatan,'status'=>$status]);
         return $pdf->stream('daftar-list-skripsi-lulus.pdf');
     }
     
     public function DoswalListSkripsiBelum(Request $request, $angkatan, $status){
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $mahasiswas = Mahasiswa::leftJoin('skripsi', function ($join) use ($status) {
                                 $join->on('mahasiswa.nim', '=', 'skripsi.nim')
                                     ->where('skripsi.status', '=', 'verified');
@@ -534,12 +600,16 @@ class DosenController extends Controller
                                 ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'skripsi.nilai', 'skripsi.status', 'skripsi.tanggal_sidang','skripsi.lama_studi')
                                 ->get();
         $pdf = app('dompdf.wrapper');
-        $pdf ->loadView('doswal.downloadlisttidaklulusSkripsi',['mahasiswas'=>$mahasiswas, 'status'=>$status]);
+        $pdf ->loadView('doswal.downloadlisttidaklulusSkripsi',['mahasiswas'=>$mahasiswas, 'angkatan'=>$angkatan,'status'=>$status,'dosens'=>$dosens]);
         return $pdf->stream('daftar-list-skripsi-tidak-lulus.pdf');
     }
 
     public function DoswalPreviewPKL(Request $request){
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $angkatan = [];
         $tahunSekarang = date('Y');
         // Inisialisasi array untuk menyimpan hasil akhir
@@ -569,12 +639,16 @@ class DosenController extends Controller
 
 
         $pdf = app('dompdf.wrapper');
-        $pdf ->loadView('doswal.DownloadRekapPKLDoswal',['mahasiswas'=>$mahasiswas, 'angkatan'=>$angkatan,'result'=>$result]);
+        $pdf ->loadView('doswal.DownloadRekapPKLDoswal',['mahasiswas'=>$mahasiswas, 'angkatan'=>$angkatan,'result'=>$result,'dosens'=>$dosens]);
         return $pdf->stream('rekap-pkl.pdf');
     }
 
     public function DoswalPreviewSkripsi(Request $request){
         $nip = $request->user()->dosen->nip;
+        $dosens = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
+            ->where('nip', $nip)
+            ->select('dosen_wali.nama', 'dosen_wali.nip', 'users.id', 'users.username', 'users.foto')
+            ->first();
         $angkatan = [];
         
         $tahunSekarang = date('Y');
@@ -609,7 +683,7 @@ class DosenController extends Controller
         $result = collect($result);
         
         $pdf = app('dompdf.wrapper');
-        $pdf ->loadView('doswal.DownloadRekapSkripsiDoswal',['mahasiswasSkripsi'=>$mahasiswasSkripsi, 'angkatan'=>$angkatan,'result'=>$result]);
+        $pdf ->loadView('doswal.DownloadRekapSkripsiDoswal',['mahasiswasSkripsi'=>$mahasiswasSkripsi, 'angkatan'=>$angkatan,'result'=>$result,'dosens'=>$dosens]);
         return $pdf->stream('rekap-skripsi.pdf');
     
     }
