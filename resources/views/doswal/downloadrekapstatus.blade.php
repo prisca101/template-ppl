@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rekap Progress Skripsi Mahasiswa Informatika</title>
+    <title>Rekap Progress Status Mahasiswa Informatika</title>
     <!-- CSS styling -->
     <style>
         /* CSS style untuk membuat tampilan tabel */

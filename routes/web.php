@@ -188,6 +188,7 @@ Route::controller(DashboardDepartemenController::class)->middleware(['auth','onl
     Route::get('/RekapPKLDepartemen','PreviewPKL')->name('rekapPKL');
     Route::get('/RekapSkripsiDepartemen','PreviewSkripsi')->name('rekapSkripsi');
     Route::get('/RekapDepartemen','rekap')->name('rekap');
+    Route::get('/RekapStatusDepartemen','downloadRekapStatus')->name('rekapstatusdepart');
 });
 
 Route::controller(DepartemenController::class)->middleware(['auth','only_departemen'])->group(function (){
