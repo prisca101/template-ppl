@@ -47,16 +47,7 @@
                 </div>
             </form>
 
-            <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
-                <a href="#"
-                    class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </a>
-            </div>
+            
         </div>
         <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
             <button type="button" data-modal-toggle="add-user-modal"
@@ -73,10 +64,10 @@
                 <i class="fa-solid fa-file-arrow-down fa-lg mr-3"></i>
                 Import
             </a>
-            <a href="#"
+            <a href="/export"
                 class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">
                 <i class="fa-solid fa-file-arrow-up fa-lg mr-3"></i>
-                Export
+                Download List
             </a>
         </div>
     </div>
@@ -165,10 +156,10 @@
                                                 {{ $mahasiswa->jalur_masuk }}</td>
                                             <td
                                                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $mahasiswa->nip }}</td>
+                                                {{ $mahasiswa->dosen_nama }}</td>
                                             <td
                                                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $mahasiswa->dosen_nama }}</td>
+                                                {{ $mahasiswa->nip }}</td>
                                             <td
                                                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ $mahasiswa->username }}</td>
@@ -188,7 +179,7 @@
                                                             d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                                                             clip-rule="evenodd"></path>
                                                     </svg>
-                                                    Edit user
+                                                    
                                                 </button>
                                                 <button type="button" data-modal-toggle="delete-user-modal"
                                                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
@@ -198,8 +189,18 @@
                                                             d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                                                             clip-rule="evenodd"></path>
                                                     </svg>
-                                                    Delete user
+                                                    
                                                 </button>
+                                                <div class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-pink-500 rounded-lg hover:bg-pink-600 focus:ring-4 focus:ring-pink-300 dark:focus:ring-pink-900">
+                                                    <a href="{{route('dataMahasiswa',['nim'=>$mahasiswa->nim])}}" class="flex items-center justify-center w-auto">
+                                                        <span class=" w-12 h-4 mr-1">Details</span>
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -400,8 +401,8 @@
                                     required>
                                     <option selected disabled>Pilih Angkatan</option>
                                     @php
-                                        $startYear = 2016; // Tahun awal
-                                        $endYear = 2023; // Tahun akhir
+                                        $endYear = date('Y'); // Tahun akhir
+                                        $startYear = $endYear - 6; // Tahun awal
                                     @endphp
                                     @for ($i = $startYear; $i <= $endYear; $i++)
                                         <option value="{{ $i }}"> {{ $i }} </option>
@@ -492,95 +493,32 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    <h3 class="mt-5 mb-6 text-lg text-gray-500 dark:text-gray-400">Are you sure you want to delete this
-                        mahasiswa?</h3>
-                    <a href="#"
-                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2 dark:focus:ring-red-800">
-                        Yes, I'm sure
-                    </a>
-                    <a href="#"
+                    
+                    <form action="{{ route('delete', ['nim' => $mahasiswas[0]->nim])}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Delete </button>
+                    </form>
+
+                    <a href="/mahasiswa"
                         class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
                         data-modal-toggle="delete-user-modal">
                         No, cancel
                     </a>
+                    
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Import User Modal -->
-    <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full"
-        id="import-user-modal">
-        <div class="relative w-full h-full max-w-2xl px-4 md:h-auto">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
-                <!-- Modal header -->
-                <div class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-700">
-                    <h3 class="text-xl font-semibold dark:text-white">
-                        Import new mahasiswa
-                    </h3>
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white"
-                        data-modal-toggle="import-user-modal">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="p-6 space-y-6">
-                    <form action="#">
-                        <div class="gap-6 mb-2">
-                            <div class="col-span-6 sm:col-span-3">
-                                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    for="file_input">Upload file</label>
-                                <input
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                    aria-describedby="file_input_help" id="file_input" type="file">
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">.xls, .csv
-                                    (MAX. 800x400px).</p>
-                            </div>
-                        </div>
-
-                        <div class="hidden md:flex items-center justify-center w-full">
-                            <label for="dropzone-file"
-                                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                    </svg>
-                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
-                                            class="font-semibold">Click to upload</span> or drag and drop</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX.
-                                        800x400px)</p>
-                                </div>
-                                <input id="dropzone-file" type="file" class="hidden" />
-                            </label>
-                        </div>
-
-                </div>
-                <!-- Modal footer -->
-                <div class="items-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700">
-                    <button
-                        class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                        type="submit" data-modal-toggle="import-user-modal">
-                        Add mahasiswa
-                    </button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
+   
 @endsection
 
 
 @section('script')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
     document.querySelectorAll('.open-modal-button').forEach(button => {
         button.addEventListener('click', () => {
             const nim = button.getAttribute('data-nim');
@@ -588,5 +526,32 @@
             form.action = `/editMahasiswa/${nim}`;
         });
     });
+    $(document).ready(function () {
+        // Tambahkan event click pada tombol "Edit user" di tabel
+        $('button[data-modal-toggle="edit-user-modal"]').on('click', function () {
+            // Dapatkan data dari baris tabel yang di-klik
+            var row = $(this).closest('tr');
+            var nama = row.find('td:nth-child(1)').text().trim();
+            var nim = row.find('td:nth-child(2)').text().trim();
+            var angkatan = row.find('td:nth-child(3)').text().trim();
+            var status = row.find('td:nth-child(4)').text().trim();
+            var jalurMasuk = row.find('td:nth-child(5)').text().trim();
+            var namaDoswal = row.find('td:nth-child(6)').text().trim();
+            var username = row.find('td:nth-child(8)').text().trim();
+            var password = row.find('td:nth-child(9)').text().trim();
+
+            // Isi nilai-nilai tersebut ke dalam input fields pada modal edit
+            $('#nama').val(nama);
+            $('#nim').val(nim);
+            $('#angkatan').val(angkatan);
+            $('#status').val(status);
+            $('#jalur_masuk').val(jalurMasuk);
+            $('#nip2').val(namaDoswal);
+            $('#username').val(username);
+            $('#current-password').val(password);
+        });
+    });
+
+    
 </script>
 @endsection

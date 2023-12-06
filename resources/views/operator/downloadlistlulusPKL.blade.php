@@ -36,7 +36,7 @@
 <body>
     <div class="container-lg">
         <div class="mb-4 col-span-full xl:mb-2">
-            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Daftar Belum Lulus PKL Mahasiswa Informatika</h1>
+            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Daftar Lulus PKL Mahasiswa Informatika</h1>
             <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Fakultas Sains dan Matematika</h1>
         </div>
 
@@ -59,6 +59,14 @@
                         class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                         Angkatan
                     </th>
+                    <th scope="col"
+                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                        Dosen Wali
+                    </th>
+                    <th scope="col"
+                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                        Nilai
+                    </th>
                 </tr>
             </thead>
             <tbody class="bg-white dark:bg-gray-800">
@@ -71,7 +79,7 @@
                         <span class="font-semibold">{{$counter++}}</span>
                     </td>
                     <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                     d   {{$mahasiswa->nama}}
+                        {{$mahasiswa->nama}}
                     </td>
                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                         {{$mahasiswa->nim}}
@@ -79,7 +87,12 @@
                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                         {{$mahasiswa->angkatan}}
                     </td>
-                   
+                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        {{$mahasiswa->dosen_nama}}
+                    </td>
+                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        {{$mahasiswa->nilai}}
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

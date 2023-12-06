@@ -58,13 +58,29 @@ Route::middleware(['auth', 'only_operator'])->group(function () {
     Route::get('/profilOperator', [OperatorController::class, 'edit'])->name('edit3');
     Route::get('/profilOperator-edit', [OperatorController::class, 'showEdit'])->name('showEdit3');
     Route::post('/profilOperator-edit', [OperatorController::class, 'update'])->name('update3');
+    Route::get('/mhs/{nim}', [DashboardOperatorController::class,'mhs'])->name('mhs');
+    Route::delete('/mahasiswa/{nim}', [DashboardOperatorController::class,'delete'])->name('delete');
     Route::get('/importMahasiswa',[OperatorController::class,'tambah']);
     Route::get('/editMahasiswa/{nim}', [OperatorController::class, 'editMahasiswa'])->name('mahasiswa.edit.get');
     Route::post('/editMahasiswa/{nim}',[OperatorController::class,'editMahasiswa'])->name('mahasiswa.edit');
     Route::post('/importMahasiswa-import',[OperatorController::class,'import'])->name('mahasiswa.import');
     Route::get('/mahasiswa/preview', [OperatorController::class, 'preview'])->name('mahasiswa.preview');
     Route::post('/generateAkun',[OperatorController::class,'generateAkun'])->name('generateAkun');
-    Route::post('/dashboardOperator', [OperatorController::class,'export'])->name('export');
+    Route::get('/export', [OperatorController::class,'export'])->name('export');
+    Route::get('/detailsMhs/{nim}', [OperatorController::class,'dataMahasiswa'])->name('dataMahasiswa');
+    Route::get('/downloadRekapPKL', [DashboardOperatorController::class,'downloadRekapPKL'])->name('downloadRekapPKL');
+    Route::get('/downloadRekapSkripsi', [DashboardOperatorController::class,'downloadRekapSkripsi'])->name('downloadRekapSkripsi');
+    Route::get('/downloadRekapStatus', [DashboardOperatorController::class,'downloadRekapStatus'])->name('downloadRekapStatus');
+    Route::get('/pkllulus/{angkatan}/{status}', [OperatorController::class, 'pkllulus'])->name('pkllulus');
+    Route::get('/pkltidaklulus/{angkatan}/{status}', [OperatorController::class, 'pkltidaklulus'])->name('pkltidaklulus');
+    Route::get('/skripsilulus/{angkatan}/{status}', [OperatorController::class, 'skripsilulus'])->name('skripsilulus');
+    Route::get('/skripsitidaklulus/{angkatan}/{status}', [OperatorController::class, 'skripsitidaklulus'])->name('skripsitidaklulus');
+    Route::get('/daftarstatus/{angkatan}/{status}', [OperatorController::class, 'daftarstatus'])->name('daftarstatus');
+    Route::get('/PreviewListPKLLulusOperator/{angkatan}/{status}', [OperatorController::class, 'PreviewListPKLLulus'])->name('OperatorListPKLLulus');
+    Route::get('/PreviewListPKLTidakLulusOperator/{angkatan}/{status}', [OperatorController::class, 'PreviewListPKLBelum'])->name('OperatorListPKLTidakLulus');
+    Route::get('/PreviewListSkripsiLulusOperator/{angkatan}/{status}', [OperatorController::class, 'PreviewListSkripsiLulus'])->name('OperatorListSkripsiLulus');
+    Route::get('/PreviewListSkripsiTidakLulusOperator/{angkatan}/{status}', [OperatorController::class, 'PreviewListSkripsiBelum'])->name('OperatorListSkripsiTidakLLulus');
+    Route::get('/PreviewListStatusOperator/{angkatan}/{status}', [OperatorController::class, 'PreviewListStatus'])->name('OperatorListStatus');
 });
 
 Route::middleware(['auth', 'only_dosen'])->group(function () {
@@ -76,6 +92,10 @@ Route::middleware(['auth', 'only_dosen'])->group(function () {
     Route::post('/profilDosen-edit', [DosenController::class, 'update'])->name('update4');
     Route::get('/RekapPKL',[DosenController::class,'RekapPKL'])->name('RekapPKL');
     Route::get('/RekapSkripsi',[DosenController::class,'RekapSkripsi'])->name('RekapSkripsi');
+    Route::get('/RekapStatus',[DosenController::class,'RekapStatus'])->name('RekapStatus');
+    Route::get('/DoswalPreviewStatus',[DosenController::class,'DoswalPreviewStatus'])->name('DoswalPreviewStatus');
+    Route::get('/daftarstatusdoswal/{angkatan}/{status}',[DosenController::class,'daftarstatus'])->name('daftarstatusdoswal');
+    Route::get('/PreviewListStatus/{angkatan}/{status}',[DosenController::class,'PreviewListStatus'])->name('PreviewListStatusDoswal');
 });
 
 Route::controller(ListController::class)->middleware(['auth', 'only_departemen'])->group(function () {
@@ -83,10 +103,12 @@ Route::controller(ListController::class)->middleware(['auth', 'only_departemen']
     Route::get('/listMahasiswaSkripsi/{angkatan}/{status}', 'skripsi')->name('list.skripsi');
     Route::get('/listMahasiswa2/{angkatan}/{status}', 'index2')->name('list.index2'); //tidak lulus
     Route::get('/listMahasiswaSkripsi2/{angkatan}/{status}', 'skripsi2')->name('list.skripsi2'); //tidak lulus
+    Route::get('/daftarstatusdepart/{angkatan}/{status}', 'daftarstatus')->name('daftarstatusdepart'); //tidak lulus
     Route::get('/DownloadListPKLDepartLulus/{angkatan}/{status}','PreviewListPKLLulus')->name('PreviewListPKLLulus');
     Route::get('/DownloadListPKLDepartBelum/{angkatan}/{status}','PreviewListPKLBelum')->name('PreviewListPKLBelum');
     Route::get('/DownloadListSkripsiDepartLulus/{angkatan}/{status}','PreviewListSkripsiLulus')->name('PreviewListSkripsiLulus');
-    Route::get('/DownloadListSkripsiDepartBelum/{angkatan}/{status}','PreviewListSkripsiBelum')->name('PreviewListSkripsiBelum');
+    Route::get('/DownloadListSkripsiBelumDepartemen/{angkatan}/{status}','PreviewListSkripsiBelum')->name('SkripsiBelumDepart');
+    Route::get('/DownloadListStatusDepart/{angkatan}/{status}','PreviewListStatus')->name('StatusDepart');
 });
 
 Route::controller(DosenController::class)->middleware(['auth', 'only_dosen'])->group(function () {
@@ -173,6 +195,11 @@ Route::controller(VerifikasiController::class)->middleware(['auth','only_dosen']
 Route::controller(DashboardDepartemenController::class)->middleware(['auth','only_departemen'])->group(function(){
     Route::get('/RekapPKLDepartemen','PreviewPKL')->name('rekapPKL');
     Route::get('/RekapSkripsiDepartemen','PreviewSkripsi')->name('rekapSkripsi');
+    Route::get('/RekapDepartemen','rekap')->name('rekap');
+    Route::get('/RekapStatusDepartemen','downloadRekapStatus')->name('rekapstatusdepart');
+    Route::get('/DaftarDetailMahasiswa','mahasiswa')->name('mahasiswadepart');
+    Route::get('/SearchDepartemen','searchDepartemen')->name('searchDepartemen');
+    Route::get('/DetailsMahasiswa/{nim}','dataMahasiswa')->name('detailMhs');
 });
 
 Route::controller(DepartemenController::class)->middleware(['auth','only_departemen'])->group(function (){
@@ -187,121 +214,4 @@ Route::controller(DepartemenController::class)->middleware(['auth','only_departe
 // blm diubah
 Route::get('signin', [AuthController::class,'login'])->name('signin');
 Route::post('signin', [AuthController::class, 'authenticate']);
-
-//mahasiswa
-// Route::get('/', function () {
-//     return view('mahasiswa.dashboard');
-// });
-
-// Route::get('/dashboardMahasiswa', function () {
-//     return view('mahasiswa.dashboard');
-// });
-
-// Route::get('/irs', function () {
-//     return view('mahasiswa.irs');
-// });
-
-// Route::get('/tambahIrs', function () {
-//     return view('mahasiswa.irs-create');
-// });
-
-// Route::get('/khs', function () {
-//     return view('mahasiswa.khs');
-// });
-
-// Route::get('/tambahKhs', function () {
-//     return view('mahasiswa.khs-create');
-// });
-
-// Route::get('/pkl', function () {
-//     return view('mahasiswa.pkl');
-// });
-
-// Route::get('/tambahPkl', function () {
-//     return view('mahasiswa.pkl-create');
-// });
-
-// Route::get('/skripsi', function () {
-//     return view('mahasiswa.skripsi');
-// });
-
-// Route::get('/tambahSkripsi', function () {
-//     return view('mahasiswa.skripsi-create');
-// });
-
-// Route::get('/profilMahasiswa', function () {
-//     return view('mahasiswa.profil');
-// });
-
-// Route::get('/editprofilMahasiswa', function () {
-//     return view('mahasiswa.profil-edit');
-// });
-
-
-
-
-// OPERATOR
-// Route::get('/dashboardOperator', function () {
-//     return view('operator.dashboard');
-// });
-
-// Route::get('/mahasiswa', function () {
-//     return view('operator.mahasiswa');
-// });
-
-// Route::get('/profilOperator', function () {
-//     return view('operator.profil');
-// });
-
-// Route::get('/editprofilOperator', function () {
-//     return view('operator.profil-edit');
-// });
-
-// Route::get('/importMahasiswa', function () {
-//     return view('operator.importMahasiswa');
-// });
-
-
-
-//doswal
-// Route::get('/dashboardDoswal', function () {
-//     return view('doswal.dashboard');
-// });
-
-
-// Route::get('/details', function () {
-//     return view('doswal.details');
-// });
-
-// Route::get('/verification', function () {
-//     return view('doswal.verification');
-// });
-
-Route::get('/listpkl', function () {
-    return view('doswal.listpkl');
-});
-
-Route::get('/listskripsi', function () {
-    return view('doswal.listskripsi');
-});
-
-// Route::get('/rekappkl', function () {
-//     return view('doswal.rekappkl');
-// });
-
-// Route::get('/rekapskripsi', function () {
-//     return view('doswal.rekapskripsi');
-// });
-
-
-// Departemen
-
-// Route::get('/Departemen/pkl', function () {
-//     return view('departemen.pkl');
-// });
-
-// Route::get('Departemen/skripsi', function () {
-//     return view('departemen.skripsi');
-// });
-
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>List Progress PKL Mahasiswa Informatika</title>
+    <title>List Status {{$namastatus}} Mahasiswa Informatika</title>
     <!-- Bootstrap CSS (jika menggunakan framework Bootstrap) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -36,7 +36,7 @@
 <body>
     <div class="container-lg">
         <div class="mb-4 col-span-full xl:mb-2">
-            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Daftar Belum Lulus PKL Mahasiswa Informatika</h1>
+            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Daftar Status {{$namastatus}} Mahasiswa Informatika</h1>
             <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Fakultas Sains dan Matematika</h1>
         </div>
 
@@ -59,19 +59,28 @@
                         class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                         Angkatan
                     </th>
+                    <th scope="col"
+                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                        Status
+                    </th>
+                    <th scope="col"
+                        class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                        Dosen Wali
+                    </th>
+                    
                 </tr>
             </thead>
             <tbody class="bg-white dark:bg-gray-800">
                 @php
                     $counter = 1;
                 @endphp
-                @foreach ($mahasiswas as $mahasiswa)
+                @foreach ($daftar as $mahasiswa)
                 <tr>
                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                         <span class="font-semibold">{{$counter++}}</span>
                     </td>
                     <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                     d   {{$mahasiswa->nama}}
+                        {{$mahasiswa->nama}}
                     </td>
                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                         {{$mahasiswa->nim}}
@@ -79,7 +88,13 @@
                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                         {{$mahasiswa->angkatan}}
                     </td>
-                   
+                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        {{$mahasiswa->status}}
+                    </td>
+                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        {{$mahasiswa->dosen_nama}}
+                    </td>
+                    
                 </tr>
                 @endforeach
             </tbody>

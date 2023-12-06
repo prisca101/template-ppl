@@ -408,6 +408,11 @@
                                 color: "#31A2AC",
                                 data: {!! json_encode($result->pluck('mangkir')) !!},
                             },
+                            {
+                                name: "Cuti",
+                                color: "#FFC0CB",
+                                data: {!! json_encode($result->pluck('cuti')) !!},
+                            },
                         ],
                         chart: {
                             type: "bar",

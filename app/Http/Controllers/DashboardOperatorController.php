@@ -78,12 +78,11 @@ class DashboardOperatorController extends Controller
                         $result[$item->angkatan]['tidak_lulus_count'] = $item->tidak_lulus_count;
                     });
 
-
-
                 // untuk rekap status
                 $statusMahasiswa = Mahasiswa::whereIn('angkatan', $angkatan)
                     ->select('angkatan', 'status', DB::raw('COALESCE(COUNT(*), 0) as count'))
                     ->groupBy('angkatan', 'status')
+                    ->whereIn('status', ['mangkir', 'undur_diri','active','do','meninggal_dunia','lulus','cuti'])
                     ->get()
                     ->each(function ($item, $key) use (&$result) {
                         // Mengisi array $result dengan hasil query
@@ -93,7 +92,7 @@ class DashboardOperatorController extends Controller
                 // Mengubah $result menjadi koleksi Laravel
                 $result = collect($result);
                 //dd($result);
-                // dd($result);
+                //dd($result);
 
                 $users = User::join('roles', 'users.role_id', '=', 'roles.id')
                     ->select('users.role_id', 'roles.name')
@@ -127,13 +126,31 @@ class DashboardOperatorController extends Controller
         $mahasiswas = Mahasiswa::join('users', 'mahasiswa.iduser', '=', 'users.id')
             ->join('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
             ->join('generate_akun', 'generate_akun.nim', '=', 'mahasiswa.nim')
-            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'generate_akun.password', 'dosen_wali.nip', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk', 'users.foto')
+            ->select('mahasiswa.nama', 'mahasiswa.nim as nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'generate_akun.password', 'dosen_wali.nip', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk', 'users.foto')
             ->get();
         $dosens = Dosen::all();
+       //dd($mahasiswas[0]);
         return view('operator.mahasiswa', ['mahasiswas' => $mahasiswas, 'dosens' => $dosens]);
     }
 
-    
+    public function mhs($nim){
+        $mhs = Mahasiswa::where('nim', $nim)->select('nama','nim')->first();   
+        return view('operator.mahasiswa', ['mhs' => $mhs]);
+    }
+
+    public function delete($nim)
+    {
+        dd($nim);
+        $mhs = Mahasiswa::where('nim', $nim)->first();
+
+        if ($mhs) {
+            $mhs->delete();
+            return redirect()->route('mahasiswa')->with('success', 'Mahasiswa berhasil dihapus.');
+        }
+        else {
+            return redirect()->route('mahasiswa')->with('error', 'Tidak dapat menghapus.');
+        }
+    }
 
     public function store(Request $request)
     {
@@ -319,6 +336,85 @@ class DashboardOperatorController extends Controller
         return redirect()
             ->route('home')
             ->with('error', 'Unauthorized access!');
+    }
+
+    public function downloadRekapPKL(Request $request){
+        $angkatan = [];
+        $tahunSekarang = date('Y');
+        for ($i = 0; $i <= 6; $i++) {
+            $angkatan[] = $tahunSekarang - $i;
+        }
+        $result = array_fill_keys($angkatan, ['pkl_lulus_count' => 0, 'pkl_tidak_lulus_count' => 0]);
+        $mahasiswas = DB::table('mahasiswa as m')
+                    ->leftJoin('pkl as p', 'm.nim', '=', 'p.nim')
+                    ->whereIn('m.angkatan', $angkatan)
+                    ->select('m.angkatan', DB::raw('COALESCE(SUM(CASE WHEN p.status = "verified" THEN 1 ELSE 0 END), 0) as pkl_lulus_count'), DB::raw('COALESCE(SUM(CASE WHEN p.nim IS NULL OR p.status != "verified" THEN 1 ELSE 0 END), 0) as pkl_tidak_lulus_count'))
+                    ->groupBy('m.angkatan')
+                    ->get()
+                    ->each(function ($item, $key) use (&$result) {
+                        // Mengisi array $result dengan hasil query
+                        $result[$item->angkatan]['pkl_lulus_count'] = $item->pkl_lulus_count;
+                        $result[$item->angkatan]['pkl_tidak_lulus_count'] = $item->pkl_tidak_lulus_count;
+                    });
+        $result = collect($result);
+
+        $pdf = app('dompdf.wrapper');
+        $pdf ->loadView('operator.downloadRekapPKL',['mahasiswas'=>$mahasiswas, 'angkatan'=>$angkatan,'result'=>$result]);
+        return $pdf->stream('rekap-pkl.pdf');
+    }
+
+    public function downloadRekapSkripsi(Request $request){
+        $angkatan = [];
+        $tahunSekarang = date('Y');
+        for ($i = 0; $i <= 6; $i++) {
+            $angkatan[] = $tahunSekarang - $i;
+        }
+        $result = array_fill_keys($angkatan, ['lulus_count' => 0, 'tidak_lulus_count' => 0]);
+        $mahasiswasSkripsi = DB::table('mahasiswa as m')
+                    ->leftJoin('skripsi as s', 'm.nim', '=', 's.nim')
+                    ->whereIn('m.angkatan', $angkatan)
+                    ->select('m.angkatan', DB::raw('COALESCE(SUM(CASE WHEN s.status = "verified" THEN 1 ELSE 0 END), 0) as lulus_count'), DB::raw('COALESCE(SUM(CASE WHEN s.nim IS NULL OR s.status != "verified" THEN 1 ELSE 0 END), 0) as tidak_lulus_count'))
+                    ->groupBy('m.angkatan')
+                    ->get()
+                    ->each(function ($item, $key) use (&$result) {
+                        // Mengisi array $result dengan hasil query
+                        $result[$item->angkatan]['lulus_count'] = $item->lulus_count;
+                        $result[$item->angkatan]['tidak_lulus_count'] = $item->tidak_lulus_count;
+                    });
+        $result = collect($result);
+
+        $pdf = app('dompdf.wrapper');
+        $pdf ->loadView('operator.downloadRekapSkripsi',['mahasiswasSkripsi'=>$mahasiswasSkripsi, 'angkatan'=>$angkatan,'result'=>$result]);
+        return $pdf->stream('rekap-skripsi.pdf');
+    }
+
+    public function downloadRekapStatus(Request $request){
+        $angkatan = [];
+        $tahunSekarang = date('Y');
+        for ($i = 0; $i <= 6; $i++) {
+            $angkatan[] = $tahunSekarang - $i;
+        }
+        $result = array_fill_keys($angkatan, ['lulus_count' => 0, 'tidak_lulus_count' => 0, 'pkl_lulus_count' => 0, 'pkl_tidak_lulus_count' => 0, 
+                'active' => 0,
+                'cuti' => 0,
+                'mangkir' => 0,
+                'do' => 0,
+                'lulus' => 0,
+                'undur_diri' => 0,
+                'meninggal_dunia'=> 0]);
+        $statusMahasiswa = Mahasiswa::whereIn('angkatan', $angkatan)
+                ->select('angkatan', 'status', DB::raw('COALESCE(COUNT(*), 0) as count'))
+                ->groupBy('angkatan', 'status')
+                ->get()
+                ->each(function ($item, $key) use (&$result) {
+                    // Mengisi array $result dengan hasil query
+                    $result[$item->angkatan][$item->status] = $item->count;
+                });
+        $result = collect($result);
+
+        $pdf = app('dompdf.wrapper');
+        $pdf ->loadView('operator.downloadRekapStatus',['angkatan'=>$angkatan,'result'=>$result]);
+        return $pdf->stream('rekap-status.pdf');
     }
     
 }
