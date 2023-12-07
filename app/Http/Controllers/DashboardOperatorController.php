@@ -48,7 +48,9 @@ class DashboardOperatorController extends Controller
                 for ($i = 0; $i <= 6; $i++) {
                     $angkatan[] = $tahunSekarang - $i;
                 }
-                $result = array_fill_keys($angkatan, ['lulus_count' => 0, 'tidak_lulus_count' => 0, 'pkl_lulus_count' => 0, 'pkl_tidak_lulus_count' => 0, 
+                $result = array_fill_keys($angkatan, ['lulus_count' => 0, 'tidak_lulus_count' => 0,]); 
+                $result1 = array_fill_keys($angkatan, ['pkl_lulus_count' => 0, 'pkl_tidak_lulus_count' => 0,]);
+                $result2 = array_fill_keys($angkatan, [
                 'active' => 0,
                 'cuti' => 0,
                 'mangkir' => 0,
@@ -63,10 +65,10 @@ class DashboardOperatorController extends Controller
                     ->select('m.angkatan', DB::raw('COALESCE(SUM(CASE WHEN p.status = "verified" THEN 1 ELSE 0 END), 0) as pkl_lulus_count'), DB::raw('COALESCE(SUM(CASE WHEN p.nim IS NULL OR p.status != "verified" THEN 1 ELSE 0 END), 0) as pkl_tidak_lulus_count'))
                     ->groupBy('m.angkatan')
                     ->get()
-                    ->each(function ($item, $key) use (&$result) {
+                    ->each(function ($item, $key) use (&$result1) {
                         // Mengisi array $result dengan hasil query
-                        $result[$item->angkatan]['pkl_lulus_count'] = $item->pkl_lulus_count;
-                        $result[$item->angkatan]['pkl_tidak_lulus_count'] = $item->pkl_tidak_lulus_count;
+                        $result1[$item->angkatan]['pkl_lulus_count'] = $item->pkl_lulus_count;
+                        $result1[$item->angkatan]['pkl_tidak_lulus_count'] = $item->pkl_tidak_lulus_count;
                     });
 
                 //untuk rekap skripsi
@@ -88,13 +90,14 @@ class DashboardOperatorController extends Controller
                     ->groupBy('angkatan', 'status')
                     ->whereIn('status', ['mangkir', 'undur_diri','active','do','meninggal_dunia','lulus','cuti'])
                     ->get()
-                    ->each(function ($item, $key) use (&$result) {
+                    ->each(function ($item, $key) use (&$result2) {
                         // Mengisi array $result dengan hasil query
-                        $result[$item->angkatan][$item->status] = $item->count;
+                        $result2[$item->angkatan][$item->status] = $item->count;
                 });
-
                 // Mengubah $result menjadi koleksi Laravel
                 $result = collect($result);
+                $result1 = collect($result1);
+                $result2 = collect($result2);
                 //dd($result);
                 //dd($result);
 
@@ -109,6 +112,8 @@ class DashboardOperatorController extends Controller
                 return view('operator.dashboard', [
                     'operators' => $operators,
                     'result' => $result,
+                    'result1' => $result1,
+                    'result2' => $result2,
                     'angkatan' => $angkatan,
                     'angkatan2' => $angkatan2,
                     'angkatan3'=>$angkatan3,
