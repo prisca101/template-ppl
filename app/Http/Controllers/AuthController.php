@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash; 
 use App\Models\Operator;
 use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Validator;
 
 
 class AuthController extends Controller
@@ -21,15 +22,21 @@ class AuthController extends Controller
     {
         $credentials = $request->validate([
             'username' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'captcha' => 'required|captcha',
         ]);
+
+        if ($credentials->fails()) {
+            // Handle validation failure, e.g., redirect back with errors
+            return redirect()->back()->with('error', 'Captcha salah');
+        }
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             $user = $request->user(); 
         
-            if ($user->role_id === 1 ) {
+            if ($user->role_id === 1 && $user->mahasiswa->status === 'active' ) {
                 if($user->cekProfil === 1){
                     return redirect()->intended('/dashboardMahasiswa')->with('success', 'Login successful');
                 }
