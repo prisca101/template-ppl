@@ -143,21 +143,19 @@ class DashboardOperatorController extends Controller
     }
 
 
-    public function mhs($nim){
-        $mhs = Mahasiswa::where('nim', $nim)->select('nama','nim')->first();   
-        return view('operator.mahasiswa', ['mhs' => $mhs]);
-    }
-
     public function deleteMahasiswa($nim_mahasiswa)
     {
         $mahasiswa = Mahasiswa::where('nim', $nim_mahasiswa)->first();
 
         if ($mahasiswa) {
+            // Dapatkan iduser dari mahasiswa
+
             // Hapus data terkait
             IRS::where('nim', $nim_mahasiswa)->delete();
             KHS::where('nim', $nim_mahasiswa)->delete();
             PKL::where('nim', $nim_mahasiswa)->delete();
             Skripsi::where('nim', $nim_mahasiswa)->delete();
+            GenerateAkun::where('nim',$nim_mahasiswa)->delete();
 
             // Hapus mahasiswa
             $mahasiswa->delete();
@@ -168,6 +166,8 @@ class DashboardOperatorController extends Controller
             return redirect()->route('mahasiswa')->with('error', 'Tidak dapat menghapus mahasiswa.');
         }
     }
+
+
 
 
     public function store(Request $request)
