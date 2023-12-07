@@ -110,18 +110,13 @@
             <script>
                 // ApexCharts options and config
                 window.addEventListener("load", function() {
-                    const categories = {!! json_encode($result->keys()) !!};
+                    const categories = {!! json_encode($result1->keys()) !!};
                     const options = {
                         colors: ["#1A56DB", "#FDBA8C"],
                         series: [{
                                 name: "Lulus",
                                 color: "#1A56DB",
-                                data: {!! json_encode($result->pluck('pkl_lulus_count')) !!}, // change x to angkatan and y to pkl lulus
-                            },
-                            {
-                                name: "Tidak Lulus",
-                                color: "#FDBA8C",
-                                data: {!! json_encode($result->pluck('pkl_tidak_lulus_count')) !!}, // change x to angkatan and y to pkl tidak lulus
+                                data: {!! json_encode($result1->pluck('pkl_lulus_count')) !!}, // change x to angkatan and y to pkl lulus
                             },
                         ],
                         chart: {
@@ -247,11 +242,6 @@
                                 color: "#1A56DB",
                                 data: {!! json_encode($result->pluck('lulus_count')) !!},
                             },
-                            {
-                                name: "Tidak Lulus",
-                                color: "#FDBA8C",
-                                data: {!! json_encode($result->pluck('tidak_lulus_count')) !!},
-                            },
                         ],
                         chart: {
                             type: "bar",
@@ -375,43 +365,43 @@
             <script>
                 // ApexCharts options and config
                 window.addEventListener("load", function() {
-                    const categories = {!! json_encode($result->keys()) !!};
+                    const categories = {!! json_encode($result2->keys()) !!};
                     const options = {
                         colors: ["#AECDC2", "#FDBA8C", "#FFABAB", "#D4A5A5", "#392F5A","#31A2AC"],
                         series: [{
                                 name: "Aktif",
                                 color: "#AECDC2",
-                                data: {!! json_encode($result->pluck('active')) !!},
+                                data: {!! json_encode($result2->pluck('active')) !!},
                             },
                             {
                                 name: "Lulus",
                                 color: "#FDBA8C",
-                                data: {!! json_encode($result->pluck('lulus')) !!},
+                                data: {!! json_encode($result2->pluck('lulus')) !!},
                             },
                             {
                                 name: "Drop Out",
                                 color: "#FFABAB",
-                                data: {!! json_encode($result->pluck('do')) !!},
+                                data: {!! json_encode($result2->pluck('do')) !!},
                             },
                             {
                                 name: "Meninggal Dunia",
                                 color: "#D4A5A5",
-                                data: {!! json_encode($result->pluck('meninggal_dunia')) !!},
+                                data: {!! json_encode($result2->pluck('meninggal_dunia')) !!},
                             },
                             {
                                 name: "Undur Diri",
                                 color: "#392F5A",
-                                data: {!! json_encode($result->pluck('undur_diri')) !!},
+                                data: {!! json_encode($result2->pluck('undur_diri')) !!},
                             },
                             {
                                 name: "Mangkir",
                                 color: "#31A2AC",
-                                data: {!! json_encode($result->pluck('mangkir')) !!},
+                                data: {!! json_encode($result2->pluck('mangkir')) !!},
                             },
                             {
                                 name: "Cuti",
                                 color: "#FFC0CB",
-                                data: {!! json_encode($result->pluck('cuti')) !!},
+                                data: {!! json_encode($result2->pluck('cuti')) !!},
                             },
                         ],
                         chart: {
