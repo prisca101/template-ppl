@@ -29,7 +29,7 @@ class AuthController extends Controller
 
             $user = $request->user(); 
         
-            if ($user->role_id === 1 ) {
+            if ($user->role_id === 1 && $user->mahasiswa->status === 'active' ) {
                 if($user->cekProfil === 1){
                     return redirect()->intended('/dashboardMahasiswa')->with('success', 'Login successful');
                 }
