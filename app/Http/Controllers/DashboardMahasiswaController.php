@@ -27,12 +27,14 @@ class DashboardMahasiswaController extends Controller
             $user = User::where('id', Auth::user()->id)->select('foto')->first();
 
             $latestPKL = PKL::where('nim',$nim)
+                        ->where('status','verified')
                         ->orderBy('created_at', 'desc')->first();
             $nilaiPKL = $latestPKL ? $latestPKL->nilai : null;
             $statusPKL = $latestPKL ? $latestPKL->statusPKL : null;
             $status = $latestPKL ? $latestPKL->status : null;
 
             $latestSkripsi = Skripsi::where('nim',$nim)
+                        ->where('status','verified')
                         ->orderBy('created_at', 'desc')->first();
             $nilaiSkripsi = $latestSkripsi ? $latestSkripsi->nilai : null;
             $statusSkripsi = $latestSkripsi ? $latestSkripsi->statusSkripsi : null;
