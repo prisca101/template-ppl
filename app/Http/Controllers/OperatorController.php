@@ -504,7 +504,7 @@ class OperatorController extends Controller
 
         $validated = $request->validate([
             'username' => 'nullable|string',
-            'current_password' => 'nullable|string',
+            // 'current_password' => 'nullable|string',
             'nama' => 'nullable|string',
             'nim' => 'nullable|string',
             'angkatan' => 'nullable|string',
@@ -558,13 +558,12 @@ class OperatorController extends Controller
                 ]);
             }
 
-            if (!empty($validated['current_password'])) {
-                Mahasiswa::where('nim', $nim)
-                    ->join('users', 'mahasiswa.iduser', '=', 'users.id')
-                    ->update([
-                        'password' => Hash::make($validated['current_password']),
-                    ]);
-            }
+            // if (!empty($validated['current_password'])) {
+            //     User::where('id', $request->user()->id)
+            //         ->update([
+            //             'password' => Hash::make($validated['current_password']),
+            //         ]);
+            // }
 
             DB::commit();
 
