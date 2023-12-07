@@ -503,7 +503,7 @@ class OperatorController extends Controller
         $user = Mahasiswa::where('nim', $nim)->first();
 
         $validated = $request->validate([
-            'username' => 'nullable|string',
+            // 'username' => 'nullable|string',
             // 'current_password' => 'nullable|string',
             'nama' => 'nullable|string',
             'nim' => 'nullable|string',
@@ -516,11 +516,11 @@ class OperatorController extends Controller
         DB::beginTransaction();
 
         try {
-            if (!empty($validated['username'])) {
-                Mahasiswa::where('nim', $nim)->update([
-                    'username' => $validated['username'],
-                ]);
-            }
+            // if (!empty($validated['username'])) {
+            //     Mahasiswa::where('nim', $nim)->update([
+            //         'username' => $validated['username'],
+            //     ]);
+            // }
 
             if (!empty($validated['nama'])) {
                 Mahasiswa::where('nim', $nim)->update([
