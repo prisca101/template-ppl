@@ -25,28 +25,28 @@ class VerifikasiController extends Controller
                 ->where('dosen_wali.nip',$nip)
                 ->join('irs','irs.nim','=','mahasiswa.nim')
                 ->where('irs.status','pending')
-                ->select('irs.idirs','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','irs.semester_aktif','irs.jumlah_sks','irs.scanIRS')
+                ->select('irs.idirs','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','irs.semester_aktif','irs.jumlah_sks','irs.scanIRS','mahasiswa.status as status2')
                 ->get();
         $khs = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
                 ->where('dosen_wali.nip',$nip)
                 ->join('khs','khs.nim','=','mahasiswa.nim')
                 ->where('khs.status','pending')
-                ->select('khs.idkhs','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','khs.semester_aktif','khs.jumlah_sks','khs.scanKHS','khs.jumlah_sks_kumulatif','khs.ip_semester','khs.ip_kumulatif')
+                ->select('khs.idkhs','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','khs.semester_aktif','khs.jumlah_sks','khs.scanKHS','khs.jumlah_sks_kumulatif','khs.ip_semester','khs.ip_kumulatif','mahasiswa.status as status2')
                 ->get();
         $pkl = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
                 ->where('dosen_wali.nip',$nip)
                 ->join('pkl','pkl.nim','=','mahasiswa.nim')
                 ->where('pkl.status','pending')
-                ->select('pkl.idpkl','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','pkl.semester_aktif','pkl.scanPKL','pkl.nilai','pkl.statusPKL')
+                ->select('pkl.idpkl','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','pkl.semester_aktif','pkl.scanPKL','pkl.nilai','pkl.statusPKL','mahasiswa.status as status2')
                 ->get();
         $skripsi = Dosen::join('users', 'dosen_wali.iduser', '=', 'users.id')
                 ->join('mahasiswa','mahasiswa.nip','=','dosen_wali.nip')
                 ->where('dosen_wali.nip',$nip)
                 ->join('skripsi','skripsi.nim','=','mahasiswa.nim')
                 ->where('skripsi.status','pending')
-                ->select('skripsi.idskripsi','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','skripsi.semester_aktif','skripsi.scanSkripsi','skripsi.nilai','skripsi.statusSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang')
+                ->select('skripsi.idskripsi','mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','skripsi.semester_aktif','skripsi.scanSkripsi','skripsi.nilai','skripsi.statusSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang','mahasiswa.status as status2')
                 ->get();
         return view('doswal.verification', ['irs'=>$irs,'khs'=>$khs,'pkl'=>$pkl,'skripsi'=>$skripsi,'dosens'=>$dosens]);
     }

@@ -91,6 +91,10 @@
                                         </th>
                                         <th scope="col"
                                             class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                            Status
+                                        </th>
+                                        <th scope="col"
+                                            class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                             Semester Aktif
                                         </th>
                                         <th scope="col"
@@ -125,8 +129,13 @@
                                         </td>
                                         <td
                                             class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                            {{$ir->status2}}
+                                        </td>
+                                        <td
+                                            class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                                             {{$ir->semester_aktif}}
                                         </td>
+                                        
                                         <td
                                             class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                                             {{$ir->jumlah_sks}}
@@ -218,6 +227,10 @@
                                             </th>
                                             <th scope="col"
                                                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                Status
+                                            </th>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                                 Semester Aktif
                                             </th>
                                             <th scope="col"
@@ -261,6 +274,10 @@
                                             <td
                                                 class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{$kh->angkatan}}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{$kh->status2}}
                                             </td>
                                             <td
                                                 class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
@@ -372,6 +389,10 @@
                                             </th>
                                             <th scope="col"
                                                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                Status
+                                            </th>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                                 Semester Aktif
                                             </th>
                                             <th scope="col"
@@ -403,6 +424,10 @@
                                             <td
                                                 class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{$pk->angkatan}}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{$pk->status2}}
                                             </td>
                                             <td
                                                 class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
@@ -466,33 +491,6 @@
                     </div>
                 </div>
             </div>
-
-            <div
-                class="rounded-b-lg sticky bottom-0 right-0 items-center w-full p-4 bg-white border-t border-gray-200 sm:flex sm:justify-between dark:bg-gray-800 dark:border-gray-700">
-                <div class="flex items-center mb-4 sm:mb-0">
-                    <a href="#"
-                        class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
-                    <a href="#"
-                        class="inline-flex justify-center p-1 mr-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
-                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
-                            class="font-semibold text-gray-900 dark:text-white">1-20</span> of <span
-                            class="font-semibold text-gray-900 dark:text-white">2290</span></span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -521,6 +519,10 @@
                                             <th scope="col"
                                                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                                 Angkatan
+                                            </th>
+                                            <th scope="col"
+                                                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                                Status
                                             </th>
                                             <th scope="col"
                                                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -563,6 +565,10 @@
                                             <td
                                                 class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{$skrips->angkatan}}
+                                            </td>
+                                            <td
+                                                class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{$skrips->status2}}
                                             </td>
                                             <td
                                                 class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
@@ -634,32 +640,7 @@
                 </div>
             </div>
 
-            <div
-                class="rounded-b-lg sticky bottom-0 right-0 items-center w-full p-4 bg-white border-t border-gray-200 sm:flex sm:justify-between dark:bg-gray-800 dark:border-gray-700">
-                <div class="flex items-center mb-4 sm:mb-0">
-                    <a href="#"
-                        class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
-                    <a href="#"
-                        class="inline-flex justify-center p-1 mr-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
-                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
-                            class="font-semibold text-gray-900 dark:text-white">1-20</span> of <span
-                            class="font-semibold text-gray-900 dark:text-white">2290</span></span>
-                </div>
-            </div>
+            
         </div>
     </div>
 

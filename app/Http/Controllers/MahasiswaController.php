@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
+use App\Models\IRS;
+use App\Models\KHS;
+use App\Models\PKL;
+use App\Models\Skripsi;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -203,5 +207,5 @@ class MahasiswaController extends Controller
                 ->with('error', 'Gagal memperbarui profil.');
         }
     }
-
+    
 }

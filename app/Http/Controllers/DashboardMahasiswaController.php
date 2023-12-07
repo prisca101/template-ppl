@@ -49,9 +49,39 @@ class DashboardMahasiswaController extends Controller
             $SemesterAktif = $latestIRS ? $latestIRS->semester_aktif : null;
             $JumlahSKS = $latestIRS ? $latestIRS->jumlah_sks : null;
             $statusIRS = $latestIRS ? $latestIRS->status : null;
-            
+            $irsData = IRS::join('mahasiswa','mahasiswa.nim','=','irs.nim')
+                ->where('irs.nim', $nim)
+                ->select('mahasiswa.status as mhsstatus','irs.status as status', 'irs.semester_aktif','irs.jumlah_sks','irs.scanIRS')
+                ->get()
+                ->keyBy('semester_aktif'); // Gunakan semester_aktif sebagai kunci array
+
+            $khsData = KHS::join('mahasiswa','mahasiswa.nim','=','khs.nim')
+                ->where('khs.nim', $nim)
+                ->select('mahasiswa.status as mhsstatus','khs.status as status', 'khs.semester_aktif','khs.jumlah_sks','khs.jumlah_sks_kumulatif','khs.ip_semester','khs.ip_kumulatif')
+                ->get()
+                ->keyBy('semester_aktif');
+
+            $pklData = PKL::join('mahasiswa','mahasiswa.nim','=','pkl.nim')
+                ->where('pkl.nim', $nim)
+                ->select('mahasiswa.status as mhsstatus','pkl.status as status', 'pkl.semester_aktif', 'pkl.nilai','pkl.scanPKL')
+                ->get()
+                ->keyBy('semester_aktif');
+        
+            $skripsiData = Skripsi::join('mahasiswa','mahasiswa.nim','=','skripsi.nim')
+                ->where('skripsi.nim', $nim)
+                ->select('mahasiswa.status as mhsstatus','skripsi.status as status', 'skripsi.semester_aktif', 'skripsi.nilai','skripsi.scanSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang')
+                ->get()
+                ->keyBy('semester_aktif');
+
+            $lastVerifiedPKL = PKL::join('mahasiswa','mahasiswa.nim','=','pkl.nim')
+                ->where('pkl.nim', $nim)
+                ->where('pkl.status', 'verified')
+                ->select('mahasiswa.status as mhsstatus','pkl.status as status', 'pkl.semester_aktif', 'pkl.nilai','pkl.scanPKL')
+                ->orderBy('semester_aktif')
+                ->first();
             if ($mahasiswa) {
-                return view('mahasiswa.dashboard', ['statusIRS'=>$statusIRS,'JumlahSKS'=>$JumlahSKS,'SemesterAktif'=>$SemesterAktif,'statusKHS'=>$statusKHS,
+                return view('mahasiswa.dashboard', ['irsData'=>$irsData,'khsData'=>$khsData, 'pklData'=>$pklData,'skripsiData'=>$skripsiData,'lastVerifiedPKL'=>$lastVerifiedPKL,
+                'statusIRS'=>$statusIRS,'JumlahSKS'=>$JumlahSKS,'SemesterAktif'=>$SemesterAktif,'statusKHS'=>$statusKHS,
                 'mahasiswa' => $mahasiswa, 'user' => $user,'status'=>$status,'statusSkr'=>$statusSkr, 
                 'statusPKL' => $statusPKL,'statusSkripsi'=>$statusSkripsi,'SKSKumulatif'=>$SKSKumulatif,'IPKumulatif'=>$IPKumulatif,'nilaiPKL'=>$nilaiPKL,'nilaiSkripsi'=>$nilaiSkripsi]);
             }

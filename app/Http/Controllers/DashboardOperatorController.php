@@ -128,27 +128,32 @@ class DashboardOperatorController extends Controller
             ->join('generate_akun', 'generate_akun.nim', '=', 'mahasiswa.nim')
             ->select('mahasiswa.nama', 'mahasiswa.nim as nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'generate_akun.password', 'dosen_wali.nip', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk', 'users.foto')
             ->get();
+
+        // Ambil nim dari salah satu mahasiswa
+        $nim = $mahasiswas->first()->nim;
+
+        $nim_mahasiswa = Mahasiswa::where('nim', $nim)->select('nama','nim')->first();   
         $dosens = Dosen::all();
-       //dd($mahasiswas[0]);
-        return view('operator.mahasiswa', ['mahasiswas' => $mahasiswas, 'dosens' => $dosens]);
+
+        return view('operator.mahasiswa', ['mahasiswas' => $mahasiswas, 'dosens' => $dosens, 'nim_mahasiswa' => $nim_mahasiswa]);
     }
+
 
     public function mhs($nim){
         $mhs = Mahasiswa::where('nim', $nim)->select('nama','nim')->first();   
         return view('operator.mahasiswa', ['mhs' => $mhs]);
     }
 
-    public function delete($nim)
+    public function deleteMahasiswa($nim_mahasiswa)
     {
-        dd($nim);
-        $mhs = Mahasiswa::where('nim', $nim)->first();
+        $mahasiswa = Mahasiswa::where('nim', $nim_mahasiswa)->first();
 
-        if ($mhs) {
-            $mhs->delete();
+        if ($mahasiswa) {
+            $mahasiswa->delete();
             return redirect()->route('mahasiswa')->with('success', 'Mahasiswa berhasil dihapus.');
         }
         else {
-            return redirect()->route('mahasiswa')->with('error', 'Tidak dapat menghapus.');
+            return redirect()->route('mahasiswa')->with('error', 'Tidak dapat menghapus mahasiswa.');
         }
     }
 
