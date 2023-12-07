@@ -14,6 +14,9 @@
             border-collapse: collapse;
             margin-bottom: 20px; /* Jarak antara tabel dan tombol */
         }
+        h1, h2, h3, h4, h5, h6 {
+            text-align: center;
+        }
         table, th, td {
             border: 1px solid black;
         }
@@ -36,8 +39,8 @@
 <body>
     <div class="container-lg">
         <div class="mb-4 col-span-full xl:mb-2">
-            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Daftar Lulus PKL Mahasiswa Informatika</h1>
-            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Fakultas Sains dan Matematika</h1>
+            <h2>Daftar Lulus PKL Mahasiswa Informatika</h2>
+            <h2>Fakultas Sains dan Matematika</h2>
         </div>
 
         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
