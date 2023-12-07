@@ -90,13 +90,7 @@ class OperatorController extends Controller
         // Check if 'new_password' key exists and not null in $validated
         if (array_key_exists('new_password', $validated) && $validated['new_password'] !== null) {
             if (!Hash::check($validated['current_password'], $user->password)) {
-<<<<<<< HEAD
-                return redirect()
-                    ->route('operator.showEdit3')
-                    ->with('error', 'Password lama tidak cocok.');
-=======
                 return redirect()->route('operator.showEdit')->with('error', 'Password lama tidak cocok.');
->>>>>>> 6b35f04fafd228b21348e7089226de2fdeae36eb
             }
         }
         
@@ -119,21 +113,10 @@ class OperatorController extends Controller
 
             DB::commit();
 
-<<<<<<< HEAD
-            return redirect()
-                ->route('edit3')
-                ->with('success', 'Profil berhasil diperbarui');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()
-                ->route('showEdit3')
-                ->with('error', 'Gagal memperbarui profil.');
-=======
             return redirect()->route('edit')->with('success', 'Profil berhasil diperbarui');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->route('showEdit')->with('error', 'Gagal memperbarui profil.');
->>>>>>> 6b35f04fafd228b21348e7089226de2fdeae36eb
         }
     }
 
