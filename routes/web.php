@@ -59,7 +59,7 @@ Route::middleware(['auth', 'only_operator'])->group(function () {
     Route::get('/profilOperator-edit', [OperatorController::class, 'showEdit'])->name('showEdit3');
     Route::post('/profilOperator-edit', [OperatorController::class, 'update'])->name('update3');
     Route::get('/mhs/{nim}', [DashboardOperatorController::class,'mhs'])->name('mhs');
-    Route::delete('/mahasiswa/{nim}', [DashboardOperatorController::class,'delete'])->name('delete');
+    Route::delete('/mahasiswa/{nim_mahasiswa}', [DashboardOperatorController::class,'deleteMahasiswa'])->name('delete');
     Route::get('/importMahasiswa',[OperatorController::class,'tambah']);
     Route::get('/editMahasiswa/{nim}', [OperatorController::class, 'editMahasiswa'])->name('mahasiswa.edit.get');
     Route::post('/editMahasiswa/{nim}',[OperatorController::class,'editMahasiswa'])->name('mahasiswa.edit');
