@@ -41,12 +41,14 @@ class DashboardMahasiswaController extends Controller
             $statusSkr = $latestSkripsi ? $latestSkripsi->status : null;
 
             $latestKHS = KHS::where('nim',$nim)
+                            ->where('status','verified')
                             ->orderBy('created_at', 'desc')->first();
             $SKSKumulatif = $latestKHS ? $latestKHS->jumlah_sks_kumulatif : null;
             $IPKumulatif = $latestKHS ? $latestKHS->ip_kumulatif : null;
             $statusKHS = $latestKHS ? $latestKHS->status : null;
 
             $latestIRS = IRS::where('nim',$nim)
+                            ->where('status','verified')
                             ->orderBy('created_at', 'desc')->first();
             $SemesterAktif = $latestIRS ? $latestIRS->semester_aktif : null;
             $JumlahSKS = $latestIRS ? $latestIRS->jumlah_sks : null;
