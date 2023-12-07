@@ -30,9 +30,7 @@
         </nav>
         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Rekap Mahasiswa</h1>
     </div>
-@endsection
 
-@section('content2')
     <div class="col-span-full xl:col-auto">
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
@@ -48,7 +46,9 @@
             </div>
         </div>
     </div>
+@endsection
 
+@section('content2')
     <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <!-- Card header -->
         <div class="items-center justify-between lg:flex">
