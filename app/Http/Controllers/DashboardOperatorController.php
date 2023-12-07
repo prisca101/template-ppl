@@ -8,6 +8,10 @@ use App\Models\GenerateAkun;
 use App\Models\Departemen;
 use App\Models\Operator;
 use App\Models\User;
+use App\Models\IRS;
+use App\Models\KHS;
+use App\Models\PKL;
+use App\Models\Skripsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Auth;
@@ -149,13 +153,22 @@ class DashboardOperatorController extends Controller
         $mahasiswa = Mahasiswa::where('nim', $nim_mahasiswa)->first();
 
         if ($mahasiswa) {
+            // Hapus data terkait
+            IRS::where('nim', $nim_mahasiswa)->delete();
+            KHS::where('nim', $nim_mahasiswa)->delete();
+            PKL::where('nim', $nim_mahasiswa)->delete();
+            Skripsi::where('nim', $nim_mahasiswa)->delete();
+
+            // Hapus mahasiswa
             $mahasiswa->delete();
-            return redirect()->route('mahasiswa')->with('success', 'Mahasiswa berhasil dihapus.');
+
+            return redirect()->route('mahasiswa')->with('success', 'Mahasiswa dan semua data terkait berhasil dihapus.');
         }
         else {
             return redirect()->route('mahasiswa')->with('error', 'Tidak dapat menghapus mahasiswa.');
         }
     }
+
 
     public function store(Request $request)
     {
