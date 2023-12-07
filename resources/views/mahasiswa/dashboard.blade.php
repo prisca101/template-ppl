@@ -1,11 +1,6 @@
 @extends('mahasiswa.layouts.layout2')
 
 @section('content')
-
-
-
-
-
     <div class="mb-4 col-span-full xl:mb-2">
         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Welcome, mahasiswa!</h1>
     </div>
@@ -14,13 +9,14 @@
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
             <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
-                <img src="{{ Auth::user()->getImageURL() }}" class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0" alt="foto-profil" />    
+                <img src="{{ Auth::user()->getImageURL() }}" class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0"
+                    alt="foto-profil" />
                 <div>
-                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{$mahasiswa->nama}}</h3>
+                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{ $mahasiswa->nama }}</h3>
                     <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                        <p>{{$mahasiswa->nim}}</p>
+                        <p>{{ $mahasiswa->nim }}</p>
                         <p>INFORMATIKA</p>
-                        <p>{{$mahasiswa->angkatan}}</p>
+                        <p>{{ $mahasiswa->angkatan }}</p>
                     </div>
                 </div>
             </div>
@@ -66,7 +62,7 @@
                                     Dosen Wali
                                 </p>
                                 <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
-                                    {{$mahasiswa->dosen_nama}}
+                                    {{ $mahasiswa->dosen_nama }}
                                 </p>
                             </div>
                         </div>
@@ -86,7 +82,7 @@
                                     Semester Aktif
                                 </p>
                                 <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
-                                    {{$SemesterAktif}}
+                                    {{ $SemesterAktif }}
                                 </p>
                             </div>
                         </div>
@@ -98,65 +94,80 @@
 @endsection
 
 @section('content2')
-<div class="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
-    <div
-        class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-        <div class="w-full">
-            <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">IRS</h3>
-            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{$JumlahSKS}}</span>
-            <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                <span class="flex items-center mr-3 text-sm"></span>
-                    {{$statusIRS}}
-            </p>
+    <div class="grid w-full grid-cols-1 gap-4 mt-4 xl:grid-cols-2 2xl:grid-cols-3">
+        <div
+            class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+            <div class="w-full">
+                <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">IRS</h3>
+                <span class="text-2xl mr-3 leading-none text-gray-900 sm:text-3xl dark:text-white">{{ $JumlahSKS }}
+                    SKS</span>
+                <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
+                    @if ($statusIRS === 'verified')
+                        <span class="flex items-center mr-3 text-green-500 dark:text-green-400">
+                            <i class="fa-solid fa-check mr-1"></i> {{ $statusIRS }}
+                        </span>
+                    @else
+                        {{ $statusIRS }}
+                    @endif
+                </p>
+            </div>
         </div>
-    </div>
-    <div
-        class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-        <div class="w-full">
-            <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">KHS</h3>
-            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{$SKSKumulatif}}</span>
-            <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                <span class="flex items-center mr-3 text-sm text-blue-500 dark:text-blue-400">IPK {{$IPKumulatif}} </span>
-                {{$statusKHS}}
-            </p>
+        <div
+            class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+            <div class="w-full">
+                <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">KHS</h3>
+                <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">IPK
+                    {{ $IPKumulatif }}</span>
+                <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
+                    @if ($statusKHS === 'verified')
+                        <span class="flex items-center mr-3 text-green-500 dark:text-green-400">
+                            <i class="fa-solid fa-check mr-1"></i> {{ $statusKHS }}
+                        </span>
+                    @else
+                        {{ $statusKHS }}
+                    @endif
+                </p>
+            </div>
         </div>
-    </div>
-    <div
-        class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-        <div class="w-full">
-            <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">PKL</h3>
-            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{$nilaiPKL}}</span>
-            <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                @if($statusPKL === 'verified')
-                    <span class="flex items-center mr-3 text-sm text-green-500 dark:text-green-400">
-                        <i class="fa-solid fa-check mr-1"></i> {{$statusPKL}}
-                    </span>
-                @else 
-                    <span class="flex items-center mr-3 text-sm">{{$statusPKL}}</span>
-                @endif
-                {{$status}}
-            </p>
-        </div>
-    </div>
 
-    <div
-        class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-        <div class="w-full">
-            <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">Skripsi</h3>
-            <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{$nilaiSkripsi}}</span>
-            <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                @if($statusSkr === 'verified')
-                    <span class="flex items-center mr-3 text-sm text-green-500 dark:text-green-400">
-                        <i class="fa-solid fa-check mr-1"></i> {{$statusSkripsi}}
-                    </span>
-                @else 
-                    <span class="flex items-center mr-3 text-sm">{{$statusSkripsi}}</span>
-                @endif
-                {{$statusSkr}}
-            </p>
+        @if (!is_null($nilaiPKL))
+        <div
+            class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+            <div class="w-full">
+                <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">PKL</h3>
+                <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{ $nilaiPKL }}</span>
+                <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
+                    @if ($status === 'verified')
+                        <span class="flex items-center mr-3 text-green-500 dark:text-green-400">
+                            <i class="fa-solid fa-check mr-1"></i> {{ $status }}
+                        </span>
+                    @else
+                        {{ $status }}
+                    @endif
+                </p>
+            </div>
         </div>
+        @endif
+
+        @if (!is_null($nilaiSkripsi))
+        <div
+            class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+            <div class="w-full">
+                <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">Skripsi</h3>
+                <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{ $nilaiSkripsi }}</span>
+                <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
+                    @if ($statusSkr === 'verified')
+                        <span class="flex items-center mr-3 text-green-500 dark:text-green-400">
+                            <i class="fa-solid fa-check mr-1"></i> {{ $statusSkr }}
+                        </span>
+                    @else
+                        {{ $statusSkr }}
+                    @endif
+                </p>
+            </div>
+        </div>
+        @endif
     </div>
-</div>
 @endsection
 
 {{-- @extends('mahasiswa.layouts.layout')

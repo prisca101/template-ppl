@@ -42,14 +42,11 @@ class SkripsiController extends Controller
                             ->where('mahasiswa.nim', $nim)
                             ->select('mahasiswa.nama','mahasiswa.nim','mahasiswa.angkatan','dosen_wali.nama as dosen_nama', 'dosen_wali.nip')
                             ->first();
-        // Periksa apakah data PKL sudah ada untuk semester yang dipilih
+        // Periksa apakah data Skripsi sudah ada untuk semester yang dipilih
         $existingSkripsi = Skripsi::where('nim', $nim)->first();
 
         if ($existingSkripsi) {
-            $errorMessage = "Anda telah memasukkan progress Skripsi";
-            Session :: flash ('error', $errorMessage);
-            // Jika data PKL sudah ada, lakukan pembaruan daripada penambahan
-            return $this->update($request, $existingSkripsi);
+            return redirect()->route('skripsi.index')->with('error', 'Anda telah memasukkan progress skripsi');
         }
 
         if ($mahasiswa) {
