@@ -113,10 +113,10 @@ class OperatorController extends Controller
 
             DB::commit();
 
-            return redirect()->route('edit')->with('success', 'Profil berhasil diperbarui');
+            return redirect()->route('edit3')->with('success', 'Profil berhasil diperbarui');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('showEdit')->with('error', 'Gagal memperbarui profil.');
+            return redirect()->route('showEdit3')->with('error', 'Gagal memperbarui profil.');
         }
     }
 
