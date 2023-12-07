@@ -66,5 +66,16 @@
             </div>
         </div>
     </section>
+    <script>
+        // Add a script to hide the alert after 10 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var alertElement = document.getElementById('alert-1');
+                if (alertElement) {
+                    alertElement.style.display = 'none';
+                }
+            }, 3000); // 10000 milliseconds = 10 seconds
+        });
+    </script>
 </body>
 </html>

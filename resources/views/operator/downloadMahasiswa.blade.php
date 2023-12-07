@@ -16,6 +16,9 @@
         body {
             margin: 20px;
         }
+        h1, h2, h3, h4, h5, h6 {
+            text-align: center;
+        }
         table {
             width: 100%;
             font-size: 12px;
@@ -45,8 +48,8 @@
 <body>
     <div class="container-lg">
         <div class="mb-4 col-span-full xl:mb-2">
-            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Daftar Akun Mahasiswa Informatika</h1>
-            <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white text-center">Fakultas Sains dan Matematika</h1>
+            <h2>Daftar Akun Mahasiswa Informatika</h2>
+            <h2>Fakultas Sains dan Matematika</h2>
         </div>
 
         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
