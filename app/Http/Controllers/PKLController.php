@@ -48,10 +48,7 @@ class PKLController extends Controller
         $existingPKL = PKL::where('nim', $nim)->first();
 
         if ($existingPKL) {
-            $errorMessage = 'Anda telah memasukkan progress PKL';
-            Session::flash('error', $errorMessage);
-            // Jika data PKL sudah ada, lakukan pembaruan daripada penambahan
-            return $this->update($request, $existingPKL);
+            return redirect()->route('pkl.index')->with('error', 'Anda telah memasukkan progress PKL');
         }
 
         if ($mahasiswa) {

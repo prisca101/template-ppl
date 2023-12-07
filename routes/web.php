@@ -122,6 +122,7 @@ Route::controller(DosenController::class)->middleware(['auth', 'only_dosen'])->g
     Route::get('/DownloadListSkripsiDepartBelum/{angkatan}/{status}','DoswalListSkripsiBelum')->name('DoswalListSkripsiBelum');
     Route::get('/DownloadRekapPKLDoswal','DoswalPreviewPKL')->name('DoswalPreviewPKL');
     Route::get('/DownloadRekapSkripsiDoswal','DoswalPreviewSkripsi')->name('DoswalPreviewSkripsi');
+    Route::get('/DownloadRekapStatusDoswal','DoswalPreviewStatus')->name('DoswalPreviewStatus');
 });
 
 Route::controller(IRSController::class)->middleware(['auth', 'only_mahasiswa','verified'])->group(function () {

@@ -14,6 +14,9 @@
             width: 21cm;
             margin: auto;
         }
+        h1, h2, h3, h4, h5, h6 {
+            text-align: center;
+        }
         table {
             width: 100%;
             border-collapse: collapse;

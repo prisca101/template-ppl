@@ -61,10 +61,10 @@ class VerifikasiController extends Controller
             IRS::where('nim', $irs->nim)
             ->where('semester_aktif', $semester_aktif)
             ->update(['status' => 'verified']);
-            return redirect()->route('showAll')->with('success', 'IRS berhasil diverifikasi.');
+            return redirect()->route('showAll')->with('success', 'IRS berhasil diverifikasi');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat memverifikasi.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat memverifikasi');
         }
     }
 
@@ -75,10 +75,10 @@ class VerifikasiController extends Controller
     
         if ($irs) {
             $irs->delete();
-            return redirect()->route('showAll')->with('success', 'IRS berhasil dihapus.');
+            return redirect()->route('showAll')->with('success', 'IRS berhasil dihapus');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus');
         }
     }
 
@@ -122,9 +122,9 @@ class VerifikasiController extends Controller
             
             $irs->save();
 
-            return redirect()->route('showAll')->with('success', 'IRS berhasil diubah.');
+            return redirect()->route('showAll')->with('success', 'IRS berhasil diubah');
         } else{
-            return redirect()->route('showAll')->with('error', 'Terdapat error pada IRS.');
+            return redirect()->route('showAll')->with('error', 'Terdapat error pada IRS');
         }
     }
 
@@ -138,10 +138,10 @@ class VerifikasiController extends Controller
             KHS::where('nim', $khs->nim)
             ->where('semester_aktif', $semester_aktif)
             ->update(['status' => 'verified']);
-            return redirect()->route('showAll')->with('success', 'KHS berhasil diverifikasi.');
+            return redirect()->route('showAll')->with('success', 'KHS berhasil diverifikasi');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat memverifikasi.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat memverifikasi');
         }
     }
 
@@ -152,10 +152,10 @@ class VerifikasiController extends Controller
 
         if ($khs) {
             $khs->delete();
-            return redirect()->route('showAll')->with('success', 'KHS berhasil dihapus.');
+            return redirect()->route('showAll')->with('success', 'KHS berhasil dihapus');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus');
         }
     }
 
@@ -206,7 +206,7 @@ class VerifikasiController extends Controller
             $khs->jumlah_sks_kumulatif = $validated['jumlah_sks_kumulatif'];
             $khs->save();
 
-            return redirect()->route('showAll')->with('success', 'KHS berhasil diubah.');
+            return redirect()->route('showAll')->with('success', 'KHS berhasil diubah');
         } else{
             return redirect()->route('showAll')->with('error', 'Terdapat error pada KHS');
         }
@@ -222,10 +222,10 @@ class VerifikasiController extends Controller
             PKL::where('nim', $pkl->nim)
             ->where('semester_aktif', $semester_aktif)
             ->update(['status' => 'verified']);
-            return redirect()->route('showAll')->with('success', 'PKL berhasil diverifikasi.');
+            return redirect()->route('showAll')->with('success', 'PKL berhasil diverifikasi');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat memverifikasi.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat memverifikasi');
         }
     }
 
@@ -236,10 +236,10 @@ class VerifikasiController extends Controller
 
         if ($pkl) {
             $pkl->delete();
-            return redirect()->route('showAll')->with('success', 'PKL berhasil dihapus.');
+            return redirect()->route('showAll')->with('success', 'PKL berhasil dihapus');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus');
         }
     }
 
@@ -280,7 +280,7 @@ class VerifikasiController extends Controller
             $pkl->semester_aktif = $validated['semester_aktif'];
             $pkl->save();
 
-            return redirect()->route('showAll')->with('success', 'PKL berhasil diubah.');
+            return redirect()->route('showAll')->with('success', 'PKL berhasil diubah');
         } else{
             return redirect()->route('showAll')->with('error', 'Terdapat error pada PKL');
         }
@@ -296,10 +296,10 @@ class VerifikasiController extends Controller
             Skripsi::where('nim', $skripsi->nim)
             ->where('semester_aktif', $semester_aktif)
             ->update(['status' => 'verified']);
-            return redirect()->route('showAll')->with('success', 'Skripsi berhasil diverifikasi.');
+            return redirect()->route('showAll')->with('success', 'Skripsi berhasil diverifikasi');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat memverifikasi.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat memverifikasi');
         }
     }
 
@@ -310,10 +310,10 @@ class VerifikasiController extends Controller
 
         if ($skripsi) {
             $skripsi->delete();
-            return redirect()->route('showAll')->with('success', 'Skripsi berhasil dihapus.');
+            return redirect()->route('showAll')->with('success', 'Skripsi berhasil dihapus');
         }
         else {
-            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus.');
+            return redirect()->route('showAll')->with('error', 'Tidak dapat menghapus');
         }
     }
 
@@ -368,7 +368,7 @@ class VerifikasiController extends Controller
             $skripsi->tanggal_sidang = $validated['tanggal_sidang'];
             $skripsi->save();
 
-            return redirect()->route('showAll')->with('success', 'Skripsi berhasil diubah.');
+            return redirect()->route('showAll')->with('success', 'Skripsi berhasil diubah');
         } else{
             return redirect()->route('showAll')->with('error', 'Terdapat error pada Skripsi');
         }
