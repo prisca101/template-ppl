@@ -207,46 +207,5 @@ class MahasiswaController extends Controller
                 ->with('error', 'Gagal memperbarui profil.');
         }
     }
-    public function dataMahasiswa(Request $request){
-        $user = $request->user();
-        $nims = $request->user()->mahasiswa->nim;
-        $mahasiswas = Mahasiswa::join('users', 'mahasiswa.iduser', '=', 'users.id')
-            ->where('nim', $nims)
-            ->select('mahasiswa.nama', 'mahasiswa.nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'mahasiswa.nip', 'mahasiswa.alamat', 'mahasiswa.kabkota', 'mahasiswa.provinsi', 'mahasiswa.noHandphone', 'users.id', 'users.username', 'users.password','users.foto')
-            ->first();
-        $irsData = IRS::join('mahasiswa','mahasiswa.nim','=','irs.nim')
-            ->where('nim', $nims)
-            ->select('mahasiswa.status as mhsstatus','irs.status as status', 'irs.semester_aktif','irs.jumlah_sks','irs.scanIRS')
-            ->get()
-            ->keyBy('semester_aktif'); // Gunakan semester_aktif sebagai kunci array
-
-        $khsData = KHS::join('mahasiswa','mahasiswa.nim','=','khs.nim')
-            ->where('khs.nim', $nims)
-            ->select('mahasiswa.status as mhsstatus','khs.status as status', 'khs.semester_aktif','khs.jumlah_sks','khs.jumlah_sks_kumulatif','khs.ip_semester','khs.ip_kumulatif')
-            ->get()
-            ->keyBy('semester_aktif');
-
-        $pklData = PKL::join('mahasiswa','mahasiswa.nim','=','pkl.nim')
-            ->where('pkl.nim', $nims)
-            ->select('mahasiswa.status as mhsstatus','pkl.status as status', 'pkl.semester_aktif', 'pkl.nilai','pkl.scanPKL')
-            ->get()
-            ->keyBy('semester_aktif');
     
-        $skripsiData = Skripsi::join('mahasiswa','mahasiswa.nim','=','skripsi.nim')
-            ->where('skripsi.nim', $nims)
-            ->select('mahasiswa.status as mhsstatus','skripsi.status as status', 'skripsi.semester_aktif', 'skripsi.nilai','skripsi.scanSkripsi','skripsi.lama_studi','skripsi.tanggal_sidang')
-            ->get()
-            ->keyBy('semester_aktif');
-
-        $lastVerifiedPKL = PKL::join('mahasiswa','mahasiswa.nim','=','pkl.nim')
-            ->where('pkl.nim', $nims)
-            ->where('pkl.status', 'verified')
-            ->select('mahasiswa.status as mhsstatus','pkl.status as status', 'pkl.semester_aktif', 'pkl.nilai','pkl.scanPKL')
-            ->orderBy('semester_aktif')
-            ->first();
-
-        return view('mahasiswa.dashboard', [ 'user'=>$user,
-            'mahasiswas' => $mahasiswas,'irsData'=>$irsData, 'khsData'=>$khsData, 'pklData'=>$pklData,'skripsiData'=>$skripsiData,'lastVerifiedPKL'=>$lastVerifiedPKL
-        ]);
-    }
 }
