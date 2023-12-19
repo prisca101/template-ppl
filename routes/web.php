@@ -206,8 +206,8 @@ Route::controller(DashboardDepartemenController::class)->middleware(['auth','onl
 Route::controller(DepartemenController::class)->middleware(['auth','only_departemen'])->group(function (){
     Route::get('/DownloadRekapPKLDepart','PreviewPKL')->name('PreviewPKL');
     Route::get('/DownloadRekapSkripsiDepart','PreviewSkripsi')->name('PreviewSkripsi');
-    Route::get('/profilDepartemen', [DepartemenController::class, 'edit'])->name('edit');
-    Route::get('/profilDepartemen-edit', [DepartemenController::class, 'showEdit'])->name('showEdit');
+    Route::get('/profilDepartemen', [DepartemenController::class, 'edit'])->name('edit6');
+    Route::get('/profilDepartemen-edit', [DepartemenController::class, 'showEdit'])->name('showEdit6');
     Route::post('/profilDepartemen-edit', [DepartemenController::class, 'update'])->name('update');
 });
 

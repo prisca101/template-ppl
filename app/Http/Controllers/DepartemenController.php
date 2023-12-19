@@ -64,7 +64,7 @@ class DepartemenController extends Controller
         if (array_key_exists('new_password', $validated) && $validated['new_password'] !== null) {
             if (!Hash::check($validated['current_password'], $user->password)) {
                 return redirect()
-                    ->route('departemen.showEdit')
+                    ->route('departemen.showEdit6')
                     ->with('error', 'Password lama tidak cocok.');
             }
         }
@@ -89,12 +89,12 @@ class DepartemenController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('edit')
+                ->route('edit6')
                 ->with('success', 'Profil berhasil diperbarui');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()
-                ->route('showEdit')
+                ->route('showEdit6')
                 ->with('error', 'Gagal memperbarui profil');
         }
     }    

@@ -125,7 +125,7 @@
                             Apps
                         </div>
                         <div class="grid grid-cols-3 gap-4 p-4">
-                            <a href="/profilOperator"
+                            <a href="/profilDepartemen"
                                 class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
                                 <svg class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400" fill="currentColor"
                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -193,7 +193,7 @@
 
                                 </li>
                                 <li>
-                                    <a href="/profilOperator"
+                                    <a href="/profilDepartemen"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Settings</a>
                                 </li>
