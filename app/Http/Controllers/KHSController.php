@@ -41,7 +41,10 @@ class KHSController extends Controller
             $khsData->whereIn('semester_aktif', $semester);
         }
 
-        $khsData = $khsData->select('nim', 'status', 'jumlah_sks', 'jumlah_sks_kumulatif', 'semester_aktif', 'ip_semester', 'ip_kumulatif', 'scanKHS')->get();
+        $khsData = $khsData
+            ->select('nim', 'status', 'jumlah_sks', 'jumlah_sks_kumulatif', 'semester_aktif', 'ip_semester', 'ip_kumulatif', 'scanKHS')
+            ->orderBy('semester_aktif', 'asc')
+            ->get();
 
         return view('mahasiswa.khs', [
             'mahasiswa' => $mahasiswa,
@@ -203,7 +206,7 @@ class KHSController extends Controller
                     'ip_semester' => $validated['ip_semester'],
                 ]);
             }
-            
+
             if (!empty($validated['ip_kumulatif'])) {
                 KHS::where([
                     'nim' => $nim,
@@ -212,7 +215,7 @@ class KHSController extends Controller
                     'ip_kumulatif' => $validated['ip_kumulatif'],
                 ]);
             }
-            
+
             if (!empty($validated['jumlah_sks_kumulatif'])) {
                 KHS::where([
                     'nim' => $nim,

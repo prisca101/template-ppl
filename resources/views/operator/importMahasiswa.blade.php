@@ -1,6 +1,6 @@
 @extends('operator.layouts.layout')
 
-@section('content2')
+@section('content')
     <div class="mb-4 col-span-full xl:mb-2">
         <nav class="flex mb-5" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
@@ -43,8 +43,10 @@
         </nav>
         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Import Data Mahasiswa</h1>
     </div>
+@endsection
 
-    <div class="col-span-full xl:col-auto">
+@section('content6')
+    <div class="col-span-full">
 
         <div class="my-5 items-center justify-center col-span-4">
             <div

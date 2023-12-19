@@ -201,6 +201,7 @@
                     @error('new_password')
                         <p class="mt-1 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                     @enderror
+                </div>
                 <div class="col-span-6 sm:col-span-3">
                     <label for="new_confirm_password"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
@@ -211,14 +212,15 @@
                         <p class="mt-1 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="col-span-6 sm:col-full">
+                    <button
+                        class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                        type="submit">
+                        Save all
+                    </button>
+                </div>
             </div>
-        </div>
-        <button
-            class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-            type="submit">
-            Save all
-        </button>
         </form>
 
-    </div>
-@endsection
+        </div>
+    @endsection

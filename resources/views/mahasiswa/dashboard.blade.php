@@ -22,7 +22,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-span-2">
         <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
@@ -48,12 +48,9 @@
                     <li class="pt-4 pb-6">
                         <div class="flex items-center space-x-4">
                             <div class="flex-shrink-0">
-                                <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z">
-                                    </path>
-                                </svg>
+                                <span class="text-gray-900 truncate dark:text-white">
+                                    <i class="fa-solid fa-user-tie fa-xl"></i>
+                                </span>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
@@ -68,12 +65,9 @@
                     <li class="pt-4 pb-6">
                         <div class="flex items-center space-x-4">
                             <div class="flex-shrink-0">
-                                <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z">
-                                    </path>
-                                </svg>
+                                <span class="text-gray-900 truncate dark:text-white">
+                                    <i class="fa-solid fa-book fa-xl"></i>
+                                </span>
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
@@ -87,9 +81,7 @@
                     </li>
                     <li class="pt-4 pb-6 ">
                         <div class="flex items-center space-x-4">
-                            <div class="form-group">
-                               
-                            </div>
+                            <div class="flex-1 min-w-0">
                             <div class="inline-block flex-1 min-w-0">
                                 @for ($i = 1; $i <= 14; $i++)
                                     @php
@@ -109,7 +101,7 @@
                                             if ($irs->status == 'verified' && $khs->status == 'verified') {
                                                 $cardClass = 'bg-blue-800'; // Dark blue if IRS and KHS are 'verified'
                                             }
-                                        } elseif ($irs && $khs && $pkl && !$skripsi ) {
+                                        } elseif ($irs && $khs && $pkl && !$skripsi) {
                                             if ($irs->status == 'verified' && $khs->status == 'verified' && $pkl->status == 'verified') {
                                                 $cardClass = 'bg-yellow-400'; // Yellow if IRS, KHS, and PKL are 'verified'
                                             }
@@ -122,7 +114,11 @@
                                     @endphp
 
                                     <!-- Tampilkan tombol dengan warna sesuai status -->
-                                    <a data-modal-target="modal-{{ $i }}" data-modal-toggle="modal-{{ $i }}" class="text-white {{ $cardClass }} box-border h-10 w-30 card p-2 overflow-hidden">{{ $i }}</a>
+                                    
+                                    <!-- Tampilkan tombol dengan warna sesuai status -->
+                                    <a data-modal-target="modal-{{ $i }}"
+                                        data-modal-toggle="modal-{{ $i }}"
+                                        class="text-white {{ $cardClass }} box-border h-10 w-30 card p-2 overflow-hidden">{{ $i }}</a>
 
                                     <!-- Modal for each status -->
                                     <div class="fixed left-0 right-0 z-50 items-center justify-center hidden overflow-x-hidden overflow-y-auto top-4 md:inset-0 h-modal sm:h-full "
@@ -131,14 +127,16 @@
                                             <!-- Modal content -->
                                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
                                                 <!-- Modal header -->
-                                                <div class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-700">
+                                                <div
+                                                    class="flex items-start justify-between p-5 border-b rounded-t dark:border-gray-700">
                                                     <h3 class="text-xl font-semibold dark:text-white">
-                                                        Semester - {{$i}}
+                                                        Semester - {{ $i }}
                                                     </h3>
                                                     <button type="button"
                                                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-700 dark:hover:text-white"
                                                         data-modal-toggle="modal-{{ $i }}">
-                                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                            xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd"
                                                                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                                                 clip-rule="evenodd"></path>
@@ -147,339 +145,513 @@
                                                 </div>
                                                 <!-- Modal body -->
                                                 @if ($cardClass == 'bg-blue-300' && $irs)
-                                                <div class="my-4 border-b border-gray-200 dark:border-gray-700">
-                                                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
-                                                        <li class="me-2" >
-                                                            <button id="irs-tab-{{ $i }}" data-tabs-target="#irs-{{ $i }}" type="button" role="tab" aria-controls="irs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div id="fullWidthTabContent" >
-                                                    <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="irs-{{$i}}" role="tabpanel" aria-labelledby="irs-tab">
-                                                    <table class="table-auto border-collapse w-full ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Scan IRS</td>
-                                                                <td class="border px-2 py-2 ">
-                                                                <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        
-                                                    </table>
+                                                    <div class="my-4 border-b border-gray-200 dark:border-gray-700">
+                                                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center"
+                                                            id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent"
+                                                            role="tablist">
+                                                            <li class="me-2">
+                                                                <button id="irs-tab-{{ $i }}"
+                                                                    data-tabs-target="#irs-{{ $i }}"
+                                                                    type="button" role="tab" aria-controls="irs"
+                                                                    aria-selected="true"
+                                                                    class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
+                                                            </li>
+                                                        </ul>
                                                     </div>
-                                                </div>
+                                                    <div id="fullWidthTabContent">
+                                                        <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5"
+                                                            id="irs-{{ $i }}" role="tabpanel"
+                                                            aria-labelledby="irs-tab">
+                                                            <table class="table-auto border-collapse w-full ">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Semester
+                                                                            Aktif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $irs->semester_aktif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $irs->jumlah_sks }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Scan IRS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 ">
+                                                                            <a href="{{ asset('storage/' . $irs->scanIRS) }}"
+                                                                                target="_blank"
+                                                                                class="text-sm font-semibold text-blue-500 ">Lihat
+                                                                                IRS</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 @endif
                                                 @if ($cardClass == 'bg-blue-800' && $irs && $khs)
-                                                <div class="my-4 border-b border-gray-200 dark:border-gray-700">
-                                                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
-                                                        <li class="me-2" >
-                                                            <button id="irs-tab-{{ $i }}" data-tabs-target="#irs-{{ $i }}" type="button" role="tab" aria-controls="irs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
-                                                        </li>
-                                                        <li class="me-2" >
-                                                            <button id="khs-tab-{{ $i }}" data-tabs-target="#khs-{{ $i }}" type="button" role="tab" aria-controls="khs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">KHS</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div id="fullWidthTabContent" >
-                                                    <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="irs-{{$i}}" role="tabpanel" aria-labelledby="irs-tab">
-                                                    <table class="table-auto border-collapse w-full ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Scan IRS</td>
-                                                                <td class="border px-2 py-2 ">
-                                                                <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        
-                                                    </table>
+                                                    <div class="my-4 border-b border-gray-200 dark:border-gray-700">
+                                                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center"
+                                                            id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent"
+                                                            role="tablist">
+                                                            <li class="me-2">
+                                                                <button id="irs-tab-{{ $i }}"
+                                                                    data-tabs-target="#irs-{{ $i }}"
+                                                                    type="button" role="tab" aria-controls="irs"
+                                                                    aria-selected="true"
+                                                                    class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
+                                                            </li>
+                                                            <li class="me-2">
+                                                                <button id="khs-tab-{{ $i }}"
+                                                                    data-tabs-target="#khs-{{ $i }}"
+                                                                    type="button" role="tab" aria-controls="khs"
+                                                                    aria-selected="true"
+                                                                    class="inline-block py-2 px-5 border-b-2 rounded-t-lg">KHS</button>
+                                                            </li>
+                                                        </ul>
                                                     </div>
-                                                </div>
-                                                <div id="fullWidthTabContent" >
-                                                    <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="khs-{{$i}}" role="tabpanel" aria-labelledby="khs-tab">
-                                                    <table class="table-auto border-collapse w-full ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->semester_aktif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS Kumulatif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">IP Semester</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->ip_semester }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->ip_kumulatif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Scan KHS</td>
-                                                                <td class="border px-2 py-2 ">
-                                                                <a href="{{ asset('storage/' . $khs->scanKHS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat KHS</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        
-                                                    </table>
+                                                    <div id="fullWidthTabContent">
+                                                        <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5"
+                                                            id="irs-{{ $i }}" role="tabpanel"
+                                                            aria-labelledby="irs-tab">
+                                                            <table class="table-auto border-collapse w-full ">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Semester
+                                                                            Aktif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $irs->semester_aktif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $irs->jumlah_sks }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Scan IRS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 ">
+                                                                            <a href="{{ asset('storage/' . $irs->scanIRS) }}"
+                                                                                target="_blank"
+                                                                                class="text-sm font-semibold text-blue-500 ">Lihat
+                                                                                IRS</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <div id="fullWidthTabContent">
+                                                        <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5"
+                                                            id="khs-{{ $i }}" role="tabpanel"
+                                                            aria-labelledby="khs-tab">
+                                                            <table class="table-auto border-collapse w-full ">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Semester
+                                                                            Aktif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->semester_aktif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->jumlah_sks }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                            Kumulatif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->jumlah_sks_kumulatif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">IP Semester
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->ip_semester }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->ip_kumulatif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Scan KHS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 ">
+                                                                            <a href="{{ asset('storage/' . $khs->scanKHS) }}"
+                                                                                target="_blank"
+                                                                                class="text-sm font-semibold text-blue-500 ">Lihat
+                                                                                KHS</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 @endif
                                                 @if ($cardClass == 'bg-yellow-400' && $irs && $khs && $pkl)
-                                                <div class="my-4 border-b border-gray-200 dark:border-gray-700">
-                                                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
-                                                        <li class="me-2" >
-                                                            <button id="irs-tab-{{ $i }}" data-tabs-target="#irs-{{ $i }}" type="button" role="tab" aria-controls="irs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
-                                                        </li>
-                                                        <li class="me-2" >
-                                                            <button id="khs-tab-{{ $i }}" data-tabs-target="#khs-{{ $i }}" type="button" role="tab" aria-controls="khs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">KHS</button>
-                                                        </li>
-                                                        <li class="me-2" >
-                                                            <button id="pkl-tab-{{ $i }}" data-tabs-target="#pkl-{{ $i }}" type="button" role="tab" aria-controls="pkl" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">PKL</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div id="fullWidthTabContent" >
-                                                    <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="irs-{{$i}}" role="tabpanel" aria-labelledby="irs-tab">
-                                                    <table class="table-auto border-collapse w-full ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Scan IRS</td>
-                                                                <td class="border px-2 py-2 ">
-                                                                <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        
-                                                    </table>
+                                                    <div class="my-4 border-b border-gray-200 dark:border-gray-700">
+                                                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center"
+                                                            id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent"
+                                                            role="tablist">
+                                                            <li class="me-2">
+                                                                <button id="irs-tab-{{ $i }}"
+                                                                    data-tabs-target="#irs-{{ $i }}"
+                                                                    type="button" role="tab" aria-controls="irs"
+                                                                    aria-selected="true"
+                                                                    class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
+                                                            </li>
+                                                            <li class="me-2">
+                                                                <button id="khs-tab-{{ $i }}"
+                                                                    data-tabs-target="#khs-{{ $i }}"
+                                                                    type="button" role="tab" aria-controls="khs"
+                                                                    aria-selected="true"
+                                                                    class="inline-block py-2 px-5 border-b-2 rounded-t-lg">KHS</button>
+                                                            </li>
+                                                            <li class="me-2">
+                                                                <button id="pkl-tab-{{ $i }}"
+                                                                    data-tabs-target="#pkl-{{ $i }}"
+                                                                    type="button" role="tab" aria-controls="pkl"
+                                                                    aria-selected="true"
+                                                                    class="inline-block py-2 px-5 border-b-2 rounded-t-lg">PKL</button>
+                                                            </li>
+                                                        </ul>
                                                     </div>
-                                                </div>
-                                                <div id="fullWidthTabContent" >
-                                                    <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="khs-{{$i}}" role="tabpanel" aria-labelledby="khs-tab">
-                                                    <table class="table-auto border-collapse w-full ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->semester_aktif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS Kumulatif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">IP Semester</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->ip_semester }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->ip_kumulatif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Scan KHS</td>
-                                                                <td class="border px-2 py-2 ">
-                                                                <a href="{{ asset('storage/' . $khs->scanKHS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat KHS</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                        
-                                                    </table>
+                                                    <div id="fullWidthTabContent">
+                                                        <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5"
+                                                            id="irs-{{ $i }}" role="tabpanel"
+                                                            aria-labelledby="irs-tab">
+                                                            <table class="table-auto border-collapse w-full ">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Semester
+                                                                            Aktif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $irs->semester_aktif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $irs->jumlah_sks }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Scan IRS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 ">
+                                                                            <a href="{{ asset('storage/' . $irs->scanIRS) }}"
+                                                                                target="_blank"
+                                                                                class="text-sm font-semibold text-blue-500 ">Lihat
+                                                                                IRS</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div id="fullWidthTabContent" >
-                                                    <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="pkl-{{$i}}" role="tabpanel" aria-labelledby="pkl-tab">
-                                                    <table class="table-auto border-collapse w-full ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $pkl->semester_aktif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Nilai</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $pkl->nilai }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Scan PKL</td>
-                                                                <td class="border px-2 py-2 ">
-                                                                <a href="{{ asset('storage/' . $pkl->scanPKL) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat PKL</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        
-                                                    </table>
+                                                    <div id="fullWidthTabContent">
+                                                        <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5"
+                                                            id="khs-{{ $i }}" role="tabpanel"
+                                                            aria-labelledby="khs-tab">
+                                                            <table class="table-auto border-collapse w-full ">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Semester
+                                                                            Aktif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->semester_aktif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->jumlah_sks }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                            Kumulatif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->jumlah_sks_kumulatif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">IP Semester
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->ip_semester }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->ip_kumulatif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Scan KHS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 ">
+                                                                            <a href="{{ asset('storage/' . $khs->scanKHS) }}"
+                                                                                target="_blank"
+                                                                                class="text-sm font-semibold text-blue-500 ">Lihat
+                                                                                KHS</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <div id="fullWidthTabContent">
+                                                        <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5"
+                                                            id="pkl-{{ $i }}" role="tabpanel"
+                                                            aria-labelledby="pkl-tab">
+                                                            <table class="table-auto border-collapse w-full ">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Semester
+                                                                            Aktif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $pkl->semester_aktif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Nilai</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $pkl->nilai }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Scan PKL
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 ">
+                                                                            <a href="{{ asset('storage/' . $pkl->scanPKL) }}"
+                                                                                target="_blank"
+                                                                                class="text-sm font-semibold text-blue-500 ">Lihat
+                                                                                PKL</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 @endif
-                                                @if ($cardClass == 'bg-green-400' && $irs && $khs && $skripsi && $lastVerifiedPKL && $lastVerifiedPKL->semester_aktif != $irs->semester_aktif)
-                                                <div class="my-4 border-b border-gray-200 dark:border-gray-700">
-                                                    <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent" role="tablist">
-                                                        <li class="me-2" >
-                                                            <button id="irs-tab-{{ $i }}" data-tabs-target="#irs-{{ $i }}" type="button" role="tab" aria-controls="irs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
-                                                        </li>
-                                                        <li class="me-2" >
-                                                            <button id="khs-tab-{{ $i }}" data-tabs-target="#khs-{{ $i }}" type="button" role="tab" aria-controls="khs" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">KHS</button>
-                                                        </li>
-                                                        <li class="me-2" >
-                                                            <button id="pkl-tab-{{ $i }}" data-tabs-target="#pkl-{{ $i }}" type="button" role="tab" aria-controls="pkl" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">PKL</button>
-                                                        </li>
-                                                        <li class="me-2" >
-                                                            <button id="skripsi-tab-{{ $i }}" data-tabs-target="#skripsi-{{ $i }}" type="button" role="tab" aria-controls="skripsi" aria-selected="true" class="inline-block py-2 px-5 border-b-2 rounded-t-lg">Skripsi</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div id="fullWidthTabContent" >
-                                                    <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="irs-{{$i}}" role="tabpanel" aria-labelledby="irs-tab">
-                                                    <table class="table-auto border-collapse w-full ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Scan IRS</td>
-                                                                <td class="border px-2 py-2 ">
-                                                                <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        
-                                                    </table>
+                                                @if (
+                                                    $cardClass == 'bg-green-400' &&
+                                                        $irs &&
+                                                        $khs &&
+                                                        $skripsi &&
+                                                        $lastVerifiedPKL &&
+                                                        $lastVerifiedPKL->semester_aktif != $irs->semester_aktif)
+                                                    <div class="my-4 border-b border-gray-200 dark:border-gray-700">
+                                                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center"
+                                                            id="fullWidthTab" data-tabs-toggle="#fullWidthTabContent"
+                                                            role="tablist">
+                                                            <li class="me-2">
+                                                                <button id="irs-tab-{{ $i }}"
+                                                                    data-tabs-target="#irs-{{ $i }}"
+                                                                    type="button" role="tab" aria-controls="irs"
+                                                                    aria-selected="true"
+                                                                    class="inline-block py-2 px-5 border-b-2 rounded-t-lg">IRS</button>
+                                                            </li>
+                                                            <li class="me-2">
+                                                                <button id="khs-tab-{{ $i }}"
+                                                                    data-tabs-target="#khs-{{ $i }}"
+                                                                    type="button" role="tab" aria-controls="khs"
+                                                                    aria-selected="true"
+                                                                    class="inline-block py-2 px-5 border-b-2 rounded-t-lg">KHS</button>
+                                                            </li>
+                                                            <li class="me-2">
+                                                                <button id="pkl-tab-{{ $i }}"
+                                                                    data-tabs-target="#pkl-{{ $i }}"
+                                                                    type="button" role="tab" aria-controls="pkl"
+                                                                    aria-selected="true"
+                                                                    class="inline-block py-2 px-5 border-b-2 rounded-t-lg">PKL</button>
+                                                            </li>
+                                                            <li class="me-2">
+                                                                <button id="skripsi-tab-{{ $i }}"
+                                                                    data-tabs-target="#skripsi-{{ $i }}"
+                                                                    type="button" role="tab" aria-controls="skripsi"
+                                                                    aria-selected="true"
+                                                                    class="inline-block py-2 px-5 border-b-2 rounded-t-lg">Skripsi</button>
+                                                            </li>
+                                                        </ul>
                                                     </div>
-                                                </div>
-                                                <div id="fullWidthTabContent" >
-                                                    <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="khs-{{$i}}" role="tabpanel" aria-labelledby="khs-tab">
-                                                    <table class="table-auto border-collapse w-full ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->semester_aktif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS Kumulatif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">IP Semester</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->ip_semester }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $khs->ip_kumulatif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Scan KHS</td>
-                                                                <td class="border px-2 py-2 ">
-                                                                <a href="{{ asset('storage/' . $khs->scanKHS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat KHS</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                        
-                                                    </table>
+                                                    <div id="fullWidthTabContent">
+                                                        <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5"
+                                                            id="irs-{{ $i }}" role="tabpanel"
+                                                            aria-labelledby="irs-tab">
+                                                            <table class="table-auto border-collapse w-full ">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Semester
+                                                                            Aktif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $irs->semester_aktif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $irs->jumlah_sks }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Scan IRS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 ">
+                                                                            <a href="{{ asset('storage/' . $irs->scanIRS) }}"
+                                                                                target="_blank"
+                                                                                class="text-sm font-semibold text-blue-500 ">Lihat
+                                                                                IRS</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div id="fullWidthTabContent" >
-                                                    <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="pkl-{{$i}}" role="tabpanel" aria-labelledby="pkl-tab">
-                                                    <table class="table-auto border-collapse w-full ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $lastVerifiedPKL->semester_aktif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Nilai</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $lastVerifiedPKL->nilai }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Scan PKL</td>
-                                                                <td class="border px-2 py-2 ">
-                                                                <a href="{{ asset('storage/' . $lastVerifiedPKL->scanPKL) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat PKL</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        
-                                                    </table>
+                                                    <div id="fullWidthTabContent">
+                                                        <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5"
+                                                            id="khs-{{ $i }}" role="tabpanel"
+                                                            aria-labelledby="khs-tab">
+                                                            <table class="table-auto border-collapse w-full ">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Semester
+                                                                            Aktif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->semester_aktif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->jumlah_sks }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                            Kumulatif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->jumlah_sks_kumulatif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">IP Semester
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->ip_semester }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Jumlah SKS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $khs->ip_kumulatif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Scan KHS
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 ">
+                                                                            <a href="{{ asset('storage/' . $khs->scanKHS) }}"
+                                                                                target="_blank"
+                                                                                class="text-sm font-semibold text-blue-500 ">Lihat
+                                                                                KHS</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div id="fullWidthTabContent" >
-                                                    <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5" id="skripsi-{{$i}}" role="tabpanel" aria-labelledby="skripsi-tab">
-                                                    <table class="table-auto border-collapse w-full ">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $skripsi->semester_aktif }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Nilai</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $skripsi->nilai }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Lama Studi</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $skripsi->lama_studi }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Tanggal Sidang</td>
-                                                                <td class="border px-2 py-2 text-white">{{ $skripsi->tanggal_sidang }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="border px-2 py-2 text-white">Scan Skripsi</td>
-                                                                <td class="border px-2 py-2 ">
-                                                                <a href="{{ asset('storage/' . $skripsi->scanSkripsi) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat Skripsi</a>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                        
-                                                    </table>
+                                                    <div id="fullWidthTabContent">
+                                                        <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5"
+                                                            id="pkl-{{ $i }}" role="tabpanel"
+                                                            aria-labelledby="pkl-tab">
+                                                            <table class="table-auto border-collapse w-full ">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Semester
+                                                                            Aktif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $lastVerifiedPKL->semester_aktif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Nilai</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $lastVerifiedPKL->nilai }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Scan PKL
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 ">
+                                                                            <a href="{{ asset('storage/' . $lastVerifiedPKL->scanPKL) }}"
+                                                                                target="_blank"
+                                                                                class="text-sm font-semibold text-blue-500 ">Lihat
+                                                                                PKL</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <div id="fullWidthTabContent">
+                                                        <div class="hidden pt-2 pb-5 mb-5 ml-5 mr-5"
+                                                            id="skripsi-{{ $i }}" role="tabpanel"
+                                                            aria-labelledby="skripsi-tab">
+                                                            <table class="table-auto border-collapse w-full ">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Semester
+                                                                            Aktif</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $skripsi->semester_aktif }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Nilai</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $skripsi->nilai }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Lama Studi
+                                                                        </td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $skripsi->lama_studi }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Tanggal
+                                                                            Sidang</td>
+                                                                        <td class="border px-2 py-2 text-white">
+                                                                            {{ $skripsi->tanggal_sidang }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="border px-2 py-2 text-white">Scan
+                                                                            Skripsi</td>
+                                                                        <td class="border px-2 py-2 ">
+                                                                            <a href="{{ asset('storage/' . $skripsi->scanSkripsi) }}"
+                                                                                target="_blank"
+                                                                                class="text-sm font-semibold text-blue-500 ">Lihat
+                                                                                Skripsi</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 @endif
+
 
                                             </div>
                                         </div>
                                     </div>
-
                                 @endfor
+                            </div>
                             </div>
                         </div>
                     </li>
@@ -527,41 +699,43 @@
         </div>
 
         @if (!is_null($nilaiPKL))
-        <div
-            class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-            <div class="w-full">
-                <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">PKL</h3>
-                <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{ $nilaiPKL }}</span>
-                <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                    @if ($status === 'verified')
-                        <span class="flex items-center mr-3 text-green-500 dark:text-green-400">
-                            <i class="fa-solid fa-check mr-1"></i> {{ $status }}
-                        </span>
-                    @else
-                        {{ $status }}
-                    @endif
-                </p>
+            <div
+                class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+                <div class="w-full">
+                    <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">PKL</h3>
+                    <span
+                        class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{ $nilaiPKL }}</span>
+                    <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
+                        @if ($status === 'verified')
+                            <span class="flex items-center mr-3 text-green-500 dark:text-green-400">
+                                <i class="fa-solid fa-check mr-1"></i> {{ $status }}
+                            </span>
+                        @else
+                            {{ $status }}
+                        @endif
+                    </p>
+                </div>
             </div>
-        </div>
         @endif
 
         @if (!is_null($nilaiSkripsi))
-        <div
-            class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-            <div class="w-full">
-                <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">Skripsi</h3>
-                <span class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{ $nilaiSkripsi }}</span>
-                <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
-                    @if ($statusSkr === 'verified')
-                        <span class="flex items-center mr-3 text-green-500 dark:text-green-400">
-                            <i class="fa-solid fa-check mr-1"></i> {{ $statusSkr }}
-                        </span>
-                    @else
-                        {{ $statusSkr }}
-                    @endif
-                </p>
+            <div
+                class="items-center justify-between p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:flex dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+                <div class="w-full">
+                    <h3 class="text-base font-bold text-gray-900 dark:text-gray-400">Skripsi</h3>
+                    <span
+                        class="text-2xl  leading-none text-gray-900 sm:text-3xl dark:text-white">{{ $nilaiSkripsi }}</span>
+                    <p class="flex items-center text-base font-normal text-gray-500 dark:text-gray-400">
+                        @if ($statusSkr === 'verified')
+                            <span class="flex items-center mr-3 text-green-500 dark:text-green-400">
+                                <i class="fa-solid fa-check mr-1"></i> {{ $statusSkr }}
+                            </span>
+                        @else
+                            {{ $statusSkr }}
+                        @endif
+                    </p>
+                </div>
             </div>
-        </div>
         @endif
     </div>
 @endsection

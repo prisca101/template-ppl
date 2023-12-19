@@ -112,13 +112,12 @@
                 window.addEventListener("load", function() {
                     const categories = {!! json_encode($result1->keys()) !!};
                     const options = {
-                        colors: ["#1A56DB", "#FDBA8C"],
+                        colors: ["#AECDC2", "#FDBA8C"],
                         series: [{
-                                name: "Lulus",
-                                color: "#1A56DB",
-                                data: {!! json_encode($result1->pluck('pkl_lulus_count')) !!}, // change x to angkatan and y to pkl lulus
-                            },
-                        ],
+                            name: "Lulus",
+                            color: "#AECDC2",
+                            data: {!! json_encode($result1->pluck('pkl_lulus_count')) !!}, // change x to angkatan and y to pkl lulus
+                        }, ],
                         chart: {
                             type: "bar",
                             height: "320px",
@@ -236,13 +235,12 @@
                 window.addEventListener("load", function() {
                     const categories = {!! json_encode($result->keys()) !!};
                     const options = {
-                        colors: ["#1A56DB", "#FDBA8C"],
+                        colors: ["#AECDC2", "#FDBA8C"],
                         series: [{
-                                name: "Lulus",
-                                color: "#1A56DB",
-                                data: {!! json_encode($result->pluck('lulus_count')) !!},
-                            },
-                        ],
+                            name: "Lulus",
+                            color: "#AECDC2",
+                            data: {!! json_encode($result->pluck('lulus_count')) !!},
+                        }, ],
                         chart: {
                             type: "bar",
                             height: "320px",
@@ -339,23 +337,18 @@
             </script>
         </div>
     </div>
-    
-@endsection
 
 
 
-
-
-@section('content2')
-
-    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-    <div
+    <div class="col-span-full">
+        <div
             class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
 
             <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-700">
                 <div>
                     <h3 class="text-base font-normal text-gray-500 dark:text-gray-400">Grafik</h3>
-                    <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">Mahasiswa Status</span>
+                    <span class="text-2xl font-bold leading-none text-gray-900 sm:text-3xl dark:text-white">Mahasiswa
+                        Status</span>
                 </div>
             </div>
 
@@ -367,7 +360,7 @@
                 window.addEventListener("load", function() {
                     const categories = {!! json_encode($result2->keys()) !!};
                     const options = {
-                        colors: ["#AECDC2", "#FDBA8C", "#FFABAB", "#D4A5A5", "#392F5A","#31A2AC"],
+                        colors: ["#AECDC2", "#FDBA8C", "#FFABAB", "#D4A5A5", "#392F5A", "#31A2AC"],
                         series: [{
                                 name: "Aktif",
                                 color: "#AECDC2",
@@ -386,12 +379,12 @@
                             {
                                 name: "Meninggal Dunia",
                                 color: "#D4A5A5",
-                                data: {!! json_encode($result2->pluck('meninggal_dunia')) !!},
+                                data: {!! json_encode($result2->pluck('meninggal')) !!},
                             },
                             {
                                 name: "Undur Diri",
                                 color: "#392F5A",
-                                data: {!! json_encode($result2->pluck('undur_diri')) !!},
+                                data: {!! json_encode($result2->pluck('undur diri')) !!},
                             },
                             {
                                 name: "Mangkir",

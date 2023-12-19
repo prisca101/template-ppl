@@ -303,8 +303,8 @@
                                     @foreach ($result as $angkatan => $data)
                                         <td
                                             class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                            <a href="{{ route('daftarstatus', ['angkatan' => $angkatan, 'status' => 'meninggal_dunia']) }}"
-                                                class="hover:underline">{{ $data['meninggal_dunia'] }} </a>
+                                            <a href="{{ route('daftarstatus', ['angkatan' => $angkatan, 'status' => 'meninggal']) }}"
+                                                class="hover:underline">{{ $data['meninggal'] }} </a>
                                         </td>
                                     @endforeach
                                 </tr>
@@ -327,8 +327,8 @@
                                     @foreach ($result as $angkatan => $data)
                                         <td
                                             class="border-r text-center p-4 text-sm font-semibold text-blue-500 whitespace-nowrap dark:text-blue-500">
-                                            <a href="{{ route('daftarstatus', ['angkatan' => $angkatan, 'status' => 'undur_diri']) }}"
-                                                class="hover:underline">{{ $data['undur_diri'] }} </a>
+                                            <a href="{{ route('daftarstatus', ['angkatan' => $angkatan, 'status' => 'undur diri']) }}"
+                                                class="hover:underline">{{ $data['undur diri'] }} </a>
                                         </td>
                                     @endforeach
                                 </tr>

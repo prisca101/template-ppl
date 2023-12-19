@@ -30,25 +30,10 @@
         </nav>
         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Rekap Mahasiswa</h1>
     </div>
-
-    <div class="col-span-full xl:col-auto">
-        <div
-            class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
-            <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
-                <img src="{{ Auth::user()->getImageURL() }}" class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0"
-                    alt="foto-profil" />
-                <div>
-                    <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">{{ $departemen->nama }}</h3>
-                    <div class="mb-4 text-sm text-gray-500 dark:text-gray-400">
-                        <p>{{ $departemen->kode }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
-@section('content2')
+@section('content6')
+<div class="col-span-full">
     <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
         <!-- Card header -->
         <div class="items-center justify-between lg:flex">
@@ -352,4 +337,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

@@ -32,7 +32,8 @@
     </div>
 @endsection
 
-@section('content2')
+@section('content6')
+<div class="col-span-full">
     <div class="sm:flex mb-4">
         <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
             <form class="lg:pr-3" action="{{ route('search') }}" method="GET">
@@ -47,7 +48,7 @@
                 </div>
             </form>
 
-            
+
         </div>
         <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
             <button type="button" data-modal-toggle="add-user-modal"
@@ -179,25 +180,32 @@
                                                             d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                                                             clip-rule="evenodd"></path>
                                                     </svg>
-                                                    
+
                                                 </button>
-                                                
-                                                <form method="POST" action="{{ route('delete', $mahasiswa->nim) }}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+
+                                                <form method="POST" action="{{ route('delete', $mahasiswa->nim) }}"
+                                                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" >
-                                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                                    <button type="submit">
+                                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                                clip-rule="evenodd"></path>
                                                         </svg>
                                                     </button>
                                                 </form>
 
-                                                <div class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-pink-500 rounded-lg hover:bg-pink-600 focus:ring-4 focus:ring-pink-300 dark:focus:ring-pink-900">
-                                                    <a href="{{route('dataMahasiswa',['nim'=>$mahasiswa->nim])}}" class="flex items-center justify-center w-auto">
+                                                <div
+                                                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-pink-500 rounded-lg hover:bg-pink-600 focus:ring-4 focus:ring-pink-300 dark:focus:ring-pink-900">
+                                                    <a href="{{ route('dataMahasiswa', ['nim' => $mahasiswa->nim]) }}"
+                                                        class="flex items-center justify-center w-auto">
                                                         <span class=" w-12 h-4 mr-1">Details</span>
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M9 5l7 7-7 7"></path>
                                                         </svg>
                                                     </a>
                                                 </div>
@@ -242,8 +250,7 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-6 space-y-6">
-                    <form method="POST" id="send-form"
-                        enctype="multipart/form-data">
+                    <form method="POST" id="send-form" enctype="multipart/form-data">
                         @csrf
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-3">
@@ -263,7 +270,6 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Angkatan</label>
                                 <select id="angkatan"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option selected="">Select angkatan</option>
                                     @php
                                         $years = range(2023, 2017);
                                     @endphp
@@ -279,10 +285,9 @@
                                     Masuk</label>
                                 <select name="jalur_masuk" id="jalur_masuk"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option selected disabled>Pilih Jalur Masuk</option>
-                                    <option value="SNMPTN">SNMPTN</option>
-                                    <option value="SBMPTN">SBMPTN</option>
-                                    <option value="MANDIRI">MANDIRI</option>
+                                    <option value="SNMPTN" {{ $mahasiswa->jalur_masuk == 'SNMPTN' ? 'selected' : '' }}>SNMPTN</option>
+                                    <option value="SBMPTN" {{ $mahasiswa->jalur_masuk == 'SBMPTN' ? 'selected' : '' }}>SBMPTN</option>
+                                    <option value="MANDIRI" {{ $mahasiswa->jalur_masuk == 'MANDIRI' ? 'selected' : '' }}>MANDIRI</option>
                                 </select>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
@@ -290,13 +295,12 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                                 <select id="status" name="status"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option selected="" value="">Select status</option>
                                     @php
                                         $statuses = ['active', 'lulus', 'cuti', 'mangkir', 'do', 'undur diri', 'meninggal'];
                                     @endphp
 
                                     @foreach ($statuses as $status)
-                                        <option value="{{ $status }}">{{ $status }}</option>
+                                        <option value="{{ $status }}" {{ $mahasiswa->status == $status ? 'selected' : '' }}>{{ $status }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -306,16 +310,21 @@
                                     Doswal</label>
                                 <select id="nip2" name="nip2"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option selected="" value="">Select doswal</option>
                                     @foreach ($dosens as $dosen)
-                                        <option value="{{ $dosen->nip }}">{{ $dosen->nama }}</option>
+                                        <option value="{{ $dosen->nip }}" {{ $mahasiswa->nip == $dosen->nip ? 'selected' : '' }}>{{ $dosen->nama }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-span-6 sm:col-span-3">
                                 <label for="username"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                <input type="text" name="username" placeholder="username" id="username"
+                                <input type="text" name="username" placeholder="username" id="username" value=""
+                                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="current_password"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                <input type="text" name="current_password" placeholder="••••••••" id="current_password"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             </div>
                         </div>
@@ -460,45 +469,44 @@
             </div>
         </div>
     </div>
-   
+</div>
 @endsection
 
 
 @section('script')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-
-    document.querySelectorAll('.open-modal-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const nim = button.getAttribute('data-nim');
-            const form = document.querySelector('#send-form');
-            form.action = `/editMahasiswa/${nim}`;
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.querySelectorAll('.open-modal-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const nim = button.getAttribute('data-nim');
+                const form = document.querySelector('#send-form');
+                form.action = `/editMahasiswa/${nim}`;
+            });
         });
-    });
-    $(document).ready(function () {
-        // Tambahkan event click pada tombol "Edit user" di tabel
-        $('button[data-modal-toggle="edit-user-modal"]').on('click', function () {
-            // Dapatkan data dari baris tabel yang di-klik
-            var row = $(this).closest('tr');
-            var nama = row.find('td:nth-child(1)').text().trim();
-            var nim = row.find('td:nth-child(2)').text().trim();
-            var angkatan = row.find('td:nth-child(3)').text().trim();
-            var status = row.find('td:nth-child(4)').text().trim();
-            var jalurMasuk = row.find('td:nth-child(5)').text().trim();
-            var namaDoswal = row.find('td:nth-child(6)').text().trim();
-            var username = row.find('td:nth-child(8)').text().trim();
-            var password = row.find('td:nth-child(9)').text().trim();
+        $(document).ready(function() {
+            // Tambahkan event click pada tombol "Edit user" di tabel
+            $('button[data-modal-toggle="edit-user-modal"]').on('click', function() {
+                // Dapatkan data dari baris tabel yang di-klik
+                var row = $(this).closest('tr');
+                var nama = row.find('td:nth-child(1)').text().trim();
+                var nim = row.find('td:nth-child(2)').text().trim();
+                var angkatan = row.find('td:nth-child(3)').text().trim();
+                var status = row.find('td:nth-child(4)').text().trim();
+                var jalurMasuk = row.find('td:nth-child(5)').text().trim();
+                var namaDoswal = row.find('td:nth-child(6)').text().trim();
+                var username = row.find('td:nth-child(8)').text().trim();
+                var password = row.find('td:nth-child(9)').text().trim();
 
-            // Isi nilai-nilai tersebut ke dalam input fields pada modal edit
-            $('#nama').val(nama);
-            $('#nim').val(nim);
-            $('#angkatan').val(angkatan);
-            $('#status').val(status);
-            $('#jalur_masuk').val(jalurMasuk);
-            $('#nip2').val(namaDoswal);
-            $('#username').val(username);
-            $('#current-password').val(password);
+                // Isi nilai-nilai tersebut ke dalam input fields pada modal edit
+                $('#nama').val(nama);
+                $('#nim').val(nim);
+                $('#angkatan').val(angkatan);
+                $('#status').val(status);
+                $('#jalur_masuk').val(jalurMasuk);
+                $('#nip2').val(namaDoswal);
+                $('#username').val(username);
+                $('#current_password').val(password);
+            });
         });
-    });
-</script>
+    </script>
 @endsection

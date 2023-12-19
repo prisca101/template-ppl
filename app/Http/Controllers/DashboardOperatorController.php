@@ -56,8 +56,8 @@ class DashboardOperatorController extends Controller
                 'mangkir' => 0,
                 'do' => 0,
                 'lulus' => 0,
-                'undur_diri' => 0,
-                'meninggal_dunia'=> 0]);
+                'undur diri' => 0,
+                'meninggal'=> 0]);
                 //dd($angkatan);
                 $mahasiswas = DB::table('mahasiswa as m')
                     ->leftJoin('pkl as p', 'm.nim', '=', 'p.nim')
@@ -88,7 +88,7 @@ class DashboardOperatorController extends Controller
                 $statusMahasiswa = Mahasiswa::whereIn('angkatan', $angkatan)
                     ->select('angkatan', 'status', DB::raw('COALESCE(COUNT(*), 0) as count'))
                     ->groupBy('angkatan', 'status')
-                    ->whereIn('status', ['mangkir', 'undur_diri','active','do','meninggal_dunia','lulus','cuti'])
+                    ->whereIn('status', ['mangkir', 'undur diri','active','do','meninggal','lulus','cuti'])
                     ->get()
                     ->each(function ($item, $key) use (&$result2) {
                         // Mengisi array $result dengan hasil query
@@ -135,7 +135,7 @@ class DashboardOperatorController extends Controller
         $mahasiswas = Mahasiswa::join('users', 'mahasiswa.iduser', '=', 'users.id')
             ->join('dosen_wali', 'mahasiswa.nip', '=', 'dosen_wali.nip')
             ->join('generate_akun', 'generate_akun.nim', '=', 'mahasiswa.nim')
-            ->select('mahasiswa.nama', 'mahasiswa.nim as nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'users.username', 'generate_akun.password', 'dosen_wali.nip', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk', 'users.foto')
+            ->select('mahasiswa.nama', 'mahasiswa.nim as nim', 'mahasiswa.angkatan', 'mahasiswa.status', 'mahasiswa.username', 'generate_akun.password', 'dosen_wali.nip', 'dosen_wali.nama as dosen_nama', 'mahasiswa.jalur_masuk', 'users.foto')
             ->get();
 
         // Ambil nim dari salah satu mahasiswa
@@ -291,8 +291,8 @@ class DashboardOperatorController extends Controller
                 'mangkir' => 0,
                 'do' => 0,
                 'lulus' => 0,
-                'undur_diri' => 0,
-                'meninggal_dunia'=> 0]);
+                'undur diri' => 0,
+                'meninggal'=> 0]);
                 //dd($angkatan);
                 $mahasiswas = DB::table('mahasiswa as m')
                     ->leftJoin('pkl as p', 'm.nim', '=', 'p.nim')
@@ -423,8 +423,8 @@ class DashboardOperatorController extends Controller
                 'mangkir' => 0,
                 'do' => 0,
                 'lulus' => 0,
-                'undur_diri' => 0,
-                'meninggal_dunia'=> 0]);
+                'undur diri' => 0,
+                'meninggal'=> 0]);
         $statusMahasiswa = Mahasiswa::whereIn('angkatan', $angkatan)
                 ->select('angkatan', 'status', DB::raw('COALESCE(COUNT(*), 0) as count'))
                 ->groupBy('angkatan', 'status')

@@ -49,7 +49,7 @@ class DashboardMahasiswaController extends Controller
 
             $latestIRS = IRS::where('nim',$nim)
                             ->where('status','verified')
-                            ->orderBy('created_at', 'desc')->first();
+                            ->orderBy('semester_aktif', 'desc')->first();
             $SemesterAktif = $latestIRS ? $latestIRS->semester_aktif : null;
             $JumlahSKS = $latestIRS ? $latestIRS->jumlah_sks : null;
             $statusIRS = $latestIRS ? $latestIRS->status : null;

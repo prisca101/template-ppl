@@ -49,6 +49,10 @@
     <meta property="og:image" content="https://flowbite-admin-dashboard.vercel.app/images/og-image.png">
     <meta property="og:image:type" content="image/png">
 
+
+
+
+
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
                 '(prefers-color-scheme: dark)').matches)) {
@@ -57,10 +61,13 @@
             document.documentElement.classList.remove('dark')
         }
     </script>
-
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800">
+
+
+
+
     <nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
@@ -81,12 +88,14 @@
                         </svg>
                     </button>
                     <a href="#" class="flex ml-2 md:mr-24">
-                        <img src="https://flowbite-admin-dashboard.vercel.app/images/logo.svg" class="h-8 mr-3"
-                            alt="FlowBite Logo">
+                        <svg class="w-6 h-6 mr-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M14 15a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/>
+                            <path d="M18 5h-8a2 2 0 0 0-2 2v11H5a1 1 0 0 0 0 2h14a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2Zm-4 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2Zm0 9a3 3 0 1 1 0-5.999A3 3 0 0 1 14 17Z"/>
+                            <path d="M6 9H2V2h16v1c.65.005 1.289.17 1.86.48A.971.971 0 0 0 20 3V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h4V9Z"/>
+                          </svg>
                         <span
-                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Proyek
-                            PPL</span>
-                    </a>
+                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">SEMPROA</span>
+                    </a>
 
                 </div>
                 <div class="flex items-center">
@@ -106,8 +115,6 @@
                         </svg>
                     </button>
 
-                    
-
 
                     <div class="z-20 z-50 hidden max-w-sm my-4 overflow-hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow-lg dark:bg-gray-700 dark:divide-gray-600"
                         id="apps-dropdown"
@@ -118,7 +125,7 @@
                             Apps
                         </div>
                         <div class="grid grid-cols-3 gap-4 p-4">
-                            <a href="/profilDepartemen"
+                            <a href="/profilOperator"
                                 class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
                                 <svg class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400" fill="currentColor"
                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -128,7 +135,7 @@
                                 </svg>
                                 <div class="text-sm font-medium text-gray-900 dark:text-white">Settings</div>
                             </a>
-                            <a href="/logout"
+                            <a href="/login"
                                 class="block p-4 text-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600">
                                 <svg class="mx-auto mb-1 text-gray-500 w-7 h-7 dark:text-gray-400" fill="none"
                                     stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -163,9 +170,8 @@
                                 class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                                 id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                                 <span class="sr-only">Open user menu</span>
-                                <img class="w-8 h-8 rounded-full"
-                                    src="{{ Auth::user()->getImageURL() }}"
-                                    alt="user photo">
+                                <img src="{{ Auth::user()->getImageURL() }}" class="w-8 h-8 rounded-full" alt="foto-profil" />
+                                
                             </button>
                         </div>
 
@@ -175,11 +181,11 @@
                             data-popper-placement="bottom">
                             <div class="px-4 py-3" role="none">
                                 <p class="text-sm text-gray-900 dark:text-white" role="none">
-                                    {{$departemen->nama}}
+                                    {{Auth::user()->username}}
                                 </p>
                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
                                     role="none">
-                                    {{$departemen->kode}}
+                                    {{Auth::user()->departemen->kode}}
                                 </p>
                             </div>
                             <ul class="py-1" role="none">
@@ -187,7 +193,7 @@
 
                                 </li>
                                 <li>
-                                    <a href="/profilDepartemen"
+                                    <a href="/profilOperator"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Settings</a>
                                 </li>
@@ -195,7 +201,7 @@
 
                                 </li>
                                 <li>
-                                    <a href="/logout"
+                                    <a href="/login"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Sign out</a>
                                 </li>
@@ -218,7 +224,7 @@
                         class="flex-1 px-3 space-y-1 bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                         <ul class="pb-2 space-y-2">
                             <li>
-                                <form action="{{route('dashboardDepartemen')}}" method="GET" class="lg:hidden">
+                                <form action="#" method="GET" class="lg:hidden">
                                     <label for="mobile-search" class="sr-only">Search</label>
                                     <div class="relative">
                                         <div
@@ -237,7 +243,7 @@
                                 </form>
                             </li>
                             <li>
-                                <a href="/dashboardDepartemen"
+                                <a href="/dashboardOperator"
                                     class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
                                     <svg class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -247,10 +253,9 @@
                                     <span class="ml-3" sidebar-toggle-item="">Dashboard</span>
                                 </a>
                             </li>
-                            
                             <li>
                                 <a href="/DaftarDetailMahasiswa"
-                                    class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
+                                    class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700 ">
                                     <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
@@ -263,7 +268,7 @@
                             </li>
                             <li>
                                 <a href="/RekapDepartemen"
-                                    class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
+                                    class="flex items-center p-2 text-base text-gray-900 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700 ">
                                     <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
                                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
@@ -315,8 +320,13 @@
                     @endif
                 </div>
                 
+
                 <div class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-3 xl:gap-4 dark:bg-gray-900">
                     @yield('content')
+                </div>
+
+                <div class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-2 xl:gap-4 dark:bg-gray-900">
+                    @yield('content6')
                 </div>
 
                 <div class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-2 xl:gap-4 dark:bg-gray-900">
@@ -324,25 +334,37 @@
                 </div>
 
                 <div class="px-4 pb-6">
-                    @yield('content3')
+                    @yield('content2')
                 </div>
 
-                <div class="flex justify-between border-gray-200 border-b dark:border-gray-700 pb-3">
-                    @yield('content4')
-                </div>
-
+                
             </main>
         </div>
 
     </div>
 
+    <script>
+        // Add a script to hide the alert after 10 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var alertElement = document.getElementById('alert-1');
+                if (alertElement) {
+                    alertElement.style.display = 'none';
+                }
+            }, 3000); // 10000 milliseconds = 10 seconds
+        });
+    </script>
+
+    @yield('script')
+
     <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
     <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1"
         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev"

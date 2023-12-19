@@ -137,15 +137,15 @@
                               <table class="table-auto border-collapse w-full ">
                                 <tbody>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                        <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $irs->semester_aktif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                        <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $irs->jumlah_sks }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Scan IRS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Scan IRS</td>
                                         <td class="border px-2 py-2 ">
                                           <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
                                         </td>
@@ -172,15 +172,15 @@
                               <table class="table-auto border-collapse w-full ">
                                 <tbody>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                        <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $irs->semester_aktif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                        <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $irs->jumlah_sks }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Scan IRS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Scan IRS</td>
                                         <td class="border px-2 py-2 ">
                                           <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
                                         </td>
@@ -195,27 +195,27 @@
                               <table class="table-auto border-collapse w-full ">
                                 <tbody>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->semester_aktif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->semester_aktif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->jumlah_sks }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS Kumulatif</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS Kumulatif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">IP Semester</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_semester }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">IP Semester</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->ip_semester }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_kumulatif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->ip_kumulatif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Scan KHS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Scan KHS</td>
                                         <td class="border px-2 py-2 ">
                                           <a href="{{ asset('storage/' . $khs->scanKHS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat KHS</a>
                                         </td>
@@ -245,15 +245,15 @@
                               <table class="table-auto border-collapse w-full ">
                                 <tbody>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Semester Aktif</td>
                                         <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                        <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $irs->jumlah_sks }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Scan IRS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Scan IRS</td>
                                         <td class="border px-2 py-2 ">
                                           <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
                                         </td>
@@ -268,27 +268,27 @@
                               <table class="table-auto border-collapse w-full ">
                                 <tbody>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->semester_aktif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->semester_aktif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->jumlah_sks }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS Kumulatif</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS Kumulatif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">IP Semester</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_semester }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">IP Semester</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->ip_semester }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_kumulatif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->ip_kumulatif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Scan KHS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Scan KHS</td>
                                         <td class="border px-2 py-2 ">
                                           <a href="{{ asset('storage/' . $khs->scanKHS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat KHS</a>
                                         </td>
@@ -303,15 +303,15 @@
                               <table class="table-auto border-collapse w-full ">
                                 <tbody>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                        <td class="border px-2 py-2 text-white">{{ $pkl->semester_aktif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $pkl->semester_aktif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Nilai</td>
-                                        <td class="border px-2 py-2 text-white">{{ $pkl->nilai }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Nilai</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $pkl->nilai }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Scan PKL</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Scan PKL</td>
                                         <td class="border px-2 py-2 ">
                                           <a href="{{ asset('storage/' . $pkl->scanPKL) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat PKL</a>
                                         </td>
@@ -344,15 +344,15 @@
                               <table class="table-auto border-collapse w-full ">
                                 <tbody>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                        <td class="border px-2 py-2 text-white">{{ $irs->semester_aktif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $irs->semester_aktif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                        <td class="border px-2 py-2 text-white">{{ $irs->jumlah_sks }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $irs->jumlah_sks }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Scan IRS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Scan IRS</td>
                                         <td class="border px-2 py-2 ">
                                           <a href="{{ asset('storage/' . $irs->scanIRS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat IRS</a>
                                         </td>
@@ -367,27 +367,27 @@
                               <table class="table-auto border-collapse w-full ">
                                 <tbody>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->semester_aktif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->semester_aktif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->jumlah_sks }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS Kumulatif</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS Kumulatif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->jumlah_sks_kumulatif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">IP Semester</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_semester }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">IP Semester</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->ip_semester }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Jumlah SKS</td>
-                                        <td class="border px-2 py-2 text-white">{{ $khs->ip_kumulatif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Jumlah SKS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $khs->ip_kumulatif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Scan KHS</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Scan KHS</td>
                                         <td class="border px-2 py-2 ">
                                           <a href="{{ asset('storage/' . $khs->scanKHS) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat KHS</a>
                                         </td>
@@ -402,15 +402,15 @@
                               <table class="table-auto border-collapse w-full ">
                                 <tbody>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
-                                        <td class="border px-2 py-2 text-white">{{ $lastVerifiedPKL->semester_aktif }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $lastVerifiedPKL->semester_aktif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Nilai</td>
-                                        <td class="border px-2 py-2 text-white">{{ $lastVerifiedPKL->nilai }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Nilai</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $lastVerifiedPKL->nilai }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Scan PKL</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Scan PKL</td>
                                         <td class="border px-2 py-2 ">
                                           <a href="{{ asset('storage/' . $lastVerifiedPKL->scanPKL) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat PKL</a>
                                         </td>
@@ -425,23 +425,23 @@
                               <table class="table-auto border-collapse w-full ">
                                 <tbody>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Semester Aktif</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Semester Aktif</td>
                                         <td class="border px-2 py-2 text-white">{{ $skripsi->semester_aktif }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Nilai</td>
-                                        <td class="border px-2 py-2 text-white">{{ $skripsi->nilai }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Nilai</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $skripsi->nilai }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Lama Studi</td>
-                                        <td class="border px-2 py-2 text-white">{{ $skripsi->lama_studi }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Lama Studi</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $skripsi->lama_studi }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Tanggal Sidang</td>
-                                        <td class="border px-2 py-2 text-white">{{ $skripsi->tanggal_sidang }}</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Tanggal Sidang</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">{{ $skripsi->tanggal_sidang }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="border px-2 py-2 text-white">Scan Skripsi</td>
+                                        <td class="border px-2 py-2 text-gray-900 dark:text-white">Scan Skripsi</td>
                                         <td class="border px-2 py-2 ">
                                           <a href="{{ asset('storage/' . $skripsi->scanSkripsi) }}" target="_blank" class="text-sm font-semibold text-blue-500 ">Lihat Skripsi</a>
                                         </td>

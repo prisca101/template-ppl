@@ -32,7 +32,8 @@
     </div>
 @endsection
 
-@section('content2')
+@section('content6')
+<div class="col-span-full">
     <div class="sm:flex mb-4">
         <div class="items-center hidden mb-3 sm:flex sm:divide-x sm:divide-gray-100 sm:mb-0 dark:divide-gray-700">
             <form class="lg:pr-3" action="{{ route('searchDepartemen') }}" method="GET">
@@ -148,6 +149,6 @@
             </div>
         </div>
     </div>
-
+</div>
 
 @endsection

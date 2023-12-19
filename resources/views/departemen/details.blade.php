@@ -1,6 +1,6 @@
 @extends('departemen.layouts.layout')
 
-@section('content5')
+@section('content')
 <div class="mb-4 col-span-full xl:mb-2">
     <nav class="flex mb-5" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">

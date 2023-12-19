@@ -504,7 +504,7 @@ class OperatorController extends Controller
 
         $validated = $request->validate([
             'username' => 'nullable|string',
-            // 'current_password' => 'nullable|string',
+            'current_password' => 'nullable|string',
             'nama' => 'nullable|string',
             'nim' => 'nullable|string',
             'angkatan' => 'nullable|string',
@@ -516,11 +516,21 @@ class OperatorController extends Controller
         DB::beginTransaction();
 
         try {
-            if (!empty($validated['username'])) {
-                Mahasiswa::where('nim', $nim)->update([
-                    'username' => $validated['username'],
-                ]);
-            }
+            if ($user->username != $validated['username']) {
+                $exists = User::where('username', $validated['username'])->first();
+            
+                if (is_null($exists)) {
+                    User::where('id', $user->iduser)->update(['username' => $validated['username']]);
+            
+                    Mahasiswa::where('nim', $nim)->update(['username' => $validated['username']]);
+            
+                    GenerateAkun::where('nim', $nim)->update(['username' => $validated['username']]);
+                } else {
+                    return redirect()
+                        ->route('mahasiswa')
+                        ->with('error', 'Username sudah digunakan');
+                }
+            }            
 
             if (!empty($validated['nama'])) {
                 Mahasiswa::where('nim', $nim)->update([
@@ -558,12 +568,15 @@ class OperatorController extends Controller
                 ]);
             }
 
-            // if (!empty($validated['current_password'])) {
-            //     User::where('id', $request->user()->id)
-            //         ->update([
-            //             'password' => Hash::make($validated['current_password']),
-            //         ]);
-            // }
+            if (!empty($validated['current_password'])) {
+                GenerateAkun::where('nim', $nim)->update([
+                    'password' => $validated['current_password'],
+                ]);
+
+                User::where('id', $user->iduser)->update([
+                    'password' => Hash::make($validated['current_password']),
+                ]);
+            }
 
             DB::commit();
 
@@ -574,7 +587,7 @@ class OperatorController extends Controller
             DB::rollBack();
             return redirect()
                 ->route('mahasiswa')
-                ->with('error', 'Gagal memperbarui data mahasiswa.');
+                ->with('error', 'Gagal memperbarui data mahasiswa. Error: ' . $e->getMessage());
         }
     }
 }

@@ -27,7 +27,7 @@ class IRSController extends Controller
             ->select('foto')
             ->first();
         $latestIRS = IRS::where('nim', $nim)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('semester_aktif', 'desc')
             ->first();
         $SemesterAktif = $latestIRS ? $latestIRS->semester_aktif : null;
 
@@ -38,7 +38,10 @@ class IRSController extends Controller
             $irsData->whereIn('semester_aktif', $semester);
         }
 
-        $irsData = $irsData->select('nim', 'status', 'jumlah_sks', 'semester_aktif', 'scanIRS')->get();
+        $irsData = $irsData
+            ->select('nim', 'status', 'jumlah_sks', 'semester_aktif', 'scanIRS')
+            ->orderBy('semester_aktif', 'asc')
+            ->get();
 
         return view('mahasiswa.irs', [
             'mahasiswa' => $mahasiswa,
